@@ -7,13 +7,13 @@ import { BoxGeometry, Clock, DoubleSide, Material, Mesh, MeshBasicMaterial, Mesh
 var perlin = require('perlin-noise');
 var SimplexNoise = require('simplex-noise');
 import { GenerateClouds } from '../components/clouds'
-import { getRandomStarField} from '../components/stars'
+import { getRandomStarField } from '../components/stars'
 
 CameraControls.install({ THREE: THREE });
 
 function decimalToHex(d, padding) {
     var hex = Number(d).toString(16);
-    padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
+    padding = typeof(padding) === "undefined" || padding === null ? padding = 2 : padding;
 
     while (hex.length < padding) {
         hex = "0" + hex;
@@ -48,7 +48,10 @@ export default function render() {
         if (child === undefined) return;
 
         let SceneToGet = new Scene()
-        let Renders = new WebGLRenderer()
+        let Renders = new WebGLRenderer({
+            antialias: true,
+            alpha: true
+        })
 
         Renders.setClearColor(0x87ceeb, 1);
         Renders.shadowMap.enabled = true;
@@ -74,8 +77,12 @@ export default function render() {
         const noise = perlin.generatePerlinNoise(300, 300, { amplitude: 600 });
 
         const directionalLight = new THREE.DirectionalLight(0xddffee, 0.5, 100);
+        directionalLight.shadow.mapSize.width = 4096;
+        directionalLight.shadow.mapSize.height = 4096;
+        directionalLight.shadow.camera.far = 3000;
 
         /*
+        
         directionalLight.shadowCameraLeft = -200;
         directionalLight.shadowCameraRight = 200;
         directionalLight.shadowCameraTop = 250;
@@ -88,6 +95,7 @@ export default function render() {
         directionalLight2.position.set(-1, -100, -100)
         directionalLight2.castShadow = true
         SceneToGet.add(directionalLight2);
+
 
         const light = new THREE.AmbientLight(0xaaaaaa, 0.5); // soft white light
         SceneToGet.add(light);
@@ -103,7 +111,7 @@ export default function render() {
         const helper = new THREE.CameraHelper(directionalLight.shadow.camera);
         //SceneToGet.add(helper);
 
-        var skyBox = new THREE.BoxGeometry(700, 700, 700);
+        var skyBox = new THREE.BoxGeometry(1200, 1200, 1200);
         var skyBoxMaterial = new THREE.MeshBasicMaterial({
             map: getRandomStarField(600, 2048, 2048),
             side: THREE.BackSide,
@@ -135,7 +143,7 @@ export default function render() {
                 colours.push(0.56, 0.68, 0.166)
             }
         }
-        var material = new THREE.MeshStandardMaterial({
+        var material = new THREE.MeshPhongMaterial({
             vertexColors: THREE.VertexColors,
             reflectivity: 0,
             roughness: 2,
@@ -162,7 +170,7 @@ export default function render() {
         cameraControls.polarRotateSpeed = -0.3; // negative value to invert rotation direction
         cameraControls.truckSpeed = 1 / 1e-5 * 3;
         cameraControls.distance = 5
-        cameraControls.touches.two = CameraControls.ACTION.TOUCH_ZOOM_TRUCK;
+        //cameraControls.touches.two = CameraControls.ACTION.TOUCH_ZOOM_TRUCK;
         cameraControls.saveState();
         Camera.position.z = 5;
 
@@ -207,10 +215,10 @@ export default function render() {
 
         })
         let moonMesh = new THREE.Mesh(moon, moonMaterial)
-        moonMesh.position.set(-1, -300, -300)
+        moonMesh.position.set(-1, -200, -300)
         SceneToGet.add(moonMesh)
         let t = 0
-        let d = 0
+        let dTIme = 0
 
 
         var animate = function() {
@@ -222,39 +230,39 @@ export default function render() {
             rotateAboutPoint(directionalLight2, new Vector3(0, 0, 0), new Vector3(1, 0, 0), 0.001, true)
             let angle = THREE.MathUtils.radToDeg(cube.rotation.x)
             setTheat(THREE.MathUtils.radToDeg(cube.rotation.x))
-            if (angle < 20) {
+            if (angle < 40) {
                 t = 0
                 directionalLight.color.setHex(0xddffee)
-                d += 0.01
-                 if(d >= 1){
-                    d = 1
+                dTIme += 0.003
+                if (dTIme >= 1) {
+                    dTIme = 1
                 }
-                Renders.setClearColor( new THREE.Color().lerpColors(new THREE.Color( 0x000000 ), new THREE.Color( 0x87ceeb ), d),1);
+                Renders.setClearColor(new THREE.Color().lerpColors(new THREE.Color(0xFDB813), new THREE.Color(0x87ceeb), dTIme), 1);
                 light.intensity = 0.5
                 directionalLight2.color.setHex(0x000000)
-                setDay("Day")
+                setDay(dTIme + ' ' + t)
                 directionalLight.intensity = 0.5
                 directionalLight2.intensity = 0
                 SceneToGet.remove(sky);
             }
             else if (angle) {
-                let d = 0
-                setDay("Night")
-               
+                dTIme = 0
+                setDay(dTIme + ' ' + t)
+
                 t += 0.01;
-                if(t >= 1){
+                if (t >= 1) {
                     t = 1
                 }
                 directionalLight2.color.setHex(0xffffff)
                 //console.log(new THREE.Color().lerpColors(new THREE.Color( 0x87ceeb ), new THREE.Color( 0x000000 ), t))
-                Renders.setClearColor( new THREE.Color().lerpColors(new THREE.Color( 0x87ceeb ), new THREE.Color( 0x000000 ), t),1);
-                if(t >= 1){
+                Renders.setClearColor(new THREE.Color().lerpColors(new THREE.Color(0x87ceeb), new THREE.Color(0x000000), t), 1);
+                if (t >= 1) {
                     SceneToGet.add(sky);
                 }
                 light.intensity = 0.2
                 directionalLight.intensity = 0
                 directionalLight2.intensity = 0.2
-                
+
                 sky.rotation.x += -0.0004
             }
             cube.rotateOnAxis(new Vector3(1, 0, 0), theta)
@@ -274,9 +282,9 @@ export default function render() {
 
     return ( <
         >
+
         <
         div ref = { ref => (setChild(ref)) }
-        />  < /
-        >
+        />  < / >
     )
 }
