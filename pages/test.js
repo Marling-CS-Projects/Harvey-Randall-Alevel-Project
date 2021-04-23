@@ -8,44 +8,24 @@ var perlin = require('perlin-noise');
 var SimplexNoise = require('simplex-noise');
 import { GenerateClouds } from '../components/clouds'
 import { getRandomStarField } from '../components/stars'
+var Stats = require('stats.js')
+
 
 CameraControls.install({ THREE: THREE });
 
-function decimalToHex(d, padding) {
-    var hex = Number(d).toString(16);
-    padding = typeof(padding) === "undefined" || padding === null ? padding = 2 : padding;
-
-    while (hex.length < padding) {
-        hex = "0" + hex;
-    }
-
-    return hex;
-}
-
-function lerpColor(a, b, amount) {
-
-    var ah = parseInt(a.replace(/#/g, ''), 16),
-        ar = ah >> 16,
-        ag = ah >> 8 & 0xff,
-        ab = ah & 0xff,
-        bh = parseInt(b.replace(/#/g, ''), 16),
-        br = bh >> 16,
-        bg = bh >> 8 & 0xff,
-        bb = bh & 0xff,
-        rr = ar + amount * (br - ar),
-        rg = ag + amount * (bg - ag),
-        rb = ab + amount * (bb - ab);
-
-    return '#' + ((1 << 24) + (rr << 16) + (rg << 8) + rb | 0).toString(16).slice(1);
-}
 
 export default function render() {
     const [child, setChild] = useState(undefined)
     const [newTheta, setTheat] = useState(0)
     const [day, setDay] = useState("not day")
-
+    const [child2, setChild2]= useState(undefined)
+    
     useEffect(() => {
         if (child === undefined) return;
+
+        let stats = new Stats();
+        stats.showPanel( 1 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+        document.body.appendChild( child2 );
 
         let SceneToGet = new Scene()
         let Renders = new WebGLRenderer({
@@ -280,8 +260,9 @@ export default function render() {
         animate();
     }, [child])
 
-    return ( <
-        >
+    return ( 
+        <>
+        <div ref={ref => (setChild2(ref))}></div>
 
         <
         div ref = { ref => (setChild(ref)) }
