@@ -17,6 +17,8 @@ CameraControls.install({ THREE: THREE });
 
 export default function render() {
     const [child, setChild] = useState(undefined)
+    const [gameEventData, setGameEventData] = useState([])
+
     const [newTheta, setTheat] = useState(0)
     const [day, setDay] = useState("not day")
     const [child2, setChild2] = useState(undefined)
@@ -28,7 +30,6 @@ export default function render() {
     const [clients, setClients] = useState([])
     const [personData, setPersonalData] = useState(undefined)
     const [latestPerson, setLatestestPerson] = useState([])
-    const [gameEventData, setgameEventData] = useState([])
 
     socket.once("welcome", (seed, client, data) => {
         setSeed(seed)
@@ -36,6 +37,11 @@ export default function render() {
         setClients(client)
         setPersonalData(data)
     });
+
+    useEffect(() => {
+        console.log("UPDAET!!!!")
+        console.log(gameEventData)
+    }, [gameEventData])
 
 
     useEffect(() => {
@@ -139,6 +145,7 @@ export default function render() {
         document.addEventListener("keyup", (e) => { onDocumentKeyDown(e, false) }, false);
 
         function onDocumentKeyDown(event, val) {
+            if(child2 === document.activeElement) return
             var keyCode = event.which;
             if (keyCode == 87) {
                 w = val
@@ -178,7 +185,7 @@ export default function render() {
         SceneToGet.add(gridHelper);
         let players = []
 
-        function MakeCube(color, name) {
+        function MakeCube(color = "rgb(0,0,0)", name = "unkown") {
             const group = new THREE.Group();
             const geometry = new THREE.BoxGeometry(1, 1, 1);
             const material = new THREE.MeshLambertMaterial({ color: new THREE.Color(color), emissive: new THREE.Color(color) });
@@ -198,16 +205,18 @@ export default function render() {
         }
 
         console.log(clients)
+        let prevData = []
 
-        let addtoGameFeed = (name, event) => {
-            let NewGameEventArray = [...gameEventData]
-            NewGameEventArray.push({ name:name, event:event })
-            //delete outArray[10] 
-            //delete outArray[11] 
-            setgameEventData(NewGameEventArray)
-            console.log("array below")
+        let addtoGameFeed = (name = "Unkown", event) => {
+            let NewGameEventArray = [...prevData]
             console.log(NewGameEventArray)
-            console.log(gameEventData)
+            NewGameEventArray.unshift({ name: name, event: event })
+            delete NewGameEventArray[10]
+            delete NewGameEventArray[11]
+            setGameEventData([...NewGameEventArray])
+            console.log("array below")
+            console.log(prevData)
+            prevData = NewGameEventArray
         }
 
         clients.forEach(e => {
@@ -220,7 +229,7 @@ export default function render() {
             console.log(data)
             console.log("New PLyer " + id)
             let cube = MakeCube(data.color, data.name)
-            addtoGameFeed(data.name, "Joined the game!")
+            addtoGameFeed(data?.name, "Joined the game!")
 
             players[id] = cube
         })
@@ -231,7 +240,7 @@ export default function render() {
             SceneToGet.remove(cube)
             delete players[id]
             console.log(data)
-            addtoGameFeed(data.name, how === true ? "Was removed from the game for being ianctive" : "Left the game!")
+            addtoGameFeed(data?.name, how === true ? "Was removed from the game for being inactive" : "Left the game!")
         })
 
         socket.on('PlayerLocationUpdate', (id, pos, rot, data) => {
@@ -241,14 +250,16 @@ export default function render() {
                 cube.position.set(pos.x, pos.y, pos.z)
             }
             else {
-                let cube = MakeCube(data.color, data.name)
+                let cube = MakeCube(data?.color, data?.name)
 
                 players[id] = cube
 
             }
 
         })
-
+        socket.on("NewChat", (data, text) => {
+            addtoGameFeed(data.name, text)
+        })
         setInterval(() => {
             socket.emit('LocationUpdate', Camera.position, Camera.rotation)
         }, 10)
@@ -320,18 +331,28 @@ export default function render() {
         listChildren(SceneToGet.children);
         animate();
     }, [child, clients])
+    
+    let sendChat = (e) => {
+        e.preventDefault()
+        socket.emit("sendChat", child2.value)
+        child2.value = ""
+    }
 
     return (
         <main >
             <h1 style={{position:"fixed", marginTop:"40px", color:"white"}}>{personData === undefined ? "LOADING..." : personData.name}</h1>
             <div style={{width:"100vw", height:"100vh", position:"fixed", marginTop:"80px"}}>
-            
-                {latestPerson !== undefined && latestPerson.length > 0 ? latestPerson.map((e) => {
-                    if(e === undefined) return; 
-                    <h3 style={{color:"white"}}>{e.name} - {e.event}</h3>
-                }) : <>/</>}
+                <form  onSubmit={sendChat}>
+                    <input ref={ref => (setChild2(ref))}></input>
+                    <input type="Submit"></input>
+                </form>
+                {[...gameEventData].map((e) => {
+                if(e == undefined) return;
+                return(
+                    <h4 style={{color:"white"}}>{e.name} - {e.event}</h4>
+                )}) }
+                
             </div>
-            <div ref={ref => (setChild2(ref))}></div>
             { recievedSeed === undefined ?? <h1>LOADING SEED!</h1>}
             <div ref = { ref => (setChild(ref)) }></div>  
         </main>

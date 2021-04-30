@@ -40,9 +40,14 @@ apps.prepare()
             socket.on('LocationUpdate', (pos, rot) => {
                 if (connectedClients[socket.id] !== undefined) {
                     connectedClients[socket.id].lastUpdate = Date.now()
+                    socket.broadcast.emit("PlayerLocationUpdate", socket.id, pos, rot, connectedClients[socket.id])
                 }
 
-                socket.broadcast.emit("PlayerLocationUpdate", socket.id, pos, rot, connectedClients[socket.id])
+            })
+            
+            socket.on("sendChat", (data) => {
+                console.log("text is "+data)
+                io.emit("NewChat", connectedClients[socket.id], data)
             })
 
             socket.on('disconnect', () => {
