@@ -9,10 +9,7 @@ export function CreateDirectionalLight(Scene, color, brightness, pos) {
     directionalLight.position.set(...pos) // ES6 Only way to destructure POS array
 
     //Shadown Managers
-    directionalLight.castShadow = true
-    directionalLight.shadow.mapSize.width = 4096;
-    directionalLight.shadow.mapSize.height = 4096;
-    directionalLight.shadow.camera.far = 3000;
+    directionalLight.castShadow = false
 
     //Add to Scene
     Scene.add(directionalLight);
