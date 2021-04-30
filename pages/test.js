@@ -200,12 +200,13 @@ export default function render() {
         console.log(clients)
 
         let addtoGameFeed = (name, event) => {
-            let outArrayToSender = [{ name:name, event:event }]
+            let NewGameEventArray = [...gameEventData]
+            NewGameEventArray.push({ name:name, event:event })
             //delete outArray[10] 
             //delete outArray[11] 
-            setgameEventData([{ name, event }])
+            setgameEventData(NewGameEventArray)
             console.log("array below")
-            console.log(outArrayToSender)
+            console.log(NewGameEventArray)
             console.log(gameEventData)
         }
 
