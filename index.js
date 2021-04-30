@@ -2,7 +2,7 @@ const express = require('express')
 const next = require('next')
 const { Server } = require("socket.io");
 
-const dev = true
+const dev = process.env.DevOn || true
 const apps = next({ dev })
 const handle = apps.getRequestHandler()
 
