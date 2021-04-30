@@ -250,7 +250,7 @@ export default function render() {
 
         setInterval(() => {
             socket.emit('LocationUpdate', Camera.position, Camera.rotation)
-        }, 30)
+        }, 10)
 
 
         var animate = function() {
