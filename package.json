@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "node ."
   },
   "dependencies": {
     "camera-controls": "^1.28.0",
