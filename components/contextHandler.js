@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 const AppContext = createContext();
 
 export function AppWrapper({ children }) {
-  let sharedState = io('http://18.132.200.170:8080/')
+  let sharedState = io()
 
   return (
     <AppContext.Provider value={sharedState}>
