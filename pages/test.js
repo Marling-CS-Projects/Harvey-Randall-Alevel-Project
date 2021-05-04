@@ -12,6 +12,7 @@ import { CreateDayNightCycle } from "../components/gameFundalmentals/DayNightCyc
 var Stats = require('stats.js')
 import { useAppContext } from '../components/contextHandler'
 import { GenerateLabel } from '../components/nametag'
+import { GenerateTerrain } from "../components/gameFundalmentals/ProceduleTerrain";
 CameraControls.install({ THREE: THREE });
 
 
@@ -39,12 +40,6 @@ export default function render() {
     });
 
     useEffect(() => {
-        console.log("UPDAET!!!!")
-        console.log(gameEventData)
-    }, [gameEventData])
-
-
-    useEffect(() => {
         if (child === undefined || recievedSeed === undefined || rendered === true) return;
         setRendered(true)
 
@@ -65,12 +60,9 @@ export default function render() {
         child.appendChild(Renders.domElement);
 
 
-        const simplex = new SimplexNoise(recievedSeed)
+        GenerateTerrain(recievedSeed, SceneToGet)
 
 
-
-
-        const clock = new Clock();
 
 
         const planeGeometry = new THREE.PlaneGeometry(20, 20, 32, 32);
@@ -82,53 +74,11 @@ export default function render() {
 
         let daynight = new CreateDayNightCycle(SceneToGet, Renders)
 
-        var geometry = new THREE.PlaneBufferGeometry(500, 500, 100, 100)
-
-        let colours = []
-
-
-
-
-        for (var i = 0, l = geometry.attributes.position.count; i < l; i++) {
-            //console.log(geometry.attributes.position.array[(i*3)+2])
-            let x = geometry.attributes.position.array[(i * 3)] / 128
-            let y = geometry.attributes.position.array[(i * 3) + 1] / 128
-            let height = simplex.noise2D(x, y) * 30
-            geometry.attributes.position.array[(i * 3) + 2] = height
-            if (height > 23) {
-                colours.push(1, 1, 1)
-            }
-            else if (height > 5) {
-                colours.push(0.56, 0.54, 0.48)
-            }
-            else if (height < -20) {
-                colours.push(0.501, 0.772, 0.87)
-            }
-            else {
-                colours.push(0.56, 0.68, 0.166)
-            }
-        }
-        var material = new THREE.MeshPhongMaterial({
-            vertexColors: THREE.VertexColors,
-            reflectivity: 0,
-            roughness: 2,
-        });
-        material.flatShading = true
-        var plane2 = new THREE.Mesh(geometry, material);
-        plane2.receiveShadow = true
-        plane2.castShadow = true
-        plane2.position.y = -3
-        geometry.addAttribute('color', new THREE.BufferAttribute(new Float32Array(colours), 3));
-        geometry.computeVertexNormals();
 
         let clouds = []
         for (let i = 0; i < 40; i++) {
             clouds.push(new GenerateClouds(new Vector3((Math.random() * 300) - 300, 80 + Math.random() * 20, (Math.random() * 600) - 400), SceneToGet, Math.random() * 0.2, Math.random() * 6 + 1))
         }
-
-        plane2.rotateX((Math.PI / 2) + Math.PI)
-        SceneToGet.add(plane2);
-
         var Camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
         /*const cameraControls = new CameraControls(Camera, Renders.domElement);
         cameraControls.azimuthRotateSpeed = -0.3; // negative value to invert rotation direction
@@ -139,42 +89,7 @@ export default function render() {
         cameraControls.saveState();*/
         //Camera.position.z = 5;
 
-        let [w, a, s, d, up, down, e, q, shift] = [false, false, false, false, false, false, false, false, 1]
-
-        document.addEventListener("keydown", (e) => { onDocumentKeyDown(e, true) }, false);
-        document.addEventListener("keyup", (e) => { onDocumentKeyDown(e, false) }, false);
-
-        function onDocumentKeyDown(event, val) {
-            if(child2 === document.activeElement) return
-            var keyCode = event.which;
-            if (keyCode == 87) {
-                w = val
-            }
-            if (keyCode == 83) {
-                s = val
-            }
-            if (keyCode == 65) {
-                a = val
-            }
-            if (keyCode == 68) {
-                d = val
-            }
-            if (keyCode == 38) {
-                up = val
-            }
-            if (keyCode == 40) {
-                down = val
-            }
-            if (keyCode == 69) {
-                e = val
-            }
-            if (keyCode == 81) {
-                q = val
-            }
-            if (keyCode == 16) {
-                shift = val ? 0.5 : 1
-            }
-        };
+    
 
 
 
