@@ -1,6 +1,7 @@
 // Written By Harvey Randall \\
 
-import { BufferAttribute, Mesh, MeshPhongMaterial, PlaneBufferGeometry } from "three"
+import { BufferAttribute, Mesh, MeshPhongMaterial, PlaneBufferGeometry, } from "three"
+var SimplexNoise = require('simplex-noise');
 
 export function GenerateTerrain(seed, SceneToGet) {
 
@@ -37,7 +38,7 @@ export function GenerateTerrain(seed, SceneToGet) {
 
     //------------[Create Material]------------\\
     var material = new MeshPhongMaterial({
-        vertexColors: vertexColors,
+        vertexColors: colours,
         reflectivity: 0,
         roughness: 2,
         flatShading: true,

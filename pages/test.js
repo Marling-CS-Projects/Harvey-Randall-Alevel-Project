@@ -3,16 +3,14 @@
 import { useEffect, useState, useContext } from "react"
 import * as THREE from 'three';
 import CameraControls from 'camera-controls';
-import { BoxGeometry, Clock, DoubleSide, Material, Mesh, MeshBasicMaterial, MeshStandardMaterial, PerspectiveCamera, PointLight, Scene, Vector3, WebGLRenderer, MeshLambertMaterial } from "three"
-var perlin = require('perlin-noise');
-var SimplexNoise = require('simplex-noise');
-import { GenerateClouds } from '../components/clouds'
-import { getRandomStarField } from '../components/stars'
+import { DoubleSide, PerspectiveCamera, Scene, Vector3, WebGLRenderer } from "three"
+import { GenerateClouds } from '../components/gameFundalmentals/clouds'
 import { CreateDayNightCycle } from "../components/gameFundalmentals/DayNightCycle";
 var Stats = require('stats.js')
-import { useAppContext } from '../components/contextHandler'
-import { GenerateLabel } from '../components/nametag'
+import { useAppContext } from '../components/Context/socketioContext'
+import { GenerateLabel } from '../components/gameFundalmentals/nametag'
 import { GenerateTerrain } from "../components/gameFundalmentals/ProceduleTerrain";
+import { ControlHandlerInit, ControlHandlerUpdate } from "../components/gameFundalmentals/controls";
 CameraControls.install({ THREE: THREE });
 
 
@@ -179,6 +177,8 @@ export default function render() {
             socket.emit('LocationUpdate', Camera.position, Camera.rotation)
         }, 10)
 
+        ControlHandlerInit(document, child2)
+
 
         var animate = function() {
             stats.begin()
@@ -191,36 +191,8 @@ export default function render() {
                 e.update()
             })
 
-            if (w) {
-                var direction = new THREE.Vector3();
-                Camera.getWorldDirection(direction);
-                Camera.position.add(direction.multiplyScalar(shift == 1 ? 1 : 0.25));
-                //Camera.position.z -= 0.1
-            }
-            if (s) {
-                var direction = new THREE.Vector3();
-                Camera.getWorldDirection(direction);
-                Camera.position.add(direction.multiplyScalar(-(shift == 1 ? 1 : 0.25)));
-            }
-            if (a) {
-                Camera.rotateY(0.04 * shift)
-            }
-            if (d) {
-                Camera.rotateY(-0.04 * shift)
-            }
-            if (up) {
-                Camera.rotateX(0.04 * shift)
-            }
-            if (down) {
-                Camera.rotateX(-0.04 * shift)
-            }
-            if (q) {
-                Camera.rotateZ(0.02 * shift)
-            }
-            if (e) {
-                Camera.rotateZ(-0.02 * shift)
-            }
-
+           
+            ControlHandlerUpdate(Camera)
 
 
             Renders.render(SceneToGet, Camera);

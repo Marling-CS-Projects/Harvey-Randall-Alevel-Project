@@ -1,7 +1,7 @@
 // Written By Harvey Randall \\
 import { BackSide, BoxGeometry, Color, MathUtils, Mesh, MeshBasicMaterial, MeshLambertMaterial, Scene, SphereBufferGeometry, Vector3 } from "three";
-import { CreateAmbientLight, CreateDirectionalLight } from "../LightingManager";
-import { getRandomStarField } from "../stars";
+import { CreateAmbientLight, CreateDirectionalLight } from "../Core-API/LightingManager";
+import { getRandomStarField } from "./stars";
 import { rotateAboutPoint } from "./rotateAroundPoint";
 
 export class CreateDayNightCycle {
