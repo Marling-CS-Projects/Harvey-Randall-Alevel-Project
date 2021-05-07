@@ -3,15 +3,14 @@
 import { useEffect, useState, useContext } from "react"
 import * as THREE from 'three';
 import CameraControls from 'camera-controls';
-import { DoubleSide, PerspectiveCamera, Scene, Vector3, WebGLRenderer } from "three"
-import { GenerateClouds } from '../components/gameFundalmentals/clouds'
-import { CreateDayNightCycle } from "../components/gameFundalmentals/DayNightCycle";
+import { DoubleSide, PerspectiveCamera, Scene, WebGLRenderer } from "three"
 var Stats = require('stats.js')
 import { useAppContext } from '../components/Context/socketioContext'
 import { GenerateLabel } from '../components/gameFundalmentals/nametag'
-import { GenerateTerrain } from "../components/gameFundalmentals/ProceduleTerrain";
-import { sendDataWithPromise, StartSeverClientCommunication, ListenToEvent } from "../components/Core-API/ConnectAPI";
-import { ControlHandlerInit, ControlHandlerUpdate } from "../components/gameFundalmentals/controls";
+import { StartSeverClientCommunication, ListenToEvent } from "../components/Core-API/ConnectAPI";
+import { UpdateRenderCycle } from "../components/Core-API/RenderingHandler";
+import { GenerateMainScene } from "../components/gameFundalmentals/MainSceneHandler";
+import { CreateUI } from "../components/gameUI/gameFeed";
 CameraControls.install({ THREE: THREE });
 
 
@@ -30,7 +29,7 @@ export default function render() {
     const [clients, setClients] = useState([])
     const [personData, setPersonalData] = useState(undefined)
     const [latestPerson, setLatestestPerson] = useState([])
-    
+
     StartSeverClientCommunication(socket)
 
 
@@ -46,7 +45,7 @@ export default function render() {
         setRendered(true)
 
         let stats = new Stats();
-        stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
+        stats.showPanel(1);
         document.body.appendChild(stats.dom);
 
         let SceneToGet = new Scene()
@@ -62,43 +61,19 @@ export default function render() {
         child.appendChild(Renders.domElement);
 
 
-        GenerateTerrain(recievedSeed, SceneToGet)
+        let CurrentScene = "Main"
 
 
 
-        const planeGeometry = new THREE.PlaneGeometry(20, 20, 32, 32);
-        planeGeometry.rotateX(Math.PI / 2)
-        const planeMaterial = new THREE.MeshStandardMaterial({ color: 0x567d46, side: DoubleSide })
-        const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-        plane.position.y = -0.5
-        SceneToGet.add(plane);
-
-        let daynight = new CreateDayNightCycle(SceneToGet, Renders)
 
 
-        let clouds = []
-        for (let i = 0; i < 40; i++) {
-            clouds.push(new GenerateClouds(new Vector3((Math.random() * 300) - 300, 80 + Math.random() * 20, (Math.random() * 600) - 400), SceneToGet, Math.random() * 0.2, Math.random() * 6 + 1))
-        }
+
         var Camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-        /*const cameraControls = new CameraControls(Camera, Renders.domElement);
-        cameraControls.azimuthRotateSpeed = -0.3; // negative value to invert rotation direction
-        cameraControls.polarRotateSpeed = -0.3; // negative value to invert rotation direction
-        cameraControls.truckSpeed = 1 / 1e-5 * 3;
-        cameraControls.distance = 5
-        //cameraControls.touches.two = CameraControls.ACTION.TOUCH_ZOOM_TRUCK;
-        cameraControls.saveState();*/
-        //Camera.position.z = 5;
-
-    
-
+        GenerateMainScene(SceneToGet, Renders, document, recievedSeed, child2, Camera)
 
 
         Renders.domElement.requestPointerLock()
 
-        const gridHelper = new THREE.GridHelper(50, 50);
-        gridHelper.position.y = -1;
-        SceneToGet.add(gridHelper);
         let players = []
 
         function MakeCube(color = "rgb(0,0,0)", name = "unkown") {
@@ -120,7 +95,6 @@ export default function render() {
             return group
         }
 
-        console.log(clients)
         let prevData = []
 
         let addtoGameFeed = (name = "Unkown", event) => {
@@ -140,8 +114,8 @@ export default function render() {
             let cube = MakeCube(e.color, e.name)
             players[e] = cube
         })
-        
-        
+
+
 
         socket.on('NewPlayer', (id, data) => {
             console.log(data)
@@ -182,48 +156,24 @@ export default function render() {
             socket.emit('LocationUpdate', Camera.position, Camera.rotation)
         }, 10)
 
-        ControlHandlerInit(document, child2)
+
+    
 
 
-        var animate = function() {
+        var animate = function () {
             stats.begin()
             requestAnimationFrame(animate)
 
-            daynight.update()
-
-
-            clouds.forEach((e, i) => {
-                e.update()
-            })
-
-           
-            ControlHandlerUpdate(Camera)
-
+            // Update all moving parts
+            UpdateRenderCycle(CurrentScene)
 
             Renders.render(SceneToGet, Camera);
             stats.end()
         };
 
-        function listChildren(children) {
-            let child;
-            for (let i = 0; i < children.length; i++) {
-                child = children[i];
-
-                // Calls this function again if the child has children
-                if (child.children) {
-                    listChildren(child.children);
-                }
-                // Logs if this child last in recursion
-                else {
-                    console.log('Reached bottom with: ', child);
-                }
-            }
-        }
-
-        listChildren(SceneToGet.children);
         animate();
     }, [child, clients])
-    
+
     let sendChat = (e) => {
         e.preventDefault()
         socket.emit("sendChat", child2.value)
@@ -232,21 +182,23 @@ export default function render() {
 
     return (
         <main >
-            <h1 style={{position:"fixed", marginTop:"40px", color:"white"}}>{personData === undefined ? "LOADING..." : personData.name}</h1>
-            <div style={{width:"100vw", height:"100vh", position:"fixed", marginTop:"80px"}}>
-                <form  onSubmit={sendChat}>
+            <h1 style={{ position: "fixed", marginTop: "40px", color: "white" }}>{personData === undefined ? "LOADING..." : personData.name}</h1>
+            <div style={{ width: "100vw", height: "100vh", position: "fixed", marginTop: "80px" }}>
+                <CreateUI />
+                <form onSubmit={sendChat}>
                     <input ref={ref => (setChild2(ref))}></input>
                     <input type="Submit"></input>
                 </form>
                 {[...gameEventData].map((e) => {
-                if(e == undefined) return;
-                return(
-                    <h4 style={{color:"white"}}>{e.name} - {e.event}</h4>
-                )}) }
-                
+                    if (e == undefined) return;
+                    return (
+                        <h4 style={{ color: "white" }}>{e.name} - {e.event}</h4>
+                    )
+                })}
+
             </div>
             { recievedSeed === undefined ?? <h1>LOADING SEED!</h1>}
-            <div ref = { ref => (setChild(ref)) }></div>  
+            <div ref={ref => (setChild(ref))}></div>
         </main>
     )
 }
