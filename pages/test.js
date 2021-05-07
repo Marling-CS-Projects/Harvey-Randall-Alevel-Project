@@ -10,6 +10,7 @@ var Stats = require('stats.js')
 import { useAppContext } from '../components/Context/socketioContext'
 import { GenerateLabel } from '../components/gameFundalmentals/nametag'
 import { GenerateTerrain } from "../components/gameFundalmentals/ProceduleTerrain";
+import { sendDataWithPromise, StartSeverClientCommunication, ListenToEvent } from "../components/Core-API/ConnectAPI";
 import { ControlHandlerInit, ControlHandlerUpdate } from "../components/gameFundalmentals/controls";
 CameraControls.install({ THREE: THREE });
 
@@ -29,6 +30,9 @@ export default function render() {
     const [clients, setClients] = useState([])
     const [personData, setPersonalData] = useState(undefined)
     const [latestPerson, setLatestestPerson] = useState([])
+    
+    StartSeverClientCommunication(socket)
+
 
     socket.once("welcome", (seed, client, data) => {
         setSeed(seed)
@@ -59,7 +63,6 @@ export default function render() {
 
 
         GenerateTerrain(recievedSeed, SceneToGet)
-
 
 
 
@@ -137,6 +140,8 @@ export default function render() {
             let cube = MakeCube(e.color, e.name)
             players[e] = cube
         })
+        
+        
 
         socket.on('NewPlayer', (id, data) => {
             console.log(data)
@@ -156,7 +161,7 @@ export default function render() {
             addtoGameFeed(data?.name, how === true ? "Was removed from the game for being inactive" : "Left the game!")
         })
 
-        socket.on('PlayerLocationUpdate', (id, pos, rot, data) => {
+        ListenToEvent('PlayerLocationUpdate', (id, pos, rot, data) => {
             let cube = players[id]
             if (cube) {
                 cube.rotation.set(rot._x, rot._y, rot._z)

@@ -1,6 +1,6 @@
 // Written By Harvey Randall \\
 
-import { DoubleSide, Group, Mesh, MeshPhongMaterial, SphereBufferGeometry } from 'three';
+import { DoubleSide, Group, Mesh, MeshPhongMaterial, SphereGeometry } from 'three';
 
 // Randomly delplace cloud verticies
 const map = (val, smin, smax, emin, emax) => (emax - emin) * (val - smin) / (smax - smin) + emin
@@ -18,17 +18,17 @@ export class GenerateClouds {
 
         const group = new Group();
 
-        const tuft1 = new SphereBufferGeometry(1.5 * scale, 7, 11)
+        const tuft1 = new SphereGeometry(1.5 * scale, 7, 11)
         tuft1.translate(-2 * scale, 0, 0)
 
 
-        const tuft3 = new SphereBufferGeometry(1.5 * scale, 7, 11)
+        const tuft3 = new SphereGeometry(1.5 * scale, 7, 11)
         tuft3.translate(2 * scale, 0, 0)
 
-        const tuft2 = new SphereBufferGeometry(2.0 * scale, 7, 11)
+        const tuft2 = new SphereGeometry(2.0 * scale, 7, 11)
         tuft2.translate(0, 0, 0)
 
-        jitter(tuft1, 0.1)
+        jitter(tuft1, 0.2)
         jitter(tuft2, 0.1)
         jitter(tuft3, 0.1)
 
