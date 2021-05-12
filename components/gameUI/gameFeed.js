@@ -8,10 +8,10 @@ export function CreateUI() {
         ListenToEvent('NewPlayer', (id, data) => {
             console.log(data)
             console.log("New PLyer " + id)
-            let cube = MakeNewCubePlayer(data.color, data.name)
+            //let cube = MakeNewCubePlayer(data.color, data.name)
             //MakeNewCubePlayer(data?.name, "Joined the game!")
 
-            players[id] = cube
+            //players[id] = cube
         })
     }, [])
     return (

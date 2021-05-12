@@ -3,11 +3,13 @@
 // Render Handler
 import { addToRenderSequence } from "../Core-API/RenderingHandler"
 
+//Functional Dependencies
 import { DoubleSide, GridHelper, Mesh, MeshStandardMaterial, PlaneGeometry, Vector3 } from "three"
 import { GenerateClouds } from "./clouds"
 import { ControlHandlerInit, ControlHandlerUpdate } from "./controls"
 import { CreateDayNightCycle } from "./DayNightCycle"
 import { GenerateTerrain } from "./ProceduleTerrain"
+import { ImportOBJ } from "../Core-API/OBJHandler"
 
 let debug = true
 
@@ -33,6 +35,8 @@ export function GenerateMainScene(SceneToGet, Renders, document, seed, child2, C
         gridHelper.position.y = -1;
         SceneToGet.add(gridHelper);
     }
+
+    ImportOBJ("Airplane", SceneToGet)
 
     // Add all updating parts to a function
     addToRenderSequence("Main", () => {

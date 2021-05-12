@@ -199,6 +199,7 @@ export default function render() {
             </div>
             { recievedSeed === undefined ?? <h1>LOADING SEED!</h1>}
             <div ref={ref => (setChild(ref))}></div>
+            <div ref={ref => (setChild(ref))}></div>
         </main>
     )
 }

@@ -5,6 +5,7 @@ import { ListenToEvent } from "../../Core-API/ConnectAPI";
 import { GenerateLabel } from "../nametag";
 let players = []
 
+
 export function MakeNewCubePlayer(color = "rgb(0,0,0)", name = "unkown", SceneToGet) {
     const group = new Group();
     const geometry = new BoxGeometry(1, 1, 1);
@@ -24,11 +25,11 @@ export function MakeNewCubePlayer(color = "rgb(0,0,0)", name = "unkown", SceneTo
     return group
 }
 
-export function InitMainGameHandler() {
+export function InitMainGameHandler(SceneToGet) {
     ListenToEvent("NewPlayer", (id, data) => {
         console.log(data)
         console.log("New PLyer " + id)
-        let cube = MakeCube(data.color, data.name)
+        let cube = MakeCube(data.color, data.name, SceneToGet)
         addtoGameFeed(data?.name, "Joined the game!")
 
         players[id] = cube

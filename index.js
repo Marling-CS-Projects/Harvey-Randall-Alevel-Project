@@ -8,8 +8,10 @@ const handle = apps.getRequestHandler()
 
 const http = require('http');
 const seed = Math.random()
-console.log("Seen is " + seed)
+console.log("Seed is " + seed)
 var rug = require('random-username-generator');
+
+let _PORT =  process.env.PORT || 8080
 
 
 let games = [{
@@ -91,8 +93,8 @@ apps.prepare()
         });
 
 
-        server.listen(process.env.PORT || 8080, () => {
-            console.log('listening on *:3000');
+        server.listen(_PORT, () => {
+            console.log('listening on localhost:'+_PORT);
         });
 
     })
