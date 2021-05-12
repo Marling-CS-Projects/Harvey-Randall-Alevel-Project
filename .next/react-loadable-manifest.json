@@ -4,11 +4,5 @@
       "id": "./node_modules/next/dist/client/dev/noop.js",
       "file": "static/chunks/0.js"
     }
-  ],
-  "three/examples/jsm/loaders/OBJLoader.js": [
-    {
-      "id": "./node_modules/three/examples/jsm/loaders/OBJLoader.js",
-      "file": "static/chunks/1.js"
-    }
   ]
 }
