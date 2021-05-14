@@ -1,44 +1,65 @@
 // Written By Harvey Randall \\
 
 import { Vector3 } from "three";
-let [w, a, s, d, up, down, e, q, shift] = [false, false, false, false, false, false, false, false, 1]
+let [w, a, s, d, up, down, e, q, shift] = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    1,
+];
 
 export function ControlHandlerInit(document, child2) {
-
-    document.addEventListener("keydown", (e) => { onDocumentKeyDown(e, true) }, false);
-    document.addEventListener("keyup", (e) => { onDocumentKeyDown(e, false) }, false);
+    document.addEventListener(
+        "keydown",
+        (e) => {
+            onDocumentKeyDown(e, true);
+        },
+        false
+    );
+    document.addEventListener(
+        "keyup",
+        (e) => {
+            onDocumentKeyDown(e, false);
+        },
+        false
+    );
 
     function onDocumentKeyDown(event, val) {
-        if (child2 === document.activeElement) return
+        if (child2 === document.activeElement) return;
         var keyCode = event.which;
         if (keyCode == 87) {
-            w = val
+            w = val;
         }
         if (keyCode == 83) {
-            s = val
+            s = val;
         }
         if (keyCode == 65) {
-            a = val
+            a = val;
         }
         if (keyCode == 68) {
-            d = val
+            d = val;
         }
         if (keyCode == 38) {
-            up = val
+            up = val;
         }
         if (keyCode == 40) {
-            down = val
+            down = val;
         }
         if (keyCode == 69) {
-            e = val
+            e = val;
         }
         if (keyCode == 81) {
-            q = val
+            q = val;
         }
         if (keyCode == 16) {
-            shift = val ? 0.5 : 1
+            shift = val ? 0.5 : 1;
         }
-    };
+    }
 }
 
 export function ControlHandlerUpdate(Camera) {
@@ -53,21 +74,21 @@ export function ControlHandlerUpdate(Camera) {
         Camera.position.add(direction.multiplyScalar(-(shift == 1 ? 1 : 0.25)));
     }
     if (a) {
-        Camera.rotateY(0.04 * shift)
+        Camera.rotateY(0.04 * shift);
     }
     if (d) {
-        Camera.rotateY(-0.04 * shift)
+        Camera.rotateY(-0.04 * shift);
     }
     if (up) {
-        Camera.rotateX(0.04 * shift)
+        Camera.rotateX(0.04 * shift);
     }
     if (down) {
-        Camera.rotateX(-0.04 * shift)
+        Camera.rotateX(-0.04 * shift);
     }
     if (q) {
-        Camera.rotateZ(0.02 * shift)
+        Camera.rotateZ(0.02 * shift);
     }
     if (e) {
-        Camera.rotateZ(-0.02 * shift)
+        Camera.rotateZ(-0.02 * shift);
     }
 }

@@ -1,28 +1,28 @@
-import * as THREE from 'three';
+import * as THREE from "three";
 export function getRandomStarField(numberOfStars, width, height) {
-    var canvas = document.createElement('CANVAS');
+    var canvas = document.createElement("CANVAS");
 
-	canvas.width = width;
-	canvas.height = height;
+    canvas.width = width;
+    canvas.height = height;
 
-	var ctx = canvas.getContext('2d');
+    var ctx = canvas.getContext("2d");
 
-	ctx.fillStyle="black";
-	//ctx.globalAlpha = 1
-	ctx.fillRect(0, 0, width, height);
+    ctx.fillStyle = "black";
 
-	for (var i = 0; i < numberOfStars; ++i) {
-		var radius = Math.random() * 2;
-		var x = Math.floor(Math.random() * width);
-		var y = Math.floor(Math.random() * height);
+    ctx.fillRect(0, 0, width, height);
 
-		ctx.beginPath();
-		ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
-		ctx.fillStyle = 'white';
-		ctx.fill();
-	}
+    for (var i = 0; i < numberOfStars; ++i) {
+        var radius = Math.random() * 2;
+        var x = Math.floor(Math.random() * width);
+        var y = Math.floor(Math.random() * height);
 
-	var texture = new THREE.Texture(canvas);
-	texture.needsUpdate = true;
-	return texture;
-};
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
+        ctx.fillStyle = "white";
+        ctx.fill();
+    }
+
+    var texture = new THREE.Texture(canvas);
+    texture.needsUpdate = true;
+    return texture;
+}

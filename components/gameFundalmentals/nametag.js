@@ -1,8 +1,8 @@
-import * as THREE from 'three';
+import * as THREE from "three";
 
 export function CreateTag(baseWidth, size, name) {
     const borderSize = 2;
-    const ctx = document.createElement('canvas').getContext('2d');
+    const ctx = document.createElement("canvas").getContext("2d");
 
     const font = `${size}px Verdana`;
     ctx.font = font;
@@ -17,8 +17,8 @@ export function CreateTag(baseWidth, size, name) {
 
     // need to set font again after resizing canvas
     ctx.font = font;
-    ctx.textBaseline = 'middle';
-    ctx.textAlign = 'center';
+    ctx.textBaseline = "middle";
+    ctx.textAlign = "center";
 
     //ctx.fillStyle = 'blue';
     //ctx.fillRect(0, 0, width, height);
@@ -27,7 +27,7 @@ export function CreateTag(baseWidth, size, name) {
     const scaleFactor = Math.min(1, baseWidth / textWidth);
     ctx.translate(width / 2, height / 2);
     ctx.scale(scaleFactor, 1);
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = "white";
     ctx.fillText(name, 0, 0);
 
     return ctx.canvas;
@@ -52,9 +52,9 @@ export function GenerateLabel(name, group) {
 
     const label = new THREE.Sprite(labelMaterial);
     group.add(label);
-    label.position.y = 1
+    label.position.y = 1;
 
     label.scale.x = canvas.width * labelBaseScale;
     label.scale.y = canvas.height * labelBaseScale;
-    return group
+    return group;
 }
