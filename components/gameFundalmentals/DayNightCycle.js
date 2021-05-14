@@ -7,7 +7,6 @@ import {
     Mesh,
     MeshBasicMaterial,
     MeshLambertMaterial,
-    Scene,
     SphereBufferGeometry,
     Vector3,
 } from "three";
@@ -27,7 +26,7 @@ export class CreateDayNightCycle {
         // ---------- [Create Sun Mesh] ---------- \\
         let sun = new SphereBufferGeometry(20, 20, 100, 100);
         let sunMaterial = new MeshLambertMaterial({
-            emissive: 0xf9d71c,
+            emissive: "#f9d71c",
         });
         let sunmesh = new Mesh(sun, sunMaterial);
         sunmesh.position.set(1, 300, 300);
@@ -36,7 +35,7 @@ export class CreateDayNightCycle {
         // ---------- [Create Moon Mesh] ---------- \\
         let moon = new SphereBufferGeometry(10, 10, 100, 100);
         let moonMaterial = new MeshLambertMaterial({
-            emissive: 0xffffff,
+            emissive: "#ffffff",
         });
         let moonMesh = new Mesh(moon, moonMaterial);
         moonMesh.position.set(-1, -200, -300);
@@ -59,17 +58,17 @@ export class CreateDayNightCycle {
         // ---------- [All defintions for lights to create shadows] ---------- \\
         this.directionalLight = createDirectionalLight(
             SceneToGet,
-            0xddffee,
+            "#ddffee",
             0.5,
             [1, 100, 100]
         );
         this.directionalLight2 = createDirectionalLight(
             SceneToGet,
-            0xffffff,
+            "#ffffff",
             0.2,
             [1, -100, -100]
         );
-        this.light = createAmbientLight(SceneToGet, 0xaaaaaa, 0.5);
+        this.light = createAmbientLight(SceneToGet, "#aaaaaa", 0.5);
 
         // ---------- [Create Stary night] ---------- \\
         let skyBox = new BoxGeometry(1200, 1200, 1200);
@@ -116,21 +115,21 @@ export class CreateDayNightCycle {
         // ---------- [If it is day] ---------- \\
         if (angle < 40 && this.dTIme < 1) {
             this.t = 0;
-            this.directionalLight.color.setHex(0xddffee);
+            this.directionalLight.color = new Color("#ddffee");
             this.dTIme += 0.003;
             if (this.dTIme >= 1) {
                 this.dTIme = 1;
             }
             this.Renders.setClearColor(
                 new Color().lerpColors(
-                    new Color(0xfdb813),
-                    new Color(0x87ceeb),
+                    new Color("#fdb813"),
+                    new Color("#87ceeb"),
                     this.dTIme
                 ),
                 1
             );
             this.light.intensity = 0.5;
-            this.directionalLight2.color.setHex(0x000000);
+            this.directionalLight2.color = new Color("#000000");
             this.directionalLight.intensity = 0.5;
             this.directionalLight2.intensity = 0;
             this.SceneToGet.remove(this.sky);
@@ -143,11 +142,11 @@ export class CreateDayNightCycle {
                 this.t = 1;
                 this.SceneToGet.add(this.sky);
             }
-            this.directionalLight2.color.setHex(0xffffff);
+            this.directionalLight2.color = new Color("#ffffff");
             this.Renders.setClearColor(
                 new Color().lerpColors(
-                    new Color(0x87ceeb),
-                    new Color(0x000000),
+                    new Color("#87ceeb"),
+                    new Color("#000000"),
                     this.t
                 ),
                 1
