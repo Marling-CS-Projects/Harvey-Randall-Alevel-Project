@@ -15,8 +15,7 @@ export function addToRenderSequence(type, callback, newType = false) {
     renderingList[type] = [];
   }
   checkType(type);
-  renderingList[type].push(callback);
-  console.log(renderingList);
+  renderingList[`${type}`].push(callback);
 }
 
 export function renderingInfo(type) {
@@ -26,7 +25,7 @@ export function renderingInfo(type) {
 
 export function updateRenderCycle(type) {
   checkType(type);
-  renderingList[type].forEach((item) => {
+  renderingList[`${type}`].forEach((item) => {
     item();
   });
 }

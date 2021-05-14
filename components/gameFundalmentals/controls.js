@@ -30,33 +30,35 @@ export function controlHandlerInit(document, child2) {
     );
 
     function onDocumentKeyDown(event, val) {
-        if (child2 === document.activeElement) return;
+        if (child2 === document.activeElement) {
+            return;
+        }
         var keyCode = event.which;
-        if (keyCode == 87) {
+        if (keyCode === 87) {
             w = val;
         }
-        if (keyCode == 83) {
+        if (keyCode === 83) {
             s = val;
         }
-        if (keyCode == 65) {
+        if (keyCode === 65) {
             a = val;
         }
-        if (keyCode == 68) {
+        if (keyCode === 68) {
             d = val;
         }
-        if (keyCode == 38) {
+        if (keyCode === 38) {
             up = val;
         }
-        if (keyCode == 40) {
+        if (keyCode === 40) {
             down = val;
         }
-        if (keyCode == 69) {
+        if (keyCode === 69) {
             e = val;
         }
-        if (keyCode == 81) {
+        if (keyCode === 81) {
             q = val;
         }
-        if (keyCode == 16) {
+        if (keyCode === 16) {
             shift = val ? 0.5 : 1;
         }
     }

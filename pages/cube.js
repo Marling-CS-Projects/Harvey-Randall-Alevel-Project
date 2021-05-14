@@ -11,10 +11,12 @@ import {
 } from "three";
 
 export default function render() {
-    const [child, setChild] = useState(undefined);
+    const [child, setChild] = useState();
 
     useEffect(() => {
-        if (child === undefined) return;
+        if (typeof child === "undefined") {
+            return;
+        }
 
         const scene = new Scene();
         const camera = new PerspectiveCamera(

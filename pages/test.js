@@ -86,7 +86,7 @@ export default function render() {
 
         let players = [];
 
-        function MakeCube(color = "rgb(0,0,0)", name = "unkown") {
+        function makeCube(color = "rgb(0,0,0)", name = "unkown") {
             const group = new THREE.Group();
             const geometry = new THREE.BoxGeometry(1, 1, 1);
             const material = new THREE.MeshLambertMaterial({
@@ -126,14 +126,14 @@ export default function render() {
 
         clients.forEach((e) => {
             console.log("Adding PLayer " + e);
-            let cube = MakeCube(e.color, e.name);
+            let cube = makeCube(e.color, e.name);
             players[e] = cube;
         });
 
         socket.on("NewPlayer", (id, data) => {
             console.log(data);
             console.log("New PLyer " + id);
-            let cube = MakeCube(data.color, data.name);
+            let cube = makeCube(data.color, data.name);
             addtoGameFeed(data?.name, "Joined the game!");
 
             players[id] = cube;
@@ -159,7 +159,7 @@ export default function render() {
                 cube.rotation.set(rot._x, rot._y, rot._z);
                 cube.position.set(pos.x, pos.y, pos.z);
             } else {
-                let cube = MakeCube(data?.color, data?.name);
+                let cube = makeCube(data?.color, data?.name);
 
                 players[id] = cube;
             }

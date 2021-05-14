@@ -17,7 +17,7 @@ import {
 import { getRandomStarField } from "./stars";
 import { rotateAboutPoint } from "./rotateAroundPoint";
 
-export class createDayNightCycle {
+export class CreateDayNightCycle {
     constructor(SceneToGet, Renders) {
         // ---------- [Two to level global variables] ---------- \\
         this.SceneToGet = SceneToGet;

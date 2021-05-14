@@ -42,8 +42,8 @@ export function InitMainGameHandler(SceneToGet) {
   listenToEvent("NewPlayer", (id, data) => {
     console.log(data);
     console.log("New PLyer " + id);
-    let cube = MakeCube(data.color, data.name, SceneToGet);
-    addtoGameFeed(data?.name, "Joined the game!");
+    let cube = makeCube(data.color, data.name, SceneToGet);
+    //addtoGameFeed(data?.name, "Joined the game!");
 
     players[id] = cube;
   });

@@ -8,7 +8,7 @@ export default class LinkedList extends DataStructure {
     }
     *[Symbol.iterator]() {
         let cItem = this.startItem;
-        while (!!cItem) {
+        while (cItem) {
             yield cItem.getValue();
             cItem = cItem.getNextItem();
         }
@@ -27,8 +27,7 @@ export default class LinkedList extends DataStructure {
             newItem.setNextItem(this.startItem);
             this.startItem = newItem;
             inserted = true;
-        }
-        else {
+        } else {
             let tIndex = 1;
             let currentItem = this.startItem;
             while (!!currentItem) {
@@ -68,8 +67,7 @@ export default class LinkedList extends DataStructure {
                 currentItem = currentItem.getNextItem();
             }
             currentItem.setNextItem(newItem);
-        }
-        else {
+        } else {
             this.startItem = newItem;
         }
         this.length += 1;
@@ -107,8 +105,7 @@ export default class LinkedList extends DataStructure {
                 removed = this.startItem.getValue();
                 this.startItem = this.startItem.getNextItem();
             }
-        }
-        else {
+        } else {
             let tIndex = 1;
             let currentItem = this.startItem;
             while (!!currentItem.getNextItem()) {

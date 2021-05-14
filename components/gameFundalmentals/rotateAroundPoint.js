@@ -1,5 +1,5 @@
 export function rotateAboutPoint(obj, point, axis, theta, pointIsWorld) {
-    pointIsWorld = pointIsWorld === undefined ? false : pointIsWorld;
+    pointIsWorld = pointIsWorld ? pointIsWorld : false ;
 
     if (pointIsWorld) {
         obj.parent.localToWorld(obj.position);

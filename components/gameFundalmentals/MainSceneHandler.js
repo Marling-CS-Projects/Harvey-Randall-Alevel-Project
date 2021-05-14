@@ -14,7 +14,7 @@ import {
 } from "three";
 import { generateClouds } from "./clouds";
 import { controlHandlerInit, controlHandlerUpdate } from "./controls";
-import { createDayNightCycle } from "./DayNightCycle";
+import { CreateDayNightCycle } from "./DayNightCycle";
 import { generateTerrain } from "./ProceduleTerrain";
 //import { ImportOBJ } from "../Core-API/OBJHandler"
 
@@ -44,7 +44,7 @@ export function generateMainScene(
         );
     }
 
-    let daynight = new createDayNightCycle(SceneToGet, Renders);
+    let daynight = new CreateDayNightCycle(SceneToGet, Renders);
     generateTerrain(seed, SceneToGet);
     controlHandlerInit(document, child2);
 

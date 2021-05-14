@@ -1,6 +1,7 @@
 const express = require("express");
 const next = require("next");
 const { Server } = require("socket.io");
+const logger = require('./server/setupLogger')()
 
 const dev = process.env.DevOn === "false" ? false : true || true;
 const apps = next({ dev });
@@ -8,7 +9,6 @@ const handle = apps.getRequestHandler();
 
 const http = require("http");
 const seed = Math.random();
-console.log("Seed is " + seed);
 var rug = require("random-username-generator");
 
 let _PORT = process.env.PORT || 8080;
@@ -39,13 +39,12 @@ apps.prepare()
                 pos: { x: 0, y: 0, z: 0 },
                 rot: { _x: 0, _y: 0, _z: 0 },
             };
-            console.log("a user connected", data.name, socket.id);
             connectedClients[socket.id] = data;
             io.emit("NewPlayer", socket.id, data);
             io.to(socket.id).emit("welcome", seed, connectedClients, data);
 
             socket.on("LocationUpdate", (pos, rot) => {
-                if (connectedClients[socket.id] !== undefined) {
+                if (typeof(connectedClients[socket.id]) === "undefined") {
                     connectedClients[socket.id].lastUpdate = Date.now();
                     socket.broadcast.emit(
                         "PlayerLocationUpdate",
@@ -58,15 +57,10 @@ apps.prepare()
             });
 
             socket.on("sendChat", (data) => {
-                console.log("text is " + data);
                 io.emit("NewChat", connectedClients[socket.id], data);
             });
 
             socket.on("disconnect", () => {
-                console.log(
-                    "Today we lost one of the boys",
-                    connectedClients.length
-                );
                 io.emit(
                     "LostPLayer",
                     socket.id,
@@ -77,7 +71,7 @@ apps.prepare()
             });
 
             let iid = setInterval(function () {
-                if (connectedClients[socket.id] === undefined) {
+                if (typeof connectedClients[socket.id] === "undefined") {
                     clearInterval(iid);
                     return;
                 }
@@ -91,10 +85,7 @@ apps.prepare()
                         true,
                         connectedClients[socket.id]
                     );
-                    console.log(
-                        "Forcably Disconnected Client",
-                        connectedClients[socket.id].name
-                    );
+                    logger.info(`Lost Player ${socket.id}`)
                     delete connectedClients[socket.id];
                     io.to(socket.id).emit("Disconencted", true);
                     clearInterval(iid);
@@ -103,7 +94,7 @@ apps.prepare()
 
             /*while (connectedClients[socket.id] !== undefined) {
                 if (connectedClients[socket.id].lastUpdate < Date.now() - 10000) {
-                    console.log("Forcably Disconnected Client", connectedClients[socket.id].name)
+                   
                     delete connectedClients[socket.id]
                     io.to(socket.id).emit("Disconencted", true)
                     io.emit("LostPLayer", socket.id)
@@ -111,6 +102,7 @@ apps.prepare()
             }*/
         });
 
+        /*eslint complexity: ["error", 20]*/
         app.get("*", function (req, res) {
             if (
                 !(
@@ -125,7 +117,7 @@ apps.prepare()
         });
 
         server.listen(_PORT, () => {
-            console.log("listening on localhost:" + _PORT);
+            logger.info("listening on localhost:" + _PORT);
         });
     })
     .catch((ex) => {
