@@ -1,7 +1,7 @@
 const express = require("express");
 const next = require("next");
 const { Server } = require("socket.io");
-const logger = require('./server/setupLogger')()
+const logger = require("./server/setupLogger")();
 
 const dev = process.env.DevOn === "false" ? false : true || true;
 const apps = next({ dev });
@@ -44,7 +44,7 @@ apps.prepare()
             io.to(socket.id).emit("welcome", seed, connectedClients, data);
 
             socket.on("LocationUpdate", (pos, rot) => {
-                if (typeof(connectedClients[socket.id]) === "undefined") {
+                if (typeof connectedClients[socket.id] === "undefined") {
                     connectedClients[socket.id].lastUpdate = Date.now();
                     socket.broadcast.emit(
                         "PlayerLocationUpdate",
@@ -85,7 +85,7 @@ apps.prepare()
                         true,
                         connectedClients[socket.id]
                     );
-                    logger.info(`Lost Player ${socket.id}`)
+                    logger.info(`Lost Player ${socket.id}`);
                     delete connectedClients[socket.id];
                     io.to(socket.id).emit("Disconencted", true);
                     clearInterval(iid);

@@ -46,15 +46,15 @@ export class PriorityQueue {
     }
     replace(value) {
         const replacedValue = this.peek();
-        this._heap[ParseInt(top,10)] = value;
+        this._heap[parseInt(top,10)] = value;
         this._siftDown();
         return replacedValue;
     }
     _greater(i, j) {
-        return this._comparator(this._heap[ParseInt(i,10)], this._heap[ParseInt(j,10)]);
+        return this._comparator(this._heap[parseInt(i,10)], this._heap[parseInt(j,10)]);
     }
     _swap(i, j) {
-        [this._heap[ParseInt(i,10)], this._heap[ParseInt(j,10)]] = [this._heap[parseInt(j,10)], this._heap[ParseInt(i,10)]];
+        [this._heap[parseInt(i,10)], this._heap[parseInt(j,10)]] = [this._heap[parseInt(j,10)], this._heap[parseInt(i,10)]];
     }
     _siftUp() {
         let node = this.size() - 1;
