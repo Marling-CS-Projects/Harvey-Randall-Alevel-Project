@@ -2,7 +2,7 @@
 import * as THREE from "three";
 let GameCoreShadows = true; // TODO add to GUI
 
-export function CreateGeo(type, data, pos, rot, mat, shadow) {
+export function createGeo(type, data, pos, rot, mat, shadow) {
   //Create type, using destructuring to pass in values
   let geo = new THREE[type](...data);
 

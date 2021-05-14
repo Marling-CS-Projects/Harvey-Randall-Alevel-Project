@@ -13,7 +13,7 @@ let [w, a, s, d, up, down, e, q, shift] = [
     1,
 ];
 
-export function ControlHandlerInit(document, child2) {
+export function controlHandlerInit(document, child2) {
     document.addEventListener(
         "keydown",
         (e) => {
@@ -62,7 +62,7 @@ export function ControlHandlerInit(document, child2) {
     }
 }
 
-export function ControlHandlerUpdate(Camera) {
+export function controlHandlerUpdate(Camera) {
     if (w) {
         var direction = new Vector3();
         Camera.getWorldDirection(direction);

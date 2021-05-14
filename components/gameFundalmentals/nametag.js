@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-export function CreateTag(baseWidth, size, name) {
+export function createTag(baseWidth, size, name) {
     const borderSize = 2;
     const ctx = document.createElement("canvas").getContext("2d");
 
@@ -33,8 +33,8 @@ export function CreateTag(baseWidth, size, name) {
     return ctx.canvas;
 }
 
-export function GenerateLabel(name, group) {
-    const canvas = CreateTag(300, 32, name);
+export function generateLabel(name, group) {
+    const canvas = createTag(300, 32, name);
     const texture = new THREE.CanvasTexture(canvas);
     // because our canvas is likely not a power of 2
     // in both dimensions set the filtering appropriately.

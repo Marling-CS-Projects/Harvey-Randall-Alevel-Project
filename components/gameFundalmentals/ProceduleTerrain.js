@@ -8,7 +8,7 @@ import {
 } from "three";
 var SimplexNoise = require("simplex-noise");
 
-export function GenerateTerrain(seed, SceneToGet) {
+export function generateTerrain(seed, SceneToGet) {
     //------------[MAIN FUNCTION VARIABLES]------------\\
     const simplex = new SimplexNoise(seed);
     let geometry = new PlaneBufferGeometry(500, 500, 100, 100);

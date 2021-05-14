@@ -13,7 +13,7 @@ let Queue = new PriorityQueue((a, b) => a.prority > b.prority);
 /**
  *  @param {string} socket - The socket io Client
  */
-export function StartSeverClientCommunication(socket) {
+export function startSeverClientCommunication(socket) {
   client = socket;
 
   //Data Handshake
@@ -53,7 +53,7 @@ export function sendDataWithPromise(event, data) {
  *  @param {string} event        - The Event name
  *  @param {function} callback   - The function that will be called with the data back
  */
-export function ListenToEvent(event, callback) {
+export function listenToEvent(event, callback) {
   // Attach event handle to functions
   client.on(event, callback);
 }
@@ -61,7 +61,7 @@ export function ListenToEvent(event, callback) {
 /**
  *  @param {function} callback   - The function that will listen to all events sent to the client
  */
-export function AttachToMainEventStream(callback) {
+export function attachToMainEventStream(callback) {
   client.onAny((eventName, ...args) => {
     callback(eventName, args);
   });
@@ -72,12 +72,12 @@ export function AttachToMainEventStream(callback) {
  *  @param {scema} scema         - The data scheme to folow
  *  @param {function} callback   - The function that will be called with the data
  */
-export async function ListenForEventWithSchemaValidation(
+export async function listenForEventWithSchemaValidation(
   event,
   scema,
   callback
 ) {
-  ListenToEvent(event, (args) => {
+  listenToEvent(event, (args) => {
     const { error, value } = scema.validate(args);
     if (error) {
       throw new Error("Scehma Check Failed");
@@ -88,7 +88,7 @@ export async function ListenForEventWithSchemaValidation(
   });
 }
 
-export function AddDataToQueue(event, data, callback, prority = 1) {
+export function addDataToQueue(event, data, callback, prority = 1) {
   Queue.push({ prority, input: [event, data, callback] });
 }
 

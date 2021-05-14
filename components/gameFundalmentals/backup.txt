@@ -6,7 +6,7 @@ import CameraControls from 'camera-controls';
 import { BoxGeometry, Clock, DoubleSide, Material, Mesh, MeshBasicMaterial, MeshStandardMaterial, PerspectiveCamera, PointLight, Scene, Vector3, WebGLRenderer, MeshLambertMaterial } from "three"
 var perlin = require('perlin-noise');
 var SimplexNoise = require('simplex-noise');
-import { GenerateClouds } from '../components/clouds'
+import { generateClouds } from '../components/clouds'
 import { getRandomStarField } from '../components/stars'
 var Stats = require('stats.js')
 
@@ -139,7 +139,7 @@ export default function render() {
 
         let clouds = []
         for (let i = 0; i < 40; i++) {
-            clouds.push(new GenerateClouds(new Vector3((Math.random() * 300) - 300, 80 + Math.random() * 20, (Math.random() * 600) - 400), SceneToGet, Math.random() * 0.2, Math.random() * 6 + 1))
+            clouds.push(new generateClouds(new Vector3((Math.random() * 300) - 300, 80 + Math.random() * 20, (Math.random() * 600) - 400), SceneToGet, Math.random() * 0.2, Math.random() * 6 + 1))
         }
 
         plane2.rotateX((Math.PI / 2) + Math.PI)

@@ -8,8 +8,8 @@ import {
   Mesh,
   MeshLambertMaterial,
 } from "three";
-import { ListenToEvent } from "../../Core-API/ConnectAPI";
-import { GenerateLabel } from "../nametag";
+import { listenToEvent } from "../../Core-API/ConnectAPI";
+import { generateLabel } from "../nametag";
 let players = [];
 
 export function MakeNewCubePlayer(
@@ -32,14 +32,14 @@ export function MakeNewCubePlayer(
   cylinderBuild.position.set(0, 0, -0.6);
   group.add(cylinderBuild);
 
-  GenerateLabel(name, group);
+  generateLabel(name, group);
   SceneToGet.add(group);
   group.name = name;
   return group;
 }
 
 export function InitMainGameHandler(SceneToGet) {
-  ListenToEvent("NewPlayer", (id, data) => {
+  listenToEvent("NewPlayer", (id, data) => {
     console.log(data);
     console.log("New PLyer " + id);
     let cube = MakeCube(data.color, data.name, SceneToGet);

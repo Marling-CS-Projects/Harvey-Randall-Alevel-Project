@@ -7,7 +7,7 @@ import {
     Vector3,
 } from "three";
 
-var Sky = function () {
+var sky = function () {
     var shader = Sky.SkyShader;
 
     var material = new ShaderMaterial({
@@ -196,4 +196,4 @@ Sky.SkyShader = {
     ].join("\n"),
 };
 
-export { Sky };
+export { sky };

@@ -6,13 +6,13 @@ import CameraControls from "camera-controls";
 import { DoubleSide, PerspectiveCamera, Scene, WebGLRenderer } from "three";
 var Stats = require("stats.js");
 import { useAppContext } from "../components/Context/socketioContext";
-import { GenerateLabel } from "../components/gameFundalmentals/nametag";
+import { generateLabel } from "../components/gameFundalmentals/nametag";
 import {
-    StartSeverClientCommunication,
-    ListenToEvent,
+    startSeverClientCommunication,
+    listenToEvent,
 } from "../components/Core-API/ConnectAPI";
-import { UpdateRenderCycle } from "../components/Core-API/RenderingHandler";
-import { GenerateMainScene } from "../components/gameFundalmentals/MainSceneHandler";
+import { updateRenderCycle } from "../components/Core-API/RenderingHandler";
+import { generateMainScene } from "../components/gameFundalmentals/MainSceneHandler";
 import { CreateUI } from "../components/gameUI/gameFeed";
 CameraControls.install({ THREE: THREE });
 
@@ -32,7 +32,7 @@ export default function render() {
     const [personData, setPersonalData] = useState(undefined);
     const [latestPerson, setLatestestPerson] = useState([]);
 
-    StartSeverClientCommunication(socket);
+    startSeverClientCommunication(socket);
 
     socket.once("welcome", (seed, client, data) => {
         setSeed(seed);
@@ -73,7 +73,7 @@ export default function render() {
             0.1,
             1000
         );
-        GenerateMainScene(
+        generateMainScene(
             SceneToGet,
             Renders,
             document,
@@ -104,7 +104,7 @@ export default function render() {
             cylinderBuild.position.set(0, 0, -0.6);
             group.add(cylinderBuild);
 
-            GenerateLabel(name, group);
+            generateLabel(name, group);
             SceneToGet.add(group);
             group.name = name;
             return group;
@@ -153,7 +153,7 @@ export default function render() {
             );
         });
 
-        ListenToEvent("PlayerLocationUpdate", (id, pos, rot, data) => {
+        listenToEvent("PlayerLocationUpdate", (id, pos, rot, data) => {
             let cube = players[id];
             if (cube) {
                 cube.rotation.set(rot._x, rot._y, rot._z);
@@ -176,7 +176,7 @@ export default function render() {
             requestAnimationFrame(animate);
 
             // Update all moving parts
-            UpdateRenderCycle(CurrentScene);
+            updateRenderCycle(CurrentScene);
 
             Renders.render(SceneToGet, Camera);
             stats.end();

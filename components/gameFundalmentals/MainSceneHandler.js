@@ -12,15 +12,15 @@ import {
     PlaneGeometry,
     Vector3,
 } from "three";
-import { GenerateClouds } from "./clouds";
-import { ControlHandlerInit, ControlHandlerUpdate } from "./controls";
-import { CreateDayNightCycle } from "./DayNightCycle";
-import { GenerateTerrain } from "./ProceduleTerrain";
+import { generateClouds } from "./clouds";
+import { controlHandlerInit, controlHandlerUpdate } from "./controls";
+import { createDayNightCycle } from "./DayNightCycle";
+import { generateTerrain } from "./ProceduleTerrain";
 //import { ImportOBJ } from "../Core-API/OBJHandler"
 
 let debug = true;
 
-export function GenerateMainScene(
+export function generateMainScene(
     SceneToGet,
     Renders,
     document,
@@ -31,7 +31,7 @@ export function GenerateMainScene(
     let clouds = [];
     for (let i = 0; i < 40; i++) {
         clouds.push(
-            new GenerateClouds(
+            new generateClouds(
                 new Vector3(
                     Math.random() * 300 - 300,
                     80 + Math.random() * 20,
@@ -44,9 +44,9 @@ export function GenerateMainScene(
         );
     }
 
-    let daynight = new CreateDayNightCycle(SceneToGet, Renders);
-    GenerateTerrain(seed, SceneToGet);
-    ControlHandlerInit(document, child2);
+    let daynight = new createDayNightCycle(SceneToGet, Renders);
+    generateTerrain(seed, SceneToGet);
+    controlHandlerInit(document, child2);
 
     if (debug) {
         const planeGeometry = new PlaneGeometry(20, 20, 32, 32);
@@ -76,6 +76,6 @@ export function GenerateMainScene(
         true
     );
 
-    addToRenderSequence("Main", () => ControlHandlerUpdate(Camera));
+    addToRenderSequence("Main", () => controlHandlerUpdate(Camera));
     addToRenderSequence("Main", () => daynight.update());
 }

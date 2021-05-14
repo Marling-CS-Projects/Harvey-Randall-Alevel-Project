@@ -11,13 +11,13 @@ import {
     Vector3,
 } from "three";
 import {
-    CreateAmbientLight,
-    CreateDirectionalLight,
+    createAmbientLight,
+    createDirectionalLight,
 } from "../Core-API/LightingManager";
 import { getRandomStarField } from "./stars";
 import { rotateAboutPoint } from "./rotateAroundPoint";
 
-export class CreateDayNightCycle {
+export class createDayNightCycle {
     constructor(SceneToGet, Renders) {
         // ---------- [Two to level global variables] ---------- \\
         this.SceneToGet = SceneToGet;
@@ -56,19 +56,19 @@ export class CreateDayNightCycle {
         this.dTIme = 0;
 
         // ---------- [All defintions for lights to create shadows] ---------- \\
-        this.directionalLight = CreateDirectionalLight(
+        this.directionalLight = createDirectionalLight(
             SceneToGet,
             0xddffee,
             0.5,
             [1, 100, 100]
         );
-        this.directionalLight2 = CreateDirectionalLight(
+        this.directionalLight2 = createDirectionalLight(
             SceneToGet,
             0xffffff,
             0.2,
             [1, -100, -100]
         );
-        this.light = CreateAmbientLight(SceneToGet, 0xaaaaaa, 0.5);
+        this.light = createAmbientLight(SceneToGet, 0xaaaaaa, 0.5);
 
         // ---------- [Create Stary night] ---------- \\
         let skyBox = new BoxGeometry(1200, 1200, 1200);
