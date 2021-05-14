@@ -106,7 +106,7 @@ export default function render() {
 
 
         for (var i = 0, l = geometry.attributes.position.count; i < l; i++) {
-            //console.log(geometry.attributes.position.array[(i*3)+2])
+
             let x = geometry.attributes.position.array[(i * 3)] / 128
             let y = geometry.attributes.position.array[(i * 3) + 1] / 128
             let height = simplex.noise2D(x, y) * 30
@@ -235,7 +235,7 @@ export default function render() {
                     t = 1
                 }
                 directionalLight2.color.setHex(0xffffff)
-                //console.log(new THREE.Color().lerpColors(new THREE.Color( 0x87ceeb ), new THREE.Color( 0x000000 ), t))
+              
                 Renders.setClearColor(new THREE.Color().lerpColors(new THREE.Color(0x87ceeb), new THREE.Color(0x000000), t), 1);
                 if (t >= 1) {
                     SceneToGet.add(sky);

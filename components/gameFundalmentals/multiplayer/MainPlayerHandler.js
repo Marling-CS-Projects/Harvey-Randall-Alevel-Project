@@ -26,7 +26,7 @@ export function MakeNewCubePlayer(
   const cube = new Mesh(geometry, material);
   group.add(cube);
   const cyclinder = new CylinderGeometry(0.3, 0.3, 0.6, 30);
-  const material2 = new MeshLambertMaterial({ color: 0x000000 });
+  const material2 = new MeshLambertMaterial({ color: "#000000" });
   const cylinderBuild = new Mesh(cyclinder, material2);
   cylinderBuild.rotateX(Math.PI / 2 + Math.PI);
   cylinderBuild.position.set(0, 0, -0.6);
@@ -40,8 +40,6 @@ export function MakeNewCubePlayer(
 
 export function InitMainGameHandler(SceneToGet) {
   listenToEvent("NewPlayer", (id, data) => {
-    console.log(data);
-    console.log("New PLyer " + id);
     let cube = makeCube(data.color, data.name, SceneToGet);
     //addtoGameFeed(data?.name, "Joined the game!");
 

@@ -52,7 +52,7 @@ export function generateMainScene(
         const planeGeometry = new PlaneGeometry(20, 20, 32, 32);
         planeGeometry.rotateX(Math.PI / 2);
         const planeMaterial = new MeshStandardMaterial({
-            color: 0x567d46,
+            color: "#567d46",
             side: DoubleSide,
         });
         const plane = new Mesh(planeGeometry, planeMaterial);

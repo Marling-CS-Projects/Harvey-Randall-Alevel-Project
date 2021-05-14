@@ -6,8 +6,6 @@ export function CreateUI() {
     let [gamefeed, setGameFeed] = useState();
     useEffect(() => {
         listenToEvent("NewPlayer", (id, data) => {
-            console.log(data);
-            console.log("New PLyer " + id);
             //let cube = MakeNewCubePlayer(data.color, data.name)
             //MakeNewCubePlayer(data?.name, "Joined the game!")
 

@@ -44,7 +44,7 @@ apps.prepare()
             io.to(socket.id).emit("welcome", seed, connectedClients, data);
 
             socket.on("LocationUpdate", (pos, rot) => {
-                if (typeof connectedClients[socket.id] === "undefined") {
+                if (typeof connectedClients[socket.id] !== "undefined") {
                     connectedClients[socket.id].lastUpdate = Date.now();
                     socket.broadcast.emit(
                         "PlayerLocationUpdate",
@@ -121,6 +121,6 @@ apps.prepare()
         });
     })
     .catch((ex) => {
-        console.error(ex.stack);
+        logger.info(ex.stack);
         process.exit(1);
     });

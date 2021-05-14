@@ -36,7 +36,6 @@ export default function render() {
 
     socket.once("welcome", (seed, client, data) => {
         setSeed(seed);
-        console.log(client);
         setClients(client);
         setPersonalData(data);
     });
@@ -60,7 +59,7 @@ export default function render() {
             alpha: true,
         });
 
-        Renders.setClearColor(0x87ceeb, 1);
+        Renders.setClearColor("#87ceeb", 1);
 
         Renders.setSize(window.innerWidth, window.innerHeight);
         child.appendChild(Renders.domElement);
@@ -97,7 +96,7 @@ export default function render() {
             group.add(cube);
             const cyclinder = new THREE.CylinderGeometry(0.3, 0.3, 0.6, 30);
             const material2 = new THREE.MeshLambertMaterial({
-                color: 0x000000,
+                color: "#000000",
             });
             const cylinderBuild = new THREE.Mesh(cyclinder, material2);
             cylinderBuild.rotateX(Math.PI / 2 + Math.PI);
@@ -113,26 +112,20 @@ export default function render() {
         let prevData = [];
 
         let addtoGameFeed = (name = "Unkown", event) => {
-            let NewGameEventArray = [...prevData];
-            console.log(NewGameEventArray);
+            let NewGameEventArray = [...gameEventData]
             NewGameEventArray.unshift({ name: name, event: event });
             delete NewGameEventArray[10];
             delete NewGameEventArray[11];
             setGameEventData([...NewGameEventArray]);
-            console.log("array below");
-            console.log(prevData);
             prevData = NewGameEventArray;
         };
 
         clients.forEach((e) => {
-            console.log("Adding PLayer " + e);
             let cube = makeCube(e.color, e.name);
             players[e] = cube;
         });
 
         socket.on("NewPlayer", (id, data) => {
-            console.log(data);
-            console.log("New PLyer " + id);
             let cube = makeCube(data.color, data.name);
             addtoGameFeed(data?.name, "Joined the game!");
 
@@ -140,11 +133,9 @@ export default function render() {
         });
 
         socket.on("LostPLayer", (id, how, data) => {
-            console.log("lost PLyer " + id);
             let cube = players[id];
             SceneToGet.remove(cube);
             delete players[id];
-            console.log(data);
             addtoGameFeed(
                 data?.name,
                 how === true

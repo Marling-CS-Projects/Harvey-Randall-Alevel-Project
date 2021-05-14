@@ -7,6 +7,7 @@ import {
     Mesh,
     MeshBasicMaterial,
     MeshLambertMaterial,
+    Scene,
     SphereBufferGeometry,
     Vector3,
 } from "three";
