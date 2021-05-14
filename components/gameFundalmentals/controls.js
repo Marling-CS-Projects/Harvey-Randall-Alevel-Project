@@ -14,7 +14,6 @@ let [w, a, s, d, up, down, e, q, shift] = [
 ];
 
 export function controlHandlerInit(document, child2) {
-
     /*eslint complexity: ["error", 20]*/
     function onDocumentKeyDown(event, val) {
         if (child2 === document.activeElement) {
@@ -64,7 +63,6 @@ export function controlHandlerInit(document, child2) {
         },
         false
     );
-
 }
 
 /*eslint complexity: ["error", 20]*/
@@ -77,7 +75,9 @@ export function controlHandlerUpdate(Camera) {
     if (s) {
         let direction = new Vector3();
         Camera.getWorldDirection(direction);
-        Camera.position.add(direction.multiplyScalar(-(shift === 1 ? 1 : 0.25)));
+        Camera.position.add(
+            direction.multiplyScalar(-(shift === 1 ? 1 : 0.25))
+        );
     }
     if (a) {
         Camera.rotateY(0.04 * shift);
@@ -98,3 +98,4 @@ export function controlHandlerUpdate(Camera) {
         Camera.rotateZ(-0.02 * shift);
     }
 }
+
