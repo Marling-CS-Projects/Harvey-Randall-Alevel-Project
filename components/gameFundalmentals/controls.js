@@ -75,7 +75,7 @@ export function controlHandlerUpdate(Camera) {
         Camera.position.add(direction.multiplyScalar(shift === 1 ? 1 : 0.25));
     }
     if (s) {
-        direction = new Vector3();
+        let direction = new Vector3();
         Camera.getWorldDirection(direction);
         Camera.position.add(direction.multiplyScalar(-(shift === 1 ? 1 : 0.25)));
     }

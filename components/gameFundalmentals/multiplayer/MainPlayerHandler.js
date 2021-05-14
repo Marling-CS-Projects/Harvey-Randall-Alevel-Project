@@ -43,6 +43,6 @@ export function InitMainGameHandler(SceneToGet) {
     //let cube = makeCube(data.color, data.name, SceneToGet);
     //addtoGameFeed(data?.name, "Joined the game!");
 
-    players[`${id}`] = cube;
+    //players[`${id}`] = cube;
   });
 }

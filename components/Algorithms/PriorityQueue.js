@@ -25,7 +25,7 @@ export class PriorityQueue {
         return this.size() === 0;
     }
     peek() {
-        return this._heap[parseInt(top)];
+        return this._heap[parseInt(top,10)];
     }
     push(...values) {
         values.forEach((value) => {
