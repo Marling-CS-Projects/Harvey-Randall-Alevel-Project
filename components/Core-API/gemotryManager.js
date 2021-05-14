@@ -14,7 +14,7 @@ export function createGeo(type, data, pos, rot, mat, shadow) {
 
     //Create the Mesh
     /*eslint new-cap: "error"*/
-    let mesh = Mesh(geo, mat);
+    let mesh = new Mesh(geo, mat);
 
     //Handle Reciving shadows and casting
     mesh.castShadow = shadow && GameCoreShadows ? true : false;
