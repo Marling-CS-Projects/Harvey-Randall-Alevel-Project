@@ -157,7 +157,7 @@ export class CreateDayNightCycle {
             this.directionalLight2.intensity = 0.2;
         }
         if (this.sky.parent === this.SceneToGet) {
-            this.sky.rotation.x -= 4e-4;
+            this.sky.rotation.x -= 4/1000;
         }
         this.cube.rotateOnAxis(new Vector3(1, 0, 0), theta);
     }

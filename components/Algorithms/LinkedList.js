@@ -83,7 +83,7 @@ export default class LinkedList extends DataStructure {
         let removed;
         let index = 0;
         let cItem = this.startItem;
-        while (!!cItem) {
+        while (cItem) {
             if (matchFunction(cItem.getValue())) {
                 removed = this.remove(index);
                 break;
@@ -103,17 +103,17 @@ export default class LinkedList extends DataStructure {
     remove(index) {
         let removed;
         if (index === 0) {
-            if (!!this.startItem) {
+            if (this.startItem) {
                 removed = this.startItem.getValue();
                 this.startItem = this.startItem.getNextItem();
             }
         } else {
             let tIndex = 1;
             let currentItem = this.startItem;
-            while (!!currentItem.getNextItem()) {
+            while (currentItem.getNextItem()) {
                 if (tIndex === index) {
                     const toRemove = currentItem.getNextItem();
-                    if (!!toRemove) {
+                    if (toRemove) {
                         removed = toRemove.getValue();
                         currentItem.setNextItem(toRemove.getNextItem());
                         break;

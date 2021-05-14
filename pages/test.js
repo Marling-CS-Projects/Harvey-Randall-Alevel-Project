@@ -118,7 +118,7 @@ export default function render() {
 
         clients.forEach((e) => {
             let cube = makeCube(e.color, e.name);
-            players[e] = cube;
+            players[`${e}`] = cube;
         });
 
         socket.on("NewPlayer", (id, data) => {
@@ -141,14 +141,14 @@ export default function render() {
         });
 
         listenToEvent("PlayerLocationUpdate", (id, pos, rot, data) => {
-            let cube = players[id];
+            let cube = players[`${id}`];
             if (cube) {
                 cube.rotation.set(rot._x, rot._y, rot._z);
                 cube.position.set(pos.x, pos.y, pos.z);
             } else {
                 let cube = makeCube(data?.color, data?.name);
 
-                players[id] = cube;
+                players[`${id}`] = cube;
             }
         });
         socket.on("NewChat", (data, text) => {

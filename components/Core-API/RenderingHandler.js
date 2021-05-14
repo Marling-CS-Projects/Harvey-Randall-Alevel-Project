@@ -2,14 +2,14 @@
 let renderingList = {};
 
 function checkType(type) {
-    if (typeof renderingList[type] === "undefined") {
+    if (typeof renderingList[`${type}`] === "undefined") {
         renderingList[type] = [];
     }
 }
 
 export function addToRenderSequence(type, callback, newType = false) {
     if (newType) {
-        renderingList[type] = [];
+        renderingList[`${type}`] = [];
     }
     checkType(type);
     renderingList[`${type}`].push(callback);
