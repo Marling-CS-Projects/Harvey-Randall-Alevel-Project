@@ -3,7 +3,7 @@ let renderingList = {};
 
 function checkType(type) {
     if (typeof renderingList[`${type}`] === "undefined") {
-        renderingList[type] = [];
+        renderingList[`${type}`] = [];
     }
 }
 

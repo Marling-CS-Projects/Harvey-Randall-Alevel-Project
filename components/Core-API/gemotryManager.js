@@ -1,5 +1,6 @@
 // Written By Harvey Randall \\
 import { Mesh } from "three";
+import * as three from 'three'
 let GameCoreShadows = true; // TODO add to GUI
 
 /*eslint complexity: ["error", 20]*/
@@ -12,6 +13,7 @@ export function createGeo(type, data, pos, rot, mat, shadow) {
   geo.rotation.set(rot);
 
   //Create the Mesh
+  /*eslint new-cap: "error"*/
   let mesh = Mesh(geo, mat);
 
   //Handle Reciving shadows and casting
