@@ -78,6 +78,7 @@ export class CreateDayNightCycle {
         });
         this.sky = new Mesh(skyBox, skyBoxMaterial);
     }
+    /*eslint complexity: ["error", 20]*/
     update() {
         // This two lines are  important as it is part of the hacky work around to get time of day on varying FPS
         let theta = rotateAboutPoint(
@@ -156,7 +157,7 @@ export class CreateDayNightCycle {
             this.directionalLight2.intensity = 0.2;
         }
         if (this.sky.parent === this.SceneToGet) {
-            this.sky.rotation.x += -0.0004;
+            this.sky.rotation.x += -(4e-4);
         }
         this.cube.rotateOnAxis(new Vector3(1, 0, 0), theta);
     }

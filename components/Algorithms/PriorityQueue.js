@@ -22,10 +22,10 @@ export class PriorityQueue {
         return this._heap.length;
     }
     isEmpty() {
-        return this.size() == 0;
+        return this.size() === 0;
     }
     peek() {
-        return this._heap[top];
+        return this._heap[parseInt(top)];
     }
     push(...values) {
         values.forEach((value) => {
@@ -63,6 +63,7 @@ export class PriorityQueue {
             node = parent(node);
         }
     }
+    /*eslint complexity: ["error", 20]*/
     _siftDown() {
         let node = top;
         while (

@@ -2,8 +2,7 @@
 
 import { useEffect, useState, useContext } from "react";
 import * as THREE from "three";
-import CameraControls from "camera-controls";
-import { DoubleSide, PerspectiveCamera, Scene, WebGLRenderer } from "three";
+import { PerspectiveCamera, Scene, WebGLRenderer } from "three";
 var Stats = require("stats.js");
 import { useAppContext } from "../components/Context/socketioContext";
 import { generateLabel } from "../components/gameFundalmentals/nametag";
@@ -14,23 +13,18 @@ import {
 import { updateRenderCycle } from "../components/Core-API/RenderingHandler";
 import { generateMainScene } from "../components/gameFundalmentals/MainSceneHandler";
 import { CreateUI } from "../components/gameUI/gameFeed";
-CameraControls.install({ THREE: THREE });
 
 export default function render() {
-    const [child, setChild] = useState(undefined);
+    const [child, setChild] = useState();
     const [gameEventData, setGameEventData] = useState([]);
 
-    const [newTheta, setTheat] = useState(0);
     const [day, setDay] = useState("not day");
-    const [child2, setChild2] = useState(undefined);
-    const [pos, setPos] = useState(undefined);
-    const [rot, setRot] = useState(undefined);
+    const [child2, setChild2] = useState();
     const socket = useAppContext();
-    const [recievedSeed, setSeed] = useState(undefined);
+    const [recievedSeed, setSeed] = useState();
     const [rendered, setRendered] = useState(false);
     const [clients, setClients] = useState([]);
-    const [personData, setPersonalData] = useState(undefined);
-    const [latestPerson, setLatestestPerson] = useState([]);
+    const [personData, setPersonalData] = useState();
 
     startSeverClientCommunication(socket);
 
@@ -42,11 +36,13 @@ export default function render() {
 
     useEffect(() => {
         if (
-            child === undefined ||
-            recievedSeed === undefined ||
+            typeof child === "undefined" ||
+            typeof recievedSeed === "undefined" ||
             rendered === true
-        )
+        ){
             return;
+        }
+            
         setRendered(true);
 
         let stats = new Stats();
@@ -112,8 +108,8 @@ export default function render() {
         let prevData = [];
 
         let addtoGameFeed = (name = "Unkown", event) => {
-            let NewGameEventArray = [...gameEventData]
-            NewGameEventArray.unshift({ name: name, event: event });
+            let NewGameEventArray = [...gameEventData];
+            NewGameEventArray.unshift({ name, event });
             delete NewGameEventArray[10];
             delete NewGameEventArray[11];
             setGameEventData([...NewGameEventArray]);
@@ -129,13 +125,13 @@ export default function render() {
             let cube = makeCube(data.color, data.name);
             addtoGameFeed(data?.name, "Joined the game!");
 
-            players[id] = cube;
+            players[`${id}`] = cube;
         });
 
         socket.on("LostPLayer", (id, how, data) => {
-            let cube = players[id];
+            let cube = players[`${id}`];
             SceneToGet.remove(cube);
-            delete players[id];
+            delete players[`${id}`];
             addtoGameFeed(
                 data?.name,
                 how === true
@@ -190,7 +186,7 @@ export default function render() {
                     marginTop: "40px",
                     color: "white",
                 }}>
-                {personData === undefined ? "LOADING..." : personData.name}
+                {typeof personData === "undefined" ? "LOADING..." : personData.name}
             </h1>
             <div
                 style={{
@@ -205,7 +201,9 @@ export default function render() {
                     <input type="Submit"></input>
                 </form>
                 {[...gameEventData].map((e) => {
-                    if (e == undefined) return;
+                    if (typeof e === "undefined") {
+                        return;
+                    }
                     return (
                         <h4 style={{ color: "white" }}>
                             {e.name} - {e.event}
@@ -213,7 +211,7 @@ export default function render() {
                     );
                 })}
             </div>
-            {recievedSeed === undefined ?? <h1>LOADING SEED!</h1>}
+            {typeof recievedSeed === "undefined" ?? <h1>LOADING SEED!</h1>}
             <div ref={(ref) => setChild(ref)}></div>
             <div ref={(ref) => setChild(ref)}></div>
         </main>

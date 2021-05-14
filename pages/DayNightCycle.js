@@ -26,7 +26,7 @@ export class CreateDayNightCycle {
         // ---------- [Create Sun Mesh] ---------- \\
         let sun = new SphereBufferGeometry(20, 20, 100, 100);
         let sunMaterial = new MeshLambertMaterial({
-            emissive: '#f9d71c',
+            emissive: "#f9d71c",
         });
         let sunmesh = new Mesh(sun, sunMaterial);
         sunmesh.position.set(1, 300, 300);
@@ -78,6 +78,7 @@ export class CreateDayNightCycle {
         });
         this.sky = new Mesh(skyBox, skyBoxMaterial);
     }
+    /*eslint complexity: ["error", 20]*/
     update() {
         // This two lines are  important as it is part of the hacky work around to get time of day on varying FPS
         let theta = rotateAboutPoint(

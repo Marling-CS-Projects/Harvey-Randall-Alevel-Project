@@ -2,7 +2,7 @@
 let renderingList = {};
 
 function checkType(type) {
-    if (renderingList[type] === undefined) {
+    if (typeof renderingList[type] === "undefined") {
         renderingList[type] = [];
     }
 }
@@ -17,7 +17,7 @@ export function addToRenderSequence(type, callback, newType = false) {
 
 export function renderingInfo(type) {
     checkType(type);
-    return renderingList[type].length;
+    return renderingList[`${type}`].length;
 }
 
 export function updateRenderCycle(type) {

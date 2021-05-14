@@ -12,7 +12,7 @@ import {
     PlaneGeometry,
     Vector3,
 } from "three";
-import { generateClouds } from "./clouds";
+import { GenerateClouds } from "./clouds";
 import { controlHandlerInit, controlHandlerUpdate } from "./controls";
 import { CreateDayNightCycle } from "./DayNightCycle";
 import { generateTerrain } from "./ProceduleTerrain";
@@ -31,7 +31,7 @@ export function generateMainScene(
     let clouds = [];
     for (let i = 0; i < 40; i++) {
         clouds.push(
-            new generateClouds(
+            new GenerateClouds(
                 new Vector3(
                     Math.random() * 300 - 300,
                     80 + Math.random() * 20,

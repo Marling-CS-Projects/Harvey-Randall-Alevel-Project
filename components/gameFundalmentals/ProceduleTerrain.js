@@ -8,6 +8,7 @@ import {
 } from "three";
 var SimplexNoise = require("simplex-noise");
 
+/*eslint complexity: ["error", 20]*/
 export function generateTerrain(seed, SceneToGet) {
     //------------[MAIN FUNCTION VARIABLES]------------\\
     const simplex = new SimplexNoise(seed);

@@ -3,7 +3,7 @@ import { DataStructure } from "../../common";
 export default class LinkedList extends DataStructure {
     constructor() {
         super();
-        this.startItem = undefined;
+        this.startItem;
         this.length = 0;
     }
     *[Symbol.iterator]() {
@@ -20,6 +20,7 @@ export default class LinkedList extends DataStructure {
         }
         return arr;
     }
+    /*eslint complexity: ["error", 20]*/
     insert(index, item) {
         let inserted = false;
         const newItem = new LinkedItem(item);
@@ -30,7 +31,7 @@ export default class LinkedList extends DataStructure {
         } else {
             let tIndex = 1;
             let currentItem = this.startItem;
-            while (!!currentItem) {
+            while (currentItem) {
                 if (tIndex === index) {
                     newItem.setNextItem(currentItem.getNextItem());
                     currentItem.setNextItem(newItem);
@@ -50,20 +51,20 @@ export default class LinkedList extends DataStructure {
     get(index) {
         let tIndex = 0;
         let cItem = this.startItem;
-        while (!!cItem) {
+        while (cItem) {
             if (tIndex === index) {
                 return cItem.getValue();
             }
             cItem = cItem.getNextItem();
             tIndex += 1;
         }
-        return undefined;
+        return;
     }
     append(item) {
         const newItem = new LinkedItem(item);
-        if (!!this.startItem) {
+        if (this.startItem) {
             let currentItem = this.startItem;
-            while (!!currentItem.getNextItem()) {
+            while (currentItem.getNextItem()) {
                 currentItem = currentItem.getNextItem();
             }
             currentItem.setNextItem(newItem);
@@ -98,6 +99,7 @@ export default class LinkedList extends DataStructure {
      * @param {number} index The index of the object to remove
      * @returns The removed item
      */
+    /*eslint complexity: ["error", 20]*/
     remove(index) {
         let removed;
         if (index === 0) {

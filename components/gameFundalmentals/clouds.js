@@ -37,7 +37,7 @@ const jitter = (geometry, per) => {
     }
 };
 
-export class generateClouds {
+export class GenerateClouds {
     constructor(pos, scene, speed, scale) {
         const group = new Group();
 

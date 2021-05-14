@@ -8,7 +8,7 @@ import {
 } from "three";
 
 var sky = function () {
-    var shader = Sky.SkyShader;
+    var shader = sky.SkyShader;
 
     var material = new ShaderMaterial({
         name: "SkyShader",
@@ -22,9 +22,9 @@ var sky = function () {
     Mesh.call(this, new BoxGeometry(1, 1, 1), material);
 };
 
-Sky.prototype = Object.create(Mesh.prototype);
+sky.prototype = Object.create(Mesh.prototype);
 
-Sky.SkyShader = {
+sky.SkyShader = {
     uniforms: {
         turbidity: { value: 2 },
         rayleigh: { value: 1 },

@@ -14,21 +14,8 @@ let [w, a, s, d, up, down, e, q, shift] = [
 ];
 
 export function controlHandlerInit(document, child2) {
-    document.addEventListener(
-        "keydown",
-        (e) => {
-            onDocumentKeyDown(e, true);
-        },
-        false
-    );
-    document.addEventListener(
-        "keyup",
-        (e) => {
-            onDocumentKeyDown(e, false);
-        },
-        false
-    );
 
+    /*eslint complexity: ["error", 20]*/
     function onDocumentKeyDown(event, val) {
         if (child2 === document.activeElement) {
             return;
@@ -62,18 +49,35 @@ export function controlHandlerInit(document, child2) {
             shift = val ? 0.5 : 1;
         }
     }
+
+    document.addEventListener(
+        "keydown",
+        (e) => {
+            onDocumentKeyDown(e, true);
+        },
+        false
+    );
+    document.addEventListener(
+        "keyup",
+        (e) => {
+            onDocumentKeyDown(e, false);
+        },
+        false
+    );
+
 }
 
+/*eslint complexity: ["error", 20]*/
 export function controlHandlerUpdate(Camera) {
     if (w) {
-        var direction = new Vector3();
+        let direction = new Vector3();
         Camera.getWorldDirection(direction);
-        Camera.position.add(direction.multiplyScalar(shift == 1 ? 1 : 0.25));
+        Camera.position.add(direction.multiplyScalar(shift === 1 ? 1 : 0.25));
     }
     if (s) {
-        var direction = new Vector3();
+        direction = new Vector3();
         Camera.getWorldDirection(direction);
-        Camera.position.add(direction.multiplyScalar(-(shift == 1 ? 1 : 0.25)));
+        Camera.position.add(direction.multiplyScalar(-(shift === 1 ? 1 : 0.25)));
     }
     if (a) {
         Camera.rotateY(0.04 * shift);

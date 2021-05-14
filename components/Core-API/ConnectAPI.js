@@ -7,7 +7,7 @@ import { PriorityQueue } from "../Algorithms/PriorityQueue";
 import * as Joi from "joi";
 
 //-------------[Core Variables]-------------\\
-let client = undefined;
+let client;
 let Queue = new PriorityQueue((a, b) => a.prority > b.prority);
 
 /**
