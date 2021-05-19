@@ -31,7 +31,7 @@ export default function render() {
         child.appendChild(renderer.domElement);
 
         const geometry = new BoxGeometry();
-        const material = new MeshBasicMaterial({ color: "#00ff00" });
+        const material = new MeshBasicMaterial({ color: "#0000ff" });
         const cube = new Mesh(geometry, material);
         scene.add(cube);
 

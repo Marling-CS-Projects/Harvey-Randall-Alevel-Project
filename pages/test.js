@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useContext } from "react";
 import * as THREE from "three";
+import React from 'react'
 import { PerspectiveCamera, Scene, WebGLRenderer } from "three";
 var Stats = require("stats.js");
 import { useAppContext } from "../components/Context/socketioContext";

@@ -1,26 +1,13 @@
 {"message":"listening on localhost:8080","level":"info","service":"user-service"}
-{"message":"Lost Player uR-KxgDR1wNeq3RLAAAB","level":"info","service":"user-service"}
 {"message":"listening on localhost:8080","level":"info","service":"user-service"}
-{"message":"Lost Player 9hFcJpwXg8z4vWGHAAAB","level":"info","service":"user-service"}
-{"message":"Lost Player QHRZiiWCUewBx15yAAAD","level":"info","service":"user-service"}
-{"message":"Lost Player RAzgTnVtfk54ZQChAAAL","level":"info","service":"user-service"}
-{"message":"Lost Player vaJo97rUbj1Xuy00AAAV","level":"info","service":"user-service"}
-{"message":"Lost Player 5DofLum6EhacM8DKAAAX","level":"info","service":"user-service"}
-{"message":"Lost Player HfQ00UA5q1LiQ2yhAAAb","level":"info","service":"user-service"}
-{"message":"Lost Player 1ukUfp496F4EYOn8AAAj","level":"info","service":"user-service"}
 {"message":"listening on localhost:8080","level":"info","service":"user-service"}
-{"message":"Lost Player P_0vuHQgYEMfpmoLAAAB","level":"info","service":"user-service"}
-{"message":"Lost Player -wsU2Z6aIdQXn4kqAAAF","level":"info","service":"user-service"}
-{"message":"Lost Player oK8vQYCDoaPBYlVzAAAL","level":"info","service":"user-service"}
-{"message":"Lost Player AEFmpQRMmIx0g8fJAAAX","level":"info","service":"user-service"}
-{"message":"Lost Player imdWM0uwB5FPKrWkAAAh","level":"info","service":"user-service"}
-{"message":"Lost Player HviD3CG2ZbuoQ-e4AAAj","level":"info","service":"user-service"}
-{"message":"Lost Player R6c8dv_SUxb-spbfAAAl","level":"info","service":"user-service"}
-{"message":"Lost Player VkRGd5rtzK-RhX0pAAAp","level":"info","service":"user-service"}
 {"message":"listening on localhost:8080","level":"info","service":"user-service"}
-{"message":"Lost Player XJ0ZEQrA6cY1hkO4AAAB","level":"info","service":"user-service"}
-{"message":"Lost Player YefZWb7jJPJECp_pAAAH","level":"info","service":"user-service"}
-{"message":"Lost Player UNzuOBZp9U5cmb17AAAJ","level":"info","service":"user-service"}
-{"message":"Lost Player FvABMW9C7hJvzgAmAAAL","level":"info","service":"user-service"}
-{"message":"Lost Player 9E-jFipOfe_d9R-qAAAN","level":"info","service":"user-service"}
-{"message":"Lost Player jUMFk9OO6egPKJqqAAAP","level":"info","service":"user-service"}
+{"message":"listening on localhost:8080","level":"info","service":"user-service"}
+{"message":"Error: > Couldn't find a `pages` directory. Please create one under the project root\n    at findPagesDir (/Users/year12/Desktop/Harvey/alevel_2020-2021/node_modules/next/dist/lib/find-pages-dir.js:3:170)\n    at new DevServer (/Users/year12/Desktop/Harvey/alevel_2020-2021/node_modules/next/dist/server/next-dev-server.js:1:4406)\n    at NextServer.createServer (/Users/year12/Desktop/Harvey/alevel_2020-2021/node_modules/next/dist/server/next.js:1:2714)\n    at /Users/year12/Desktop/Harvey/alevel_2020-2021/node_modules/next/dist/server/next.js:1:3143\n    at async NextServer.prepare (/Users/year12/Desktop/Harvey/alevel_2020-2021/node_modules/next/dist/server/next.js:1:2495)","level":"info","service":"user-service"}
+{"message":"Error: > Couldn't find a `pages` directory. Please create one under the project root\n    at findPagesDir (/Users/year12/Desktop/Harvey/alevel_2020-2021/node_modules/next/dist/lib/find-pages-dir.js:3:170)\n    at new DevServer (/Users/year12/Desktop/Harvey/alevel_2020-2021/node_modules/next/dist/server/next-dev-server.js:1:4406)\n    at NextServer.createServer (/Users/year12/Desktop/Harvey/alevel_2020-2021/node_modules/next/dist/server/next.js:1:2714)\n    at /Users/year12/Desktop/Harvey/alevel_2020-2021/node_modules/next/dist/server/next.js:1:3143\n    at async NextServer.prepare (/Users/year12/Desktop/Harvey/alevel_2020-2021/node_modules/next/dist/server/next.js:1:2495)","level":"info","service":"user-service"}
+{"message":"listening on localhost:8080","level":"info","service":"user-service"}
+{"message":"listening on localhost:8080","level":"info","service":"user-service"}
+{"message":"listening on localhost:8080","level":"info","service":"user-service"}
+{"message":"listening on localhost:8080","level":"info","service":"user-service"}
+{"message":"listening on localhost:8080","level":"info","service":"user-service"}
+{"message":"listening on localhost:8080","level":"info","service":"user-service"}

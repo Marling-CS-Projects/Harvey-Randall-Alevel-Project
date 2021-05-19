@@ -1,0 +1,77 @@
+Date : 2021-05-17 10:09:30
+Directory : /Users/year12/Desktop/Harvey/Alevel_2020-2021
+Total : 35 files,  4776 codes, 144 comments, 297 blanks, all 5217 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |          2 |      3,104 |          0 |          2 |      3,106 |
+| JavaScript |         27 |      1,483 |        144 |        256 |      1,883 |
+| CSS        |          2 |        139 |          0 |         22 |        161 |
+| Log        |          2 |         26 |          0 |          2 |         28 |
+| Markdown   |          1 |         20 |          0 |         15 |         35 |
+| XML        |          1 |          4 |          0 |          0 |          4 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                        | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                           |         35 |      4,776 |        144 |        297 |      5,217 |
+| components                                                                                                  |         20 |      1,046 |        131 |        180 |      1,357 |
+| components/Algorithms                                                                                       |          3 |        245 |         14 |         10 |        269 |
+| components/Context                                                                                          |          1 |         12 |          0 |          4 |         16 |
+| components/Core-API                                                                                         |          4 |        117 |         41 |         30 |        188 |
+| components/gameFundalmentals                                                                                |         11 |        661 |         73 |        133 |        867 |
+| components/gameFundalmentals/multiplayer                                                                    |          1 |         39 |          4 |          6 |         49 |
+| components/gameFundalmentals/planeHandler                                                                   |          1 |          0 |          0 |          1 |          1 |
+| components/gameUI                                                                                           |          1 |         11 |          3 |          3 |         17 |
+| pages                                                                                                       |          5 |        311 |          4 |         59 |        374 |
+| pages/api                                                                                                   |          1 |          3 |          1 |          2 |          6 |
+| public                                                                                                      |          1 |          4 |          0 |          0 |          4 |
+| server                                                                                                      |          1 |         23 |          0 |          2 |         25 |
+| styles                                                                                                      |          2 |        139 |          0 |         22 |        161 |
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                    | language   | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/README.md                                                     | Markdown   |         20 |          0 |         15 |         35 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/combined.log                                                  | Log        |         26 |          0 |          1 |         27 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/components/Algorithms/LinkedItem.js                           | JavaScript |         38 |          0 |          7 |         45 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/components/Algorithms/LinkedList.js                           | JavaScript |        127 |         13 |          1 |        141 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/components/Algorithms/PriorityQueue.js                        | JavaScript |         80 |          1 |          2 |         83 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/components/Context/socketioContext.js                         | JavaScript |         12 |          0 |          4 |         16 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/components/Core-API/ConnectAPI.js                             | JavaScript |         69 |         28 |         13 |        110 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/components/Core-API/LightingManager.js                        | JavaScript |         13 |          4 |          6 |         23 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/components/Core-API/RenderingHandler.js                       | JavaScript |         23 |          1 |          5 |         29 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/components/Core-API/gemotryManager.js                         | JavaScript |         12 |          8 |          6 |         26 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/components/gameFundalmentals/DayNightCycle.js                 | JavaScript |        140 |         14 |         11 |        165 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/components/gameFundalmentals/MainSceneHandler.js              | JavaScript |         66 |          6 |         10 |         82 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/components/gameFundalmentals/ProceduleTerrain.js              | JavaScript |         44 |         12 |         10 |         66 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/components/gameFundalmentals/clouds.js                        | JavaScript |         76 |          2 |         15 |         93 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/components/gameFundalmentals/controls.js                      | JavaScript |         93 |          3 |          6 |        102 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/components/gameFundalmentals/multiplayer/MainPlayerHandler.js | JavaScript |         39 |          4 |          6 |         49 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/components/gameFundalmentals/nametag.js                       | JavaScript |         40 |          9 |         12 |         61 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/components/gameFundalmentals/planeHandler/MainPlane.js        | JavaScript |          0 |          0 |          1 |          1 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/components/gameFundalmentals/rotateAroundPoint.js             | JavaScript |         14 |          0 |          5 |         19 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/components/gameFundalmentals/sky.js                           | JavaScript |        128 |         23 |         49 |        200 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/components/gameFundalmentals/stars.js                         | JavaScript |         21 |          0 |          8 |         29 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/components/gameUI/gameFeed.js                                 | JavaScript |         11 |          3 |          3 |         17 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/error.log                                                     | Log        |          0 |          0 |          1 |          1 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/index.js                                                      | JavaScript |        103 |          9 |         15 |        127 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/package-lock.json                                             | JSON       |      3,075 |          0 |          1 |      3,076 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/package.json                                                  | JSON       |         29 |          0 |          1 |         30 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/pages/_app.js                                                 | JavaScript |         10 |          0 |          3 |         13 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/pages/api/hello.js                                            | JavaScript |          3 |          1 |          2 |          6 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/pages/cube.js                                                 | JavaScript |         44 |          1 |         13 |         58 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/pages/index.js                                                | JavaScript |         68 |          0 |          9 |         77 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/pages/test.js                                                 | JavaScript |        186 |          2 |         32 |        220 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/public/vercel.svg                                             | XML        |          4 |          0 |          0 |          4 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/server/setupLogger.js                                         | JavaScript |         23 |          0 |          2 |         25 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/styles/Home.module.css                                        | CSS        |        114 |          0 |         18 |        132 |
+| /Users/year12/Desktop/Harvey/Alevel_2020-2021/styles/globals.css                                            | CSS        |         25 |          0 |          4 |         29 |
+| Total                                                                                                       |            |      4,776 |        144 |        297 |      5,217 |
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

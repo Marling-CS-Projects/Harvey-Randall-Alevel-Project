@@ -1,10 +1,13 @@
-const express = require("express");
-const next = require("next");
-const { Server } = require("socket.io");
-const logger = require("./server/setupLogger")();
 
-const dev = process.env.DevOn === "false" ? false : true || true;
-const apps = next({ dev });
+import { TestApp } from "./server/setupMultiplayer";
+import express from "express"
+
+const next = require("next");
+import { Server } from "socket.io"
+import { SetupLogger } from "./server/setupLogger";
+
+const dev = process.env.DevOn === "false" ? false : true;
+const apps = next({ dev , dir:"."});
 const handle = apps.getRequestHandler();
 
 const http = require("http");
@@ -20,7 +23,17 @@ let games = [
         timeOfDay: 0,
     },
 ];
-let connectedClients = [];
+let connectedClients:{
+    id: String,
+    color:  String,
+    name: String,
+    lastUpdate: Number,
+    pos: { x: Number, y: Number, z: Number},
+    rot: { _x: Number, _y: Number, _z: Number },
+}[] = [];
+
+TestApp()
+let logger = SetupLogger()
 
 apps.prepare()
     .then(async () => {
@@ -39,25 +52,25 @@ apps.prepare()
                 pos: { x: 0, y: 0, z: 0 },
                 rot: { _x: 0, _y: 0, _z: 0 },
             };
-            connectedClients[socket.id] = data;
+            connectedClients[Number(socket.id)] = data;
             io.emit("NewPlayer", socket.id, data);
             io.to(socket.id).emit("welcome", seed, connectedClients, data);
 
-            socket.on("LocationUpdate", (pos, rot) => {
-                if (typeof connectedClients[socket.id] !== "undefined") {
-                    connectedClients[socket.id].lastUpdate = Date.now();
+            socket.on("LocationUpdate", (pos:{}, rot:{}) => {
+                if (typeof connectedClients[Number(socket.id)] !== "undefined") {
+                    connectedClients[Number(socket.id)].lastUpdate = Date.now();
                     socket.broadcast.emit(
                         "PlayerLocationUpdate",
                         socket.id,
                         pos,
                         rot,
-                        connectedClients[socket.id]
+                        connectedClients[Number(socket.id)]
                     );
                 }
             });
 
-            socket.on("sendChat", (data) => {
-                io.emit("NewChat", connectedClients[socket.id], data);
+            socket.on("sendChat", (data:String) => {
+                io.emit("NewChat", connectedClients[Number(socket.id)], data);
             });
 
             socket.on("disconnect", () => {
@@ -65,41 +78,33 @@ apps.prepare()
                     "LostPLayer",
                     socket.id,
                     false,
-                    connectedClients[socket.id]
+                    connectedClients[Number(socket.id)]
                 );
-                delete connectedClients[socket.id];
+                delete connectedClients[Number(socket.id)];
             });
 
             let iid = setInterval(function () {
-                if (typeof connectedClients[socket.id] === "undefined") {
+                if (typeof connectedClients[Number(socket.id)] === "undefined") {
                     clearInterval(iid);
                     return;
                 }
                 if (
-                    connectedClients[socket.id].lastUpdate <
+                    connectedClients[Number(socket.id)].lastUpdate <
                     Date.now() - 5000
                 ) {
                     io.emit(
                         "LostPLayer",
                         socket.id,
                         true,
-                        connectedClients[socket.id]
+                        connectedClients[Number(socket.id)]
                     );
                     logger.info(`Lost Player ${socket.id}`);
-                    delete connectedClients[socket.id];
+                    delete connectedClients[Number(socket.id)];
                     io.to(socket.id).emit("Disconencted", true);
                     clearInterval(iid);
                 }
             }, 2000);
 
-            /*while (connectedClients[socket.id] !== undefined) {
-                if (connectedClients[socket.id].lastUpdate < Date.now() - 10000) {
-                   
-                    delete connectedClients[socket.id]
-                    io.to(socket.id).emit("Disconencted", true)
-                    io.emit("LostPLayer", socket.id)
-                }
-            }*/
         });
 
         /*eslint complexity: ["error", 20]*/
@@ -120,7 +125,9 @@ apps.prepare()
             logger.info("listening on localhost:" + _PORT);
         });
     })
-    .catch((ex) => {
+    .catch((ex:{stack:String}) => {
         logger.info(ex.stack);
         process.exit(1);
     });
+
+
