@@ -58,7 +58,7 @@ export function generateTerrain(seed, SceneToGet) {
         "color",
         new BufferAttribute(new Float32Array(colours), 3)
     );
-    geometry.computeVertexNormals();
+    //geometry.computeVertexNormals();
 
     //------------[Add to Base Scene]------------\\
     SceneToGet.add(plane2);
