@@ -12,15 +12,16 @@ import {
     PlaneGeometry,
     Vector3,
 } from "three";
-import { GenerateClouds } from "./clouds";
-import { controlHandlerInit, controlHandlerUpdate } from "./controls";
-import { CreateDayNightCycle } from "./DayNightCycle";
-import { generateTerrain } from "./ProceduleTerrain";
-//import { ImportOBJ } from "../Core-API/OBJHandler"
+import { GenerateClouds } from "../gameFundalmentals/clouds";
+import { controlHandlerInit, controlHandlerUpdate } from "../gameFundalmentals/controls";
+import { CreateDayNightCycle } from "../gameFundalmentals/DayNightCycle";
+import { generateTerrain } from "../gameFundalmentals/ProceduleTerrain";
+import { addGLBFile } from "../Core-API/3dModelHandlers/GLBLoader";
+import { MakePlane } from "../gameFundalmentals/planeHandler/MainPlane";
 
 let debug = true;
 
-export function generateMainScene(
+export async function generateMainScene(
     SceneToGet,
     Renders,
     document,
@@ -63,7 +64,7 @@ export function generateMainScene(
         SceneToGet.add(gridHelper);
     }
 
-    //ImportOBJ("Airplane", SceneToGet)
+    MakePlane(SceneToGet)
 
     // Add all updating parts to a function
     addToRenderSequence(

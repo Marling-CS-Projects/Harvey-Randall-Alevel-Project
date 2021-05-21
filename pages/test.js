@@ -12,7 +12,7 @@ import {
     listenToEvent,
 } from "../components/Core-API/ConnectAPI";
 import { updateRenderCycle } from "../components/Core-API/RenderingHandler";
-import { generateMainScene } from "../components/gameFundalmentals/MainSceneHandler";
+import { generateMainScene } from "../components/Scenes/MainSceneHandler";
 import { CreateUI } from "../components/gameUI/gameFeed";
 
 export default function render() {
@@ -21,7 +21,7 @@ export default function render() {
 
     const [day, setDay] = useState("not day");
     const [child2, setChild2] = useState();
-    const socket = useAppContext();
+    const socket = useAppContext();;
     const [recievedSeed, setSeed] = useState();
     const [rendered, setRendered] = useState(false);
     const [clients, setClients] = useState([]);

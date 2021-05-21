@@ -12,7 +12,7 @@ newmtl airplane
 	Kd 0.8000 0.8000 0.8000
 	Ks 1.0000 1.0000 1.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka C:\Users\user\Desktop\Airplane\textures\diffuse.dds
-	map_Kd C:\Users\user\Desktop\Airplane\textures\diffuse.dds
-	map_bump C:\Users\user\Desktop\Airplane\textures\normal.png
-	bump C:\Users\user\Desktop\Airplane\textures\normal.png
+	map_Ka .textures\diffuse.dds
+	map_Kd .\textures\diffuse.dds
+	map_bump .\normal.png
+	bump C.\normal.png
