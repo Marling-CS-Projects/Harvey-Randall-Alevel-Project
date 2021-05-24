@@ -64,7 +64,6 @@ export async function generateMainScene(
         SceneToGet.add(gridHelper);
     }
 
-    MakePlane(SceneToGet)
 
     // Add all updating parts to a function
     addToRenderSequence(
@@ -76,6 +75,9 @@ export async function generateMainScene(
         },
         true
     );
+    let newPlane = new MakePlane(SceneToGet)
+    await newPlane.loadFiles()
+    newPlane.CreateGroupAndPos()
 
     addToRenderSequence("Main", () => controlHandlerUpdate(Camera));
     addToRenderSequence("Main", () => daynight.update());

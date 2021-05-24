@@ -42,11 +42,11 @@ export function generateTerrain(seed, SceneToGet) {
     var material = new MeshPhongMaterial({
         vertexColors: colours,
         reflectivity: 0,
-        roughness: 2,
+        roughness: 1,
         flatShading: true,
     });
 
-    //------------[Create MEsh]------------\\
+    //------------[Create Mesh]------------\\
     var plane2 = new Mesh(geometry, material);
     plane2.receiveShadow = true;
     plane2.castShadow = true;

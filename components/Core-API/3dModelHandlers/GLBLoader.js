@@ -8,8 +8,6 @@ export async function addGLBFile(item, scene) {
             item,
             // called when the resource is loaded
             function (gltf) {
-                scene.add(gltf.scene);
-
                 gltf.animations;
                 gltf.scene;
                 gltf.scenes;

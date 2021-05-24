@@ -1,0 +1,14 @@
+# Blender MTL File: 'PLane.blend'
+# Material Count: 1
+
+newmtl airplane
+Ns 63.219297
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Bump /Users/year12/Desktop/Harvey/alevel_2020-2021/public/Airplane/normal.png
+map_Kd /Users/year12/Desktop/Harvey/alevel_2020-2021/public/Airplane/textures/diffuse.dds

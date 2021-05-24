@@ -7,7 +7,7 @@ function checkType(type) {
     }
 }
 
-export function addToRenderSequence(type, callback, newType = false) {
+export function addToRenderSequence(type, callback, newType = false, val) {
     if (newType) {
         renderingList[`${type}`] = [];
     }
