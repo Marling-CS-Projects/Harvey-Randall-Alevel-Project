@@ -14,6 +14,7 @@ import {
 import { updateRenderCycle } from "../components/Core-API/RenderingHandler";
 import { generateMainScene } from "../components/Scenes/MainSceneHandler";
 import { CreateUI } from "../components/gameUI/gameFeed";
+import { ControlEventListener } from "../components/gameFundalmentals/controls";
 
 export default function render() {
     const [child, setChild] = useState();
@@ -67,7 +68,7 @@ export default function render() {
             75,
             window.innerWidth / window.innerHeight,
             0.1,
-            1000
+            1000 / 0.05
         );
         generateMainScene(
             SceneToGet,
@@ -79,6 +80,7 @@ export default function render() {
         );
 
         Renders.domElement.requestPointerLock();
+        ControlEventListener(document, child2)
 
         let players = [];
 

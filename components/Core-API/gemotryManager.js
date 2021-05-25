@@ -1,5 +1,5 @@
 // Written By Harvey Randall \\
-import { Mesh } from "three";
+import { BoxGeometry, Mesh, MeshBasicMaterial } from "three";
 import * as three from "three";
 let GameCoreShadows = true; // TODO add to GUI
 
@@ -22,4 +22,11 @@ export function createGeo(type, data, pos, rot, mat, shadow) {
 
     //Return Mesh
     return mesh;
+}
+
+export function debugCube(){
+    const geometry = new BoxGeometry( 10, 10, 10 );
+    const material = new MeshBasicMaterial( {color: 0x00ff00} );
+    const cube = new Mesh( geometry, material );
+    return cube
 }

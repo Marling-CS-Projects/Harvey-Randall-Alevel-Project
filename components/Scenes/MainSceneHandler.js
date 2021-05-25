@@ -16,8 +16,8 @@ import { GenerateClouds } from "../gameFundalmentals/clouds";
 import { controlHandlerInit, controlHandlerUpdate } from "../gameFundalmentals/controls";
 import { CreateDayNightCycle } from "../gameFundalmentals/DayNightCycle";
 import { generateTerrain } from "../gameFundalmentals/ProceduleTerrain";
-import { addGLBFile } from "../Core-API/3dModelHandlers/GLBLoader";
 import { MakePlane } from "../gameFundalmentals/planeHandler/MainPlane";
+import { GenerateTrees } from "../gameFundalmentals/staticAssets/treeBuilder";
 
 let debug = true;
 
@@ -78,7 +78,10 @@ export async function generateMainScene(
     let newPlane = new MakePlane(SceneToGet)
     await newPlane.loadFiles()
     newPlane.CreateGroupAndPos()
+    newPlane.attachCameraAndControl(Camera)
 
-    addToRenderSequence("Main", () => controlHandlerUpdate(Camera));
+    GenerateTrees(50, SceneToGet)
+
+    //addToRenderSequence("Main", () => controlHandlerUpdate(Camera));
     addToRenderSequence("Main", () => daynight.update());
 }

@@ -34,6 +34,7 @@
     "stats.js": "^0.17.0",
     "three": "^0.127.0",
     "troika-three-text": "^0.41.1",
+    "uuid": "^8.3.2",
     "winston": "^3.3.3"
   },
   "devDependencies": {

@@ -1,6 +1,7 @@
 // Written By Harvey Randall \\
 
 import { Vector3 } from "three";
+import { v4 } from "uuid";
 let [w, a, s, d, up, down, e, q, shift] = [
     false,
     false,
@@ -99,3 +100,79 @@ export function controlHandlerUpdate(Camera) {
     }
 }
 
+
+let listeningHooks = {};
+export function ControlEventListener(ocument, child2) {
+    let [wKey, aKey, sKey, dKey, upKey, downKey, eKey, qKey, shiftKey] = [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+    ];
+
+    function onDocumentKeyDownEvent(event, val) {
+        if (child2 === document.activeElement) {
+            return;
+        }
+        var keyCode = event.which;
+        if (keyCode === 87) {
+            wKey = val;
+        }
+        if (keyCode === 83) {
+            sKey = val;
+        }
+        if (keyCode === 65) {
+            aKey = val;
+        }
+        if (keyCode === 68) {
+            dKey = val;
+        }
+        if (keyCode === 38) {
+            upKey = val;
+        }
+        if (keyCode === 40) {
+            downKey = val;
+        }
+        if (keyCode === 69) {
+            eKey = val;
+        }
+        if (keyCode === 81) {
+            qKey = val;
+        }
+        if (keyCode === 16) {
+            shiftKey = val ? 0.5 : 1;
+        }
+        for (const [key, value] of Object.entries(listeningHooks)) {
+            value({wKey, aKey, sKey, dKey, upKey, downKey, eKey, qKey, shiftKey})
+        }
+    }
+
+    document.addEventListener(
+        "keydown",
+        (e) => {
+            onDocumentKeyDownEvent(e, true);
+        },
+        false
+    );
+    document.addEventListener(
+        "keyup",
+        (e) => {
+            onDocumentKeyDownEvent(e, false);
+        },
+        false
+    );
+}
+
+export function listenToConrols(arg) {
+    let uuid = v4();
+    listeningHooks[uuid] = arg;
+    return uuid;
+}
+export function CleanUpListener(uuid) {
+    delete listeningHooks[uuid];
+}
