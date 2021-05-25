@@ -6,18 +6,18 @@
 This is a project written in javascript and typescript, using react, nextjs, expressjs, nodejs, babel, threejs and cannon-es. The aim is to create a working flight simulator inside a web browser which works on lots of different devices including mobile.
 
 ## Current Cycle : Cycle 4 -  Working Planes
-### Check List:
+### Current Check List:
 - [ ] Add basic cannon-es to the three-js world with gravity
-- [ - ] Fix the .glb handler so it works in nextjs
-- [ - ] Create a class system for handling all aspects of the plane
-- [ - ] Use an existing plane model and split the propeller away from the model
-- [ - ] Cut out holes in the wings, vertical stabilizer and on the elevators
-- [ - ] Add basic velocity to the plane using keyboard control
-- [ - ] Fix the camera to the tail of the plane and update each frame with render handler
+- [ ] Fix the .glb handler so it works in nextjs
+- [x] Create a class system for handling all aspects of the plane
+- [x] Use an existing plane model and split the propeller away from the model
+- [x] Cut out holes in the wings, vertical stabilizer and on the elevators
+- [x] Add basic velocity to the plane using keyboard control
+- [x] Fix the camera to the tail of the plane and update each frame with render handler
 - [ ] Setup the wheels as cannon-es wheels so the plane can roll
 - [ ] Add basic friction to the wheels
-- [ - ] Make the control surfaces a separate .glb file
-- [-] Position and animate the control surface depending on keyboard input
+- [x] Make the control surfaces a separate .glb file
+- [x] Position and animate the control surface depending on keyboard input
 
 ## Building and running
 This project is a mix of Javascript and Tyescript, to run the project in its current state simply use:
