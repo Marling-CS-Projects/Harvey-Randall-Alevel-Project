@@ -17,7 +17,7 @@ This is a project written in javascript and typescript, using react, nextjs, exp
 - [ ] Setup the wheels as cannon-es wheels so the plane can roll
 - [ ] Add basic friction to the wheels
 - [ - ] Make the control surfaces a separate .glb file
-- [ - ] Position and animate the control surface depending on keyboard input
+- [-] Position and animate the control surface depending on keyboard input
 
 ## Building and running
 This project is a mix of Javascript and Tyescript, to run the project in its current state simply use:
