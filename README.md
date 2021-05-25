@@ -1,8 +1,3 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
 
 # Harvey Randall - Alevel Project 2021
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/9419d194c3d64f5f93f88af1a2b8739a)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Gerald12344/Rovolution&amp;utm_campaign=Badge_Grade)
