@@ -15,9 +15,8 @@ import {
 import { GenerateClouds } from "../gameFundalmentals/clouds";
 import { controlHandlerInit, controlHandlerUpdate } from "../gameFundalmentals/controls";
 import { CreateDayNightCycle } from "../gameFundalmentals/DayNightCycle";
-import { generateTerrain } from "../gameFundalmentals/ProceduleTerrain";
 import { MakePlane } from "../gameFundalmentals/planeHandler/MainPlane";
-import { GenerateTrees } from "../gameFundalmentals/staticAssets/treeBuilder";
+import { generateTerrainAroundPlayer } from "../gameFundalmentals/TerrainManagement/terrainChunkriser";
 
 let debug = true;
 
@@ -46,7 +45,7 @@ export async function generateMainScene(
     }
 
     let daynight = new CreateDayNightCycle(SceneToGet, Renders);
-    generateTerrain(seed, SceneToGet);
+    //generateTerrain(seed, SceneToGet);
     controlHandlerInit(document, child2);
 
     if (debug) {
@@ -80,7 +79,7 @@ export async function generateMainScene(
     newPlane.CreateGroupAndPos()
     newPlane.attachCameraAndControl(Camera)
 
-    GenerateTrees(10000, SceneToGet, new Vector3(-500,-500,-500), new Vector3(500,500,500), seed)
+    generateTerrainAroundPlayer(seed, Camera, SceneToGet)
 
     //addToRenderSequence("Main", () => controlHandlerUpdate(Camera));
     addToRenderSequence("Main", () => daynight.update());

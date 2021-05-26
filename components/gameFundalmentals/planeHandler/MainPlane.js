@@ -13,6 +13,7 @@ export class MakePlane {
         this.speed = 0;
         this.elevatorPitch = 0;
         this.airelonePitch = 0;
+        this.rudderPitch = 0;
     }
 
     async loadFiles() {
@@ -83,6 +84,7 @@ export class MakePlane {
 
         let currentEvelatorPitch = 0;
         let airelonePitch = 0;
+        let rudderPitch = 0;
         addToRenderSequence(
             "Main",
             () => {
@@ -121,6 +123,18 @@ export class MakePlane {
                     //if(this.speed < 0.4)return
                     this.group.rotateZ(-airelonePitch / 50* (this.speed));
                 }
+
+                if (rudderPitch < this.rudderPitch) {
+                    this.rudder.scene.rotateY(-0.01);
+                    rudderPitch += 0.01;
+                    //if(this.speed < 0.4)return
+                    this.group.rotateY(rudderPitch / 50* (this.speed));
+                } else if (rudderPitch > this.rudderPitch) {
+                    this.rudder.scene.rotateY(0.01);
+                    rudderPitch -= 0.01;
+                    //if(this.speed < 0.4)return
+                    this.group.rotateY(rudderPitch / 50* (this.speed));
+                }
             },
             false
         );
@@ -139,13 +153,15 @@ export class MakePlane {
                 eKey,
                 qKey,
                 shiftKey,
+                zKey,
+                xKey
             }) => {
-                if (eKey) {
+                if (zKey) {
                     if (this.speed < 3) {
                         this.speed += 0.01;
                     }
                 }
-                if (qKey) {
+                if (xKey) {
                     if (this.speed > 0) {
                         this.speed -= 0.01;
                     }
@@ -157,6 +173,13 @@ export class MakePlane {
                 } else {
                     this.elevatorPitch = 0;
                 }
+                if (qKey) {
+                    this.rudderPitch = 0.3;
+                } else if (eKey) {
+                    this.rudderPitch = -0.3;
+                } else {
+                    this.rudderPitch = 0;
+                }
 
                 if (aKey) {
                     this.airelonePitch = 0.5;
@@ -166,6 +189,7 @@ export class MakePlane {
                     this.airelonePitch = 0;
                 }
             }
+
         );
         this.group.add(Camera);
         Camera.position.set(0, 40, -100);

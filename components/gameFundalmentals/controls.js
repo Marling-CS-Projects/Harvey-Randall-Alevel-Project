@@ -103,7 +103,9 @@ export function controlHandlerUpdate(Camera) {
 
 let listeningHooks = {};
 export function ControlEventListener(ocument, child2) {
-    let [wKey, aKey, sKey, dKey, upKey, downKey, eKey, qKey, shiftKey] = [
+    let [wKey, aKey, sKey, dKey, upKey, downKey, eKey, qKey, shiftKey, zKey, xKey] = [
+        false,
+        false,
         false,
         false,
         false,
@@ -144,11 +146,17 @@ export function ControlEventListener(ocument, child2) {
         if (keyCode === 81) {
             qKey = val;
         }
+        if (keyCode === 88) {
+            zKey = val;
+        }
+        if (keyCode === 90) {
+            xKey = val;
+        }
         if (keyCode === 16) {
             shiftKey = val ? 0.5 : 1;
         }
         for (const [key, value] of Object.entries(listeningHooks)) {
-            value({wKey, aKey, sKey, dKey, upKey, downKey, eKey, qKey, shiftKey})
+            value({wKey, aKey, sKey, dKey, upKey, downKey, eKey, qKey, shiftKey, zKey, xKey})
         }
     }
 
