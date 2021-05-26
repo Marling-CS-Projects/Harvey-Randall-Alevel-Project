@@ -80,7 +80,7 @@ export async function generateMainScene(
     newPlane.CreateGroupAndPos()
     newPlane.attachCameraAndControl(Camera)
 
-    GenerateTrees(50, SceneToGet)
+    GenerateTrees(10000, SceneToGet, new Vector3(-500,-500,-500), new Vector3(500,500,500), seed)
 
     //addToRenderSequence("Main", () => controlHandlerUpdate(Camera));
     addToRenderSequence("Main", () => daynight.update());

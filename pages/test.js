@@ -3,7 +3,7 @@
 import { useEffect, useState, useContext } from "react";
 import * as THREE from "three";
 import React from 'react'
-import { PerspectiveCamera, Scene, WebGLRenderer } from "three";
+import { PerspectiveCamera, Scene, Vector3, WebGLRenderer } from "three";
 var Stats = require("stats.js");
 import { useAppContext } from "../components/Context/socketioContext";
 import { generateLabel } from "../components/gameFundalmentals/nametag";
@@ -158,7 +158,9 @@ export default function render() {
             addtoGameFeed(data.name, text);
         });
         setInterval(() => {
-            socket.emit("LocationUpdate", Camera.position, Camera.rotation);
+            let vector = new Vector3()
+            Camera.getWorldPosition(vector)
+            socket.emit("LocationUpdate", vector, Camera.rotation);
         }, 10);
 
         var animate = function () {

@@ -8,6 +8,12 @@ import {
 } from "three";
 var SimplexNoise = require("simplex-noise");
 
+let currentTerrain;
+
+export function ReturnTerrainPointer(){
+    return currentTerrain;
+}
+
 /*eslint complexity: ["error", 20]*/
 export function generateTerrain(seed, SceneToGet) {
     //------------[MAIN FUNCTION VARIABLES]------------\\
@@ -61,5 +67,7 @@ export function generateTerrain(seed, SceneToGet) {
     //geometry.computeVertexNormals();
 
     //------------[Add to Base Scene]------------\\
+    currentTerrain = plane2
+    plane2.name = "MAIN_TERRAIN"
     SceneToGet.add(plane2);
 }
