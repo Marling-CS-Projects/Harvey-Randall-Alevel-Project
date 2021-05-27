@@ -3,10 +3,10 @@ import { roundnum } from "../../Algorithms/MathUtils";
 import { generateTerrainChunk } from "../ProceduleTerrain";
 import { GenerateTrees } from "../staticAssets/treeBuilder";
 
-let loadedChunks = {}
-let chunksInMem = {}
 
 export function generateTerrainAroundPlayer(seed, camera, scene) {
+    let loadedChunks = {}
+    let chunksInMem = {}
     setInterval(() => {
         let vector = new Vector3();
         camera.getWorldPosition(vector);
@@ -19,16 +19,14 @@ export function generateTerrainAroundPlayer(seed, camera, scene) {
         if(ChunkYourIn.y === -0){
             ChunkYourIn.y = 0
         }
-        if(loadedChunks[`${ChunkYourIn.x}`] !== undefined && loadedChunks[`${ChunkYourIn.x}`][`${ChunkYourIn.y}`] === true){
+        if(loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`] !== undefined && loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`] === true){
             console.log('exists', ChunkYourIn.x, ChunkYourIn.y)
         }else{
-            console.log('Generating, ', ChunkYourIn.x, ChunkYourIn.y, loadedChunks[`${ChunkYourIn.x}`]?.[`${ChunkYourIn.y}`])
-            loadedChunks[`${ChunkYourIn.x}`] = {}
-            loadedChunks[`${ChunkYourIn.x}`][`${ChunkYourIn.y}`] = true
+            console.log('Generating, ', ChunkYourIn.x, ChunkYourIn.y, loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`])
+            loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`]= true
             let chunk = generateTerrainChunk(seed, ChunkYourIn, 30);
             GenerateTrees(300, scene, new Vector3(ChunkYourIn.x-250, 250,ChunkYourIn.y-250), new Vector3(ChunkYourIn.x+250,250,ChunkYourIn.y+250), chunk)
-            chunksInMem[`${ChunkYourIn.x}`] = {}
-            chunksInMem[`${ChunkYourIn.x}`][`${ChunkYourIn.y}`] = chunk
+            chunksInMem[`${ChunkYourIn.x}:${ChunkYourIn.y}`] = chunk
             scene.add(chunk)
         }
         //let chunk = generateTerrainChunk(seed, camera, 30);

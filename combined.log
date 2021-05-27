@@ -428,3 +428,4 @@
 {"message":"Lost Player MxZO1sST5Y8xeTfSAADJ","level":"info","service":"user-service"}
 {"message":"Lost Player IWB4QQnKOtNXLZl9AADL","level":"info","service":"user-service"}
 {"message":"Lost Player mD9hKgWGJoPT-t-mAADN","level":"info","service":"user-service"}
+{"message":"listening on localhost:8080","level":"info","service":"user-service"}
