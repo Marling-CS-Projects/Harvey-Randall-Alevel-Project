@@ -16,12 +16,31 @@ import {
 } from "../Core-API/LightingManager";
 import { getRandomStarField } from "./stars";
 import { rotateAboutPoint } from "./rotateAroundPoint";
+import { v4 } from "uuid";
+
+let recieveDaytimeUpdate = {};
+
+let day = true
+export function addtoDayTimeChecker(arg) {
+    let UUID = v4();
+    recieveDaytimeUpdate[UUID] = arg;
+    return UUID;
+}
+export function removeFromDayTimeHook(UUID) {
+    delete recieveDaytimeUpdate[UUID];
+}
+export function getDayState(){
+    return day
+}
 
 export class CreateDayNightCycle {
     constructor(SceneToGet, Renders) {
         // ---------- [Two to level global variables] ---------- \\
         this.SceneToGet = SceneToGet;
         this.Renders = Renders;
+
+        this.announcedDay = false;
+        this.announcedNight = false;
 
         // ---------- [Create Sun Mesh] ---------- \\
         let sun = new SphereBufferGeometry(20, 20, 100, 100);
@@ -115,6 +134,8 @@ export class CreateDayNightCycle {
 
         // ---------- [If it is day] ---------- \\
         if (angle < 40 && this.dTIme < 1) {
+            day = true
+
             this.t = 0;
             this.directionalLight.color = new Color("#ddffee");
             this.dTIme += 0.003;
@@ -136,6 +157,8 @@ export class CreateDayNightCycle {
             this.SceneToGet.remove(this.sky);
         } else if (!(angle < 40) && this.sky.parent !== this.SceneToGet) {
             // ---------- [If it is night] ---------- \\
+            day = false
+
             this.dTIme = 0;
 
             this.t += 0.01;
@@ -157,7 +180,7 @@ export class CreateDayNightCycle {
             this.directionalLight2.intensity = 0.2;
         }
         if (this.sky.parent === this.SceneToGet) {
-            this.sky.rotation.x -= 4/10000;
+            this.sky.rotation.x -= 4 / 10000;
         }
         this.cube.rotateOnAxis(new Vector3(1, 0, 0), theta);
     }

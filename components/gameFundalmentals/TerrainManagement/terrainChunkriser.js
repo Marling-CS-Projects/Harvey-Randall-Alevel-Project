@@ -10,8 +10,6 @@ export function generateTerrainAroundPlayer(seed, camera, scene) {
     setInterval(() => {
         let vector = new Vector3();
         camera.getWorldPosition(vector);
-        console.log(loadedChunks)
-
         let ChunkYourIn  = new Vector2(roundnum(vector.x, 500), roundnum(vector.z, 500))
         if(ChunkYourIn.x === -0){
             ChunkYourIn.x = 0
@@ -20,7 +18,7 @@ export function generateTerrainAroundPlayer(seed, camera, scene) {
             ChunkYourIn.y = 0
         }
         if(loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`] !== undefined && loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`] === true){
-            console.log('exists', ChunkYourIn.x, ChunkYourIn.y)
+            //console.log('exists', ChunkYourIn.x, ChunkYourIn.y)
         }else{
             console.log('Generating, ', ChunkYourIn.x, ChunkYourIn.y, loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`])
             loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`]= true

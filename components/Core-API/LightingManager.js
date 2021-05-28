@@ -1,6 +1,6 @@
 // Written By Harvey Randall \\
 
-import { AmbientLight, DirectionalLight } from "three";
+import { AmbientLight, DirectionalLight, PointLight } from "three";
 
 export function createDirectionalLight(Scene, color, brightness, pos) {
   // ---------- [Simple Directional Light Manager] ---------- \\
@@ -20,3 +20,9 @@ export function createAmbientLight(Scene, color, brightness) {
   Scene.add(light);
   return light;
 }
+
+export function createPointLight(color, brightness, pos, intensity){
+  const PointLightNew = new PointLight(color, brightness, intensity)
+  PointLightNew.position.set(...pos)
+  return PointLightNew
+} 

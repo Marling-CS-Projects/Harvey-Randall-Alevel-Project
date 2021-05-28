@@ -92,7 +92,7 @@ export function addDataToQueue(event, data, callback, prority = 1) {
   Queue.push({ prority, input: [event, data, callback] });
 }
 
-//-------------[   All Non essesntial communcation   ]-------------\\
+//-------------[   All Non essesntial communication   ]-------------\\
 setInterval(async () => {
   if (!Queue.isEmpty()) {
     let func = Queue.pop();

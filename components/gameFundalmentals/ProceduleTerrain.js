@@ -5,8 +5,11 @@ import {
     Mesh,
     MeshPhongMaterial,
     PlaneBufferGeometry,
+    Vector2,
     Vector3,
 } from "three";
+
+import { Perlin, FBM } from "../Core-API/PerlinNoise/PerlingNoise";
 var SimplexNoise = require("simplex-noise");
 
 let currentTerrain;
@@ -28,10 +31,10 @@ export function generateTerrain(seed, SceneToGet) {
     for (var i = 0, l = geometry.attributes.position.count; i < l; i++) {
         // Get Data position
         const vertex = new Vector3();
-        vertex.fromBufferAttribute( positionAttribute, i );
+        vertex.fromBufferAttribute(positionAttribute, i);
 
         // Check Height from Perlin Noise Generator
-        let height = simplex.noise2D(vertex.x/128, vertex.y/128) * 30;
+        let height = simplex.noise2D(vertex.x / 128, vertex.y / 128) * 30;
         // Set the height accordingly
         geometry.attributes.position.array[i * 3 + 2] = height;
 
@@ -45,7 +48,6 @@ export function generateTerrain(seed, SceneToGet) {
         } else {
             colours.push(0.56, 0.68, 0.166);
         }
-
     }
 
     //------------[Create Material]------------\\
@@ -81,24 +83,42 @@ export function generateTerrainChunk(seed, Position, gain) {
     const simplex = new SimplexNoise(seed);
     let geometry = new PlaneBufferGeometry(500, 500, 100, 100);
     let colours = [];
+    const fbm = new FBM({
+        seed: seed,
+        scale: 0.007,
+        octaves: 6,
+        persistance: 0.5,
+        lacunarity: 2,
+        redistribution: 2,
+        height: 40,
+      });
 
     console.log(Position);
 
     const positionAttribute = geometry.getAttribute("position");
 
+    let xx 
+    let yy
     //------------[Edit the Geomtry Accordingly]------------\\
     for (var i = 0, l = geometry.attributes.position.count; i < l; i++) {
         // Get Data position
         const vertex = new Vector3();
-        vertex.fromBufferAttribute( positionAttribute, i );
+        vertex.fromBufferAttribute(positionAttribute, i);
 
         // Check Height from Perlin Noise Generator
-        let height = simplex.noise2D((vertex.x+Position.x)/128, (vertex.y+Position.y)/128) * gain;
+        /*let height =
+            simplex.noise2D(
+                (vertex.x + Position.x) / 128,
+                (vertex.y + Position.y) / 128
+            ) * gain;*/
         // Set the height accordingly
+        let height = fbm.get2(new Vector2(vertex.x+(Position.x), vertex.y-(Position.y))) *gain * 4
+        //console.log(new Vector2(vertex.x+Position.x, vertex.y+Position.x))
+
         geometry.attributes.position.array[i * 3 + 2] = height;
 
         // Update Vertice colours accordinly
-        if (height > 23) {
+        if (height > 43) {
             colours.push(1, 1, 1);
         } else if (height > 5) {
             colours.push(0.56, 0.54, 0.48);
@@ -107,10 +127,14 @@ export function generateTerrainChunk(seed, Position, gain) {
         } else {
             colours.push(0.56, 0.68, 0.166);
         }
+        xx = vertex.x
+        yy = vertex.y
     }
+    console.log(Position)
+    console.log(xx,yy)
 
-     //------------[Create Material]------------\\
-     var material = new MeshPhongMaterial({
+    //------------[Create Material]------------\\
+    var material = new MeshPhongMaterial({
         vertexColors: colours,
         reflectivity: 0,
         roughness: 1,
@@ -129,7 +153,6 @@ export function generateTerrainChunk(seed, Position, gain) {
         "color",
         new BufferAttribute(new Float32Array(colours), 3)
     );
-
 
     //------------[Add to Base Scene]------------\\
     currentTerrain = plane2;

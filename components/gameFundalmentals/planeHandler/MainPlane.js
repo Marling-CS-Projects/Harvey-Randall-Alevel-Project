@@ -1,9 +1,13 @@
 import { Group, MeshPhongMaterial, Vector3 } from "three";
 import { radiants } from "../../Algorithms/degToRad";
+import { wait } from "../../Algorithms/MathUtils";
 import { addGLBFile } from "../../Core-API/3dModelHandlers/GLBLoader";
+import { attachToMainEventStream } from "../../Core-API/ConnectAPI";
 import { debugCube } from "../../Core-API/gemotryManager";
+import { createPointLight } from "../../Core-API/LightingManager";
 import { addToRenderSequence } from "../../Core-API/RenderingHandler";
 import { listenToConrols } from "../controls";
+import { addtoDayTimeChecker, getDayState, removeFromDayTimeHook } from "../DayNightCycle";
 
 export class MakePlane {
     constructor(SceneToGet, settings) {
@@ -14,6 +18,7 @@ export class MakePlane {
         this.elevatorPitch = 0;
         this.airelonePitch = 0;
         this.rudderPitch = 0;
+        this.checker = -1;
     }
 
     async loadFiles() {
@@ -82,6 +87,26 @@ export class MakePlane {
         let [props, leftAirelone] = [this.props.scene, this.leftAirelone.scene];
         // For testing \\
 
+        let light = createPointLight(0xff0000, 3, [60, 22.5, -10], 2.5);
+        let light2 = createPointLight(0x00ff00, 3, [-60, 22.5, -10], 2.5);
+        let whiteLight = createPointLight(0xffffff, 3, [0, 30, -60], 2.5);
+        let day = true
+        this.group.add(light);
+                this.group.add(light2);
+
+        setInterval(() => {
+            console.log(getDayState())
+            if(getDayState() === false && day === true){
+                day = false
+                this.group.add(light);
+                this.group.add(light2);
+            }else if(getDayState() === true && day === false){
+                day = true
+                this.group.remove(light);
+                this.group.remove(light2);
+            }
+        }, 1000)
+
         let currentEvelatorPitch = 0;
         let airelonePitch = 0;
         let rudderPitch = 0;
@@ -90,9 +115,7 @@ export class MakePlane {
             () => {
                 let direction = new Vector3();
                 this.group.getWorldDirection(direction);
-                this.group.position.add(
-                    direction.multiplyScalar(this.speed)
-                );
+                this.group.position.add(direction.multiplyScalar(this.speed));
                 //this.group.position.z += this.speed;
 
                 props.rotateZ(this.speed);
@@ -101,13 +124,17 @@ export class MakePlane {
                     this.rightAirelone.scene.rotateX(-0.01);
                     currentEvelatorPitch += 0.01;
                     //if(this.speed < 0.4)return
-                    this.group.rotateX(currentEvelatorPitch / 50 * (this.speed));
+                    this.group.rotateX(
+                        (currentEvelatorPitch / 50) * this.speed
+                    );
                 } else if (currentEvelatorPitch > this.elevatorPitch) {
                     this.leftAirelone.scene.rotateX(0.01);
                     this.rightAirelone.scene.rotateX(0.01);
                     currentEvelatorPitch -= 0.01;
                     //if(this.speed < 0.4)return
-                    this.group.rotateX(currentEvelatorPitch / 50* (this.speed));
+                    this.group.rotateX(
+                        (currentEvelatorPitch / 50) * this.speed
+                    );
                 }
 
                 if (airelonePitch < this.airelonePitch) {
@@ -115,25 +142,25 @@ export class MakePlane {
                     this.rightControlSurface.scene.rotateX(-0.01);
                     airelonePitch += 0.01;
                     //if(this.speed < 0.4)return
-                    this.group.rotateZ(-airelonePitch / 50* (this.speed));
+                    this.group.rotateZ((-airelonePitch / 50) * this.speed);
                 } else if (airelonePitch > this.airelonePitch) {
                     this.leftControlSurface.scene.rotateX(-0.01);
                     this.rightControlSurface.scene.rotateX(0.01);
                     airelonePitch -= 0.01;
                     //if(this.speed < 0.4)return
-                    this.group.rotateZ(-airelonePitch / 50* (this.speed));
+                    this.group.rotateZ((-airelonePitch / 50) * this.speed);
                 }
 
                 if (rudderPitch < this.rudderPitch) {
                     this.rudder.scene.rotateY(-0.01);
                     rudderPitch += 0.01;
                     //if(this.speed < 0.4)return
-                    this.group.rotateY(rudderPitch / 50* (this.speed));
+                    this.group.rotateY((rudderPitch / 50) * this.speed);
                 } else if (rudderPitch > this.rudderPitch) {
                     this.rudder.scene.rotateY(0.01);
                     rudderPitch -= 0.01;
                     //if(this.speed < 0.4)return
-                    this.group.rotateY(rudderPitch / 50* (this.speed));
+                    this.group.rotateY((rudderPitch / 50) * this.speed);
                 }
             },
             false
@@ -154,7 +181,7 @@ export class MakePlane {
                 qKey,
                 shiftKey,
                 zKey,
-                xKey
+                xKey,
             }) => {
                 if (zKey) {
                     if (this.speed < 3) {
@@ -189,7 +216,6 @@ export class MakePlane {
                     this.airelonePitch = 0;
                 }
             }
-
         );
         this.group.add(Camera);
         Camera.position.set(0, 40, -100);
@@ -202,6 +228,9 @@ export class MakePlane {
             CleanUpListener(this.UUID);
         }
         this.group.remove();
+        if (this.checker !== -1) {
+            removeFromDayTimeHook(this.checker);
+        }
         return { success: true };
     }
 }
