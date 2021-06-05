@@ -1,0 +1,1 @@
+{"ast":null,"code":"export function roundnum(num, toNum) {\n  return Math.round(num / toNum) * toNum;\n}\nexport async function wait(val) {\n  return new Promise((res, rej) => {\n    setTimeout(res, val);\n  });\n}","map":null,"metadata":{},"sourceType":"module"}

@@ -1,0 +1,1 @@
+{"ast":null,"code":"export function radiants(degrees) {\n  return degrees * Math.PI / 180;\n}\nexport function degrees(radians) {\n  return radians * 180 / Math.PI;\n}","map":null,"metadata":{},"sourceType":"module"}
