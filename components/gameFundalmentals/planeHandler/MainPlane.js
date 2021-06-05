@@ -31,11 +31,11 @@ export class MakePlane {
             this.SceneToGet
         );
         this.leftAirelone = await addGLBFile(
-            "/Aircraft/BasicPlane/leftAirelone.glb",
+            "/Aircraft/BasicPlane/LeftAirelone.glb",
             this.SceneToGet
         );
         this.rightAirelone = await addGLBFile(
-            "/Aircraft/BasicPlane/rightAirelone.glb",
+            "/Aircraft/BasicPlane/RightAirelone.glb",
             this.SceneToGet
         );
         this.leftControlSurface = await addGLBFile(
