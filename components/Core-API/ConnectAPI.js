@@ -17,7 +17,7 @@ export function startSeverClientCommunication(socket) {
   client = socket;
 
   //Data Handshake
-  client.emit("ConnectionEstablised", Date.now());
+  socket.emit("ConnectionEstablised", Date.now());
 }
 
 /**

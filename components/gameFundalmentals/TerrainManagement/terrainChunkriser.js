@@ -18,7 +18,7 @@ export function generateTerrainAroundPlayer(seed, camera, scene) {
             ChunkYourIn.y = 0
         }
         if(loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`] !== undefined && loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`] === true){
-            //console.log('exists', ChunkYourIn.x, ChunkYourIn.y)
+            // Existing terrain, left hear for a future API
         }else{
             console.log('Generating, ', ChunkYourIn.x, ChunkYourIn.y, loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`])
             loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`]= true
@@ -27,7 +27,6 @@ export function generateTerrainAroundPlayer(seed, camera, scene) {
             chunksInMem[`${ChunkYourIn.x}:${ChunkYourIn.y}`] = chunk
             scene.add(chunk)
         }
-        //let chunk = generateTerrainChunk(seed, camera, 30);
     },1000)
 
 }

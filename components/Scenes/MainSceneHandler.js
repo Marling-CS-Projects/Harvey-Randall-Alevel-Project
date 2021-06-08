@@ -77,10 +77,10 @@ export async function generateMainScene(
     let newPlane = new MakePlane(SceneToGet)
     await newPlane.loadFiles()
     newPlane.CreateGroupAndPos()
-    newPlane.attachCameraAndControl(Camera)
+    //newPlane.attachCameraAndControl(Camera)
 
     generateTerrainAroundPlayer(seed, Camera, SceneToGet)
 
-    //addToRenderSequence("Main", () => controlHandlerUpdate(Camera));
+    addToRenderSequence("Main", () => controlHandlerUpdate(Camera));
     addToRenderSequence("Main", () => daynight.update());
 }
