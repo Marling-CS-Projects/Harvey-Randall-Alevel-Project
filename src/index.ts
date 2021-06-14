@@ -6,8 +6,8 @@ const next = require("next");
 import { Server } from "socket.io"
 import { SetupLogger } from "./server/setupLogger";
 
-const dev = process.env.DevOn === "false" ? false : true;
-const apps = next({ dev , dir:"."});
+const dev = process.env.DevOn == "false" ? false : true;
+const apps = next({ dev:false , dir:"."});
 const handle = apps.getRequestHandler();
 
 const http = require("http");
