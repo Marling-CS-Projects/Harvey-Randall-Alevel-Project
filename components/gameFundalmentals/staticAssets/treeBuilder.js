@@ -13,6 +13,11 @@ export async function GenerateTrees(num, scene, start, bounds, terrain){
         "/Assets/SnowyPineTree.glb",
         scene
     );
+    let palmTree = await addGLBFile(
+        "/Assets/Palm_Tree.glb",
+        scene
+    )
+
     let leaves = new MeshLambertMaterial({color: 0x694b37 })
     let trunk = new MeshLambertMaterial({color: 0x216734 })
     tree.scene.children[0].material = leaves
@@ -20,6 +25,8 @@ export async function GenerateTrees(num, scene, start, bounds, terrain){
     snowyTree.scene.children[0].material = leaves
     snowyTree.scene.children[1].material = trunk
     snowyTree.scene.children[2].material = new MeshLambertMaterial({color: 0xffffff })
+
+    palmTree.scene.children[0].material = trunk
 
     
     let group = new Group()
@@ -34,12 +41,19 @@ export async function GenerateTrees(num, scene, start, bounds, terrain){
 
         
 
-        if(intersects[0] !== undefined && intersects[0]?.point.y > -20 && intersects[0]?.point.y < 20){
+        if(intersects[0] !== undefined && intersects[0]?.point.y > 2 && intersects[0]?.point.y < 20){
             let newTree = tree.scene.clone()
             newTree.rotateY(radiants(Math.random()*360))
             let point = intersects[0].point
             newTree.position.set(point.x, point.y, point.z)
             group.add(newTree)
+        }else if(intersects[0] !== undefined && intersects[0]?.point.y < 2 && intersects[0]?.point.y > 0){
+            let newTree = palmTree.scene.clone()
+            newTree.rotateY(radiants(Math.random()*360))
+            let point = intersects[0].point
+            newTree.position.set(point.x, point.y-1, point.z)
+            group.add(newTree)
+
         }else if(intersects[0] !== undefined && intersects[0]?.point.y > 20){
             let newTree = snowyTree.scene.clone()
             newTree.rotateY(radiants(Math.random()*360))

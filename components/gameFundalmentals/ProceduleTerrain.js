@@ -43,7 +43,7 @@ export function generateTerrain(seed, SceneToGet) {
             colours.push(1, 1, 1);
         } else if (height > 5) {
             colours.push(0.56, 0.54, 0.48);
-        } else if (height < -20) {
+        } else if (height < 2) {
             colours.push(0.501, 0.772, 0.87);
         } else {
             colours.push(0.56, 0.68, 0.166);
@@ -96,9 +96,6 @@ export function generateTerrainChunk(seed, Position, gain) {
     console.log(Position);
 
     const positionAttribute = geometry.getAttribute("position");
-
-    let xx 
-    let yy
     //------------[Edit the Geomtry Accordingly]------------\\
     for (var i = 0, l = geometry.attributes.position.count; i < l; i++) {
         // Get Data position
@@ -106,15 +103,10 @@ export function generateTerrainChunk(seed, Position, gain) {
         vertex.fromBufferAttribute(positionAttribute, i);
 
         // Check Height from Perlin Noise Generator
-        /*let height =
-            simplex.noise2D(
-                (vertex.x + Position.x) / 128,
-                (vertex.y + Position.y) / 128
-            ) * gain;*/
-        // Set the height accordingly
+        
         let height = fbm.get2(new Vector2(vertex.x+(Position.x), vertex.y-(Position.y))) *gain * 4
-        //console.log(new Vector2(vertex.x+Position.x, vertex.y+Position.x))
-
+        
+        // Set the height accordingly
         geometry.attributes.position.array[i * 3 + 2] = height;
 
         // Update Vertice colours accordinly
@@ -122,23 +114,19 @@ export function generateTerrainChunk(seed, Position, gain) {
             colours.push(1, 1, 1);
         } else if (height > 5) {
             colours.push(0.56, 0.54, 0.48);
-        } else if (height < -20) {
-            colours.push(0.501, 0.772, 0.87);
+        } else if (height < 2) {
+            colours.push(0.8949, 0.9686, 0.651);
         } else {
             colours.push(0.56, 0.68, 0.166);
         }
-        xx = vertex.x
-        yy = vertex.y
     }
-    console.log(Position)
-    console.log(xx,yy)
-
     //------------[Create Material]------------\\
     var material = new MeshPhongMaterial({
         vertexColors: colours,
         reflectivity: 0,
         roughness: 1,
         flatShading: true,
+        blending:false
     });
 
     //------------[Create Mesh]------------\\

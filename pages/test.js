@@ -55,6 +55,7 @@ export default function render() {
         let Renders = new WebGLRenderer({
             antialias: true,
             alpha: true,
+            ogarithmicDepthBuffer: true,
         });
 
         Renders.setClearColor("#87ceeb", 1);
@@ -68,7 +69,7 @@ export default function render() {
             75,
             window.innerWidth / window.innerHeight,
             0.1,
-            1000 / 0.05
+            100000000
         );
         generateMainScene(
             SceneToGet,

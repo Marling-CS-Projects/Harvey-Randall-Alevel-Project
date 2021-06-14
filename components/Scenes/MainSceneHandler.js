@@ -17,6 +17,7 @@ import { controlHandlerInit, controlHandlerUpdate } from "../gameFundalmentals/c
 import { CreateDayNightCycle } from "../gameFundalmentals/DayNightCycle";
 import { MakePlane } from "../gameFundalmentals/planeHandler/MainPlane";
 import { generateTerrainAroundPlayer } from "../gameFundalmentals/TerrainManagement/terrainChunkriser";
+import { createOcean } from "../../testing/ocean";
 
 let debug = true;
 
@@ -77,10 +78,12 @@ export async function generateMainScene(
     let newPlane = new MakePlane(SceneToGet)
     await newPlane.loadFiles()
     newPlane.CreateGroupAndPos()
-    //newPlane.attachCameraAndControl(Camera)
+    newPlane.attachCameraAndControl(Camera)
 
     generateTerrainAroundPlayer(seed, Camera, SceneToGet)
 
-    addToRenderSequence("Main", () => controlHandlerUpdate(Camera));
+    //addToRenderSequence("Main", () => controlHandlerUpdate(Camera));
     addToRenderSequence("Main", () => daynight.update());
+
+    createOcean(SceneToGet)
 }

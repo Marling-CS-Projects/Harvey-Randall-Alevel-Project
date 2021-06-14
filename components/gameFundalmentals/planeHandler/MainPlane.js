@@ -1,13 +1,11 @@
 import { Group, MeshPhongMaterial, Vector3 } from "three";
 import { radiants } from "../../Algorithms/degToRad";
-import { wait } from "../../Algorithms/MathUtils";
 import { addGLBFile } from "../../Core-API/3dModelHandlers/GLBLoader";
-import { attachToMainEventStream } from "../../Core-API/ConnectAPI";
 import { debugCube } from "../../Core-API/gemotryManager";
 import { createPointLight } from "../../Core-API/LightingManager";
 import { addToRenderSequence } from "../../Core-API/RenderingHandler";
 import { listenToConrols } from "../controls";
-import { addtoDayTimeChecker, getDayState, removeFromDayTimeHook } from "../DayNightCycle";
+import { getDayState, removeFromDayTimeHook } from "../DayNightCycle";
 
 export class MakePlane {
     constructor(SceneToGet, settings) {
