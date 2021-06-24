@@ -39,8 +39,6 @@ export function createOcean(scene){
             // Set the height accordingly
             plane.attributes.position.array[i * 3 + 2] = height;
 
-            console.log(height)
-
             // Update Vertice colours accordinly
             
             

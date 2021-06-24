@@ -13,7 +13,6 @@ node_modules
 
 
 # production
-/build
 
 # misc
 .DS_Store
@@ -31,4 +30,3 @@ yarn-error.log
 .env.production.local
 
 # vercel
-.vercel

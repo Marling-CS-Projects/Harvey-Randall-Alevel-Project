@@ -1,8 +1,17 @@
 import { ArrowHelper, Group, MeshBasicMaterial, MeshLambertMaterial, MeshNormalMaterial, MeshPhongMaterial, MeshStandardMaterial, Raycaster, Vector3 } from "three";
 import { radiants } from "../../Algorithms/degToRad";
+import { _mergeMeshes } from "../../Algorithms/meshMerger.js";
 import { randomVectorBetweenPoints2D } from "../../Algorithms/VectorUtils";
 import { addGLBFile } from "../../Core-API/3dModelHandlers/GLBLoader";
-import { BufferGeometryUtils } from '../../Core-API/3dModelHandlers/utils'
+
+
+function placeTree(tree, intersects){
+    let newTree = tree.scene.clone()
+    newTree.rotateY(radiants(Math.random()*360))
+    let point = intersects[0].point
+    newTree.position.set(point.x, point.y, point.z)
+    return newTree
+}
 
 export async function GenerateTrees(num, scene, start, bounds, terrain){
     let tree = await addGLBFile(
@@ -26,12 +35,18 @@ export async function GenerateTrees(num, scene, start, bounds, terrain){
     snowyTree.scene.children[1].material = trunk
     snowyTree.scene.children[2].material = new MeshLambertMaterial({color: 0xffffff })
 
-    palmTree.scene.children[0].material = trunk
+    console.log(palmTree)
+    palmTree = palmTree.scene.children[0]
+    console.log(palmTree)
+    console.log(snowyTree)
+
+    palmTree.children[0].material = trunk
+
 
     
     let group = new Group()
     let raycaster = new Raycaster()
-    let trees = []
+    let meshes = []
     for(let i=0;i<num;i++){
         let randomVector = randomVectorBetweenPoints2D( start, bounds)
         randomVector.y = 50
@@ -39,29 +54,20 @@ export async function GenerateTrees(num, scene, start, bounds, terrain){
         raycaster.set(randomVector, new Vector3(0,-1,0))
         const intersects = raycaster.intersectObjects( [terrain] );
 
+    
+
         
 
         if(intersects[0] !== undefined && intersects[0]?.point.y > 2 && intersects[0]?.point.y < 20){
-            let newTree = tree.scene.clone()
-            newTree.rotateY(radiants(Math.random()*360))
-            let point = intersects[0].point
-            newTree.position.set(point.x, point.y, point.z)
-            group.add(newTree)
+            meshes.push(placeTree(tree, intersects))
         }else if(intersects[0] !== undefined && intersects[0]?.point.y < 2 && intersects[0]?.point.y > 0){
-            let newTree = palmTree.scene.clone()
-            newTree.rotateY(radiants(Math.random()*360))
-            let point = intersects[0].point
-            newTree.position.set(point.x, point.y-1, point.z)
-            group.add(newTree)
-
+            meshes.push(placeTree(snowyTree, intersects))
         }else if(intersects[0] !== undefined && intersects[0]?.point.y > 20){
-            let newTree = snowyTree.scene.clone()
-            newTree.rotateY(radiants(Math.random()*360))
-            let point = intersects[0].point
-            newTree.position.set(point.x, point.y, point.z)
-            group.add(newTree)
+            //meshes.push(placeTree(palmTree, intersects))
         }
         
     }
-    scene.add(group)
+    //let geo = _mergeMeshes(meshes, true)
+    //scene.add(geo)
+    //scene.add(group)
 }

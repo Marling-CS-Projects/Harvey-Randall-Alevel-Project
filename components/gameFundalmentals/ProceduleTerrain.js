@@ -93,7 +93,6 @@ export function generateTerrainChunk(seed, Position, gain) {
         height: 40,
       });
 
-    console.log(Position);
 
     const positionAttribute = geometry.getAttribute("position");
     //------------[Edit the Geomtry Accordingly]------------\\

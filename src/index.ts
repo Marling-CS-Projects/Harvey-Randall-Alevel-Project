@@ -7,7 +7,7 @@ import { Server } from "socket.io"
 import { SetupLogger } from "./server/setupLogger";
 
 const dev = process.env.DevOn == "false" ? false : true;
-const apps = next({ dev:false , dir:"."});
+const apps = next({ dev:true , dir:"."});
 const handle = apps.getRequestHandler();
 
 const http = require("http");
@@ -127,6 +127,7 @@ apps.prepare()
     })
     .catch((ex:{stack:String}) => {
         logger.info(ex.stack);
+        logger.error("there was error")
         process.exit(1);
     });
 
