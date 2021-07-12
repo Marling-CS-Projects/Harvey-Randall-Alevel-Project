@@ -1,16 +1,16 @@
-import { ArrowHelper, Group, MeshBasicMaterial, MeshLambertMaterial, MeshNormalMaterial, MeshPhongMaterial, MeshStandardMaterial, Raycaster, Vector3 } from "three";
+import { Group, Mesh, MeshLambertMaterial, Raycaster, Vector3 } from "three";
 import { radiants } from "../../Algorithms/degToRad";
 import { _mergeMeshes } from "../../Algorithms/meshMerger.js";
 import { randomVectorBetweenPoints2D } from "../../Algorithms/VectorUtils";
 import { addGLBFile } from "../../Core-API/3dModelHandlers/GLBLoader";
-
+import { MergeMeshes } from "../../Core-API/3dModelHandlers/MeshMerger.ts";
 
 function placeTree(tree, intersects){
     let newTree = tree.scene.clone()
     newTree.rotateY(radiants(Math.random()*360))
     let point = intersects[0].point
     newTree.position.set(point.x, point.y, point.z)
-    return newTree
+    return {newTree, vetor: new Vector3(point.x, point.y, point.z)}
 }
 
 export async function GenerateTrees(num, scene, start, bounds, terrain){
@@ -47,6 +47,7 @@ export async function GenerateTrees(num, scene, start, bounds, terrain){
     let group = new Group()
     let raycaster = new Raycaster()
     let meshes = []
+    let location = []
     for(let i=0;i<num;i++){
         let randomVector = randomVectorBetweenPoints2D( start, bounds)
         randomVector.y = 50
@@ -59,9 +60,13 @@ export async function GenerateTrees(num, scene, start, bounds, terrain){
         
 
         if(intersects[0] !== undefined && intersects[0]?.point.y > 2 && intersects[0]?.point.y < 20){
-            meshes.push(placeTree(tree, intersects))
+            let placeTreeOut = placeTree(tree, intersects)
+            meshes.push(placeTreeOut.newTree)
+            location.push(placeTreeOut.vetor)
         }else if(intersects[0] !== undefined && intersects[0]?.point.y < 2 && intersects[0]?.point.y > 0){
-            meshes.push(placeTree(snowyTree, intersects))
+            let placeTreeOut = placeTree(tree, intersects)
+            meshes.push(placeTreeOut.newTree)
+            location.push(placeTreeOut.vetor)
         }else if(intersects[0] !== undefined && intersects[0]?.point.y > 20){
             //meshes.push(placeTree(palmTree, intersects))
         }
@@ -69,5 +74,14 @@ export async function GenerateTrees(num, scene, start, bounds, terrain){
     }
     //let geo = _mergeMeshes(meshes, true)
     //scene.add(geo)
-    //scene.add(group)
+    let meshesToSend = []
+    let locationToSend = []
+    meshes.forEach((e,k) => {
+        e.children.forEach((i) => {
+            meshesToSend.push(i.geometry)
+            locationToSend.push(location[k])
+        })
+    })
+    let geo = MergeMeshes(meshesToSend, locationToSend)
+    scene.add(new Mesh(geo, leaves))
 }

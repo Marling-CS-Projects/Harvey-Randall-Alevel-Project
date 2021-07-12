@@ -8,6 +8,7 @@ import {
     Vector2,
     Vector3,
 } from "three";
+import { randomIntFromInterval } from "../Algorithms/VectorUtils";
 
 import { Perlin, FBM } from "../Core-API/PerlinNoise/PerlingNoise";
 var SimplexNoise = require("simplex-noise");
@@ -78,7 +79,7 @@ export function generateTerrain(seed, SceneToGet) {
     SceneToGet.add(plane2);
 }
 
-export function generateTerrainChunk(seed, Position, gain) {
+export function generateTerrainChunk(seed, Position, gain, divisor) {
     //------------[MAIN FUNCTION VARIABLES]------------\\
     const simplex = new SimplexNoise(seed);
     let geometry = new PlaneBufferGeometry(500, 500, 100, 100);
@@ -103,7 +104,7 @@ export function generateTerrainChunk(seed, Position, gain) {
 
         // Check Height from Perlin Noise Generator
         
-        let height = fbm.get2(new Vector2(vertex.x+(Position.x), vertex.y-(Position.y))) *gain * 4
+        let height = fbm.get2(new Vector2((vertex.x+(Position.x))*divisor, (vertex.y-(Position.y))*divisor)) *gain * 4
         
         // Set the height accordingly
         geometry.attributes.position.array[i * 3 + 2] = height;
@@ -114,7 +115,9 @@ export function generateTerrainChunk(seed, Position, gain) {
         } else if (height > 5) {
             colours.push(0.56, 0.54, 0.48);
         } else if (height < 2) {
-            colours.push(0.8949, 0.9686, 0.651);
+            let heightSecondary = simplex.noise2D((vertex.x+(Position.x))/10, (vertex.y+(Position.y))/10) * 0.75
+            geometry.attributes.position.array[i * 3 + 2] = heightSecondary;
+            colours.push(0,randomIntFromInterval(400, 500)/1000,randomIntFromInterval(700, 800)/1000)
         } else {
             colours.push(0.56, 0.68, 0.166);
         }

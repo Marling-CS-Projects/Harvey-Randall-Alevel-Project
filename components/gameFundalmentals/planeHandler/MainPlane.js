@@ -93,7 +93,6 @@ export class MakePlane {
                 this.group.add(light2);
 
         setInterval(() => {
-            console.log(getDayState())
             if(getDayState() === false && day === true){
                 day = false
                 this.group.add(light);

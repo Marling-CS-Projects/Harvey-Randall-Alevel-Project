@@ -3,7 +3,7 @@
 import { useEffect, useState, useContext } from "react";
 import * as THREE from "three";
 import React from 'react'
-import { PerspectiveCamera, Scene, Vector3, WebGLRenderer } from "three";
+import { Fog, PerspectiveCamera, Scene, Vector3, WebGLRenderer } from "three";
 var Stats = require("stats.js");
 import { useAppContext } from "../components/Context/socketioContext";
 import { generateLabel } from "../components/gameFundalmentals/nametag";
@@ -59,6 +59,9 @@ export default function render() {
         });
 
         Renders.setClearColor("#87ceeb", 1);
+
+        let fog = new Fog(0xDCDBDF, 10,100000)
+        SceneToGet.fog = fog
 
         Renders.setSize(window.innerWidth, window.innerHeight);
         child.appendChild(Renders.domElement);

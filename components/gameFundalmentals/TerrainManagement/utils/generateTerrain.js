@@ -1,5 +1,17 @@
-
-export function GenerateTerrainChunkWithSettings(seed, Position, gain, {scale=0.007, octaves=6, persistance=0.5, lacunarity=2, redistribution=2, height=40}) {
+export function GenerateTerrainChunkWithSettings(
+    seed,
+    Position,
+    gain,
+    divisor,
+    {
+        scale = 0.007,
+        octaves = 6,
+        persistance = 0.5,
+        lacunarity = 2,
+        redistribution = 2,
+        height = 40,
+    }
+) {
     //------------[MAIN FUNCTION VARIABLES]------------\\
     const simplex = new SimplexNoise(seed);
     let geometry = new PlaneBufferGeometry(500, 500, 100, 100);
@@ -12,7 +24,7 @@ export function GenerateTerrainChunkWithSettings(seed, Position, gain, {scale=0.
         lacunarity,
         redistribution,
         height,
-      });
+    });
 
     console.log(Position);
 
@@ -24,9 +36,17 @@ export function GenerateTerrainChunkWithSettings(seed, Position, gain, {scale=0.
         vertex.fromBufferAttribute(positionAttribute, i);
 
         // Check Height from Perlin Noise Generator
-        
-        let height = fbm.get2(new Vector2(vertex.x+(Position.x), vertex.y-(Position.y))) *gain * 4
-        
+
+        let height =
+            fbm.get2(
+                new Vector2(
+                    vertex.x + Position.x * divisor,
+                    vertex.y - Position.y * divisor
+                )
+            ) *
+            gain *
+            4;
+
         // Set the height accordingly
         geometry.attributes.position.array[i * 3 + 2] = height;
 
@@ -66,4 +86,31 @@ export function GenerateTerrainChunkWithSettings(seed, Position, gain, {scale=0.
     currentTerrain = plane2;
     plane2.name = `Terrain_Chunk_${Position.x}:${Position.y}`;
     return plane2;
+}
+
+export function HeighWhereIam(arrayInput) {
+    const fbm = new FBM({
+        seed: seed,
+        scale,
+        octaves,
+        persistance,
+        lacunarity,
+        redistribution,
+        height,
+    });
+    let heights = [];
+    arrayInput.forEach((element) => {
+        heights.push(
+            fbm.get2(
+                new Vector2(
+                    (element.x + Position.x) * divisor,
+                    (element.y - Position.y) * divisor
+                )
+            ) *
+                gain *
+                4
+        );
+    });
+
+    return heights;
 }

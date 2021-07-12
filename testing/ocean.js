@@ -73,11 +73,13 @@ export function createOcean(scene){
 
     let mesh = new Mesh(plane, material)
 
+    mesh.renderOrder = 100
+
     mesh.position.y = -2
     mesh.rotateX(radiants(-90))
 
 
-    scene.add(mesh)
+    //scene.add(mesh)
 
 
 }

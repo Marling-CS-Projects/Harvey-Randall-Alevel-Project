@@ -17,7 +17,7 @@ import { controlHandlerInit, controlHandlerUpdate } from "../gameFundalmentals/c
 import { CreateDayNightCycle } from "../gameFundalmentals/DayNightCycle";
 import { MakePlane } from "../gameFundalmentals/planeHandler/MainPlane";
 import { generateTerrainAroundPlayer } from "../gameFundalmentals/TerrainManagement/terrainChunkriser";
-import { createOcean } from "../../testing/ocean";
+import { GenerateWebWorker } from "../Core-API/WorkerSetup.ts";
 
 let debug = true;
 
@@ -85,5 +85,5 @@ export async function generateMainScene(
     //addToRenderSequence("Main", () => controlHandlerUpdate(Camera));
     addToRenderSequence("Main", () => daynight.update());
 
-    createOcean(SceneToGet)
+    //console.log(GenerateWebWorker(`/webWorkers/basicTest.js`, [], (e) => {console.log(e)} ))
 }

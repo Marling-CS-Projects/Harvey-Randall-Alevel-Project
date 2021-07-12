@@ -4,34 +4,56 @@ import { generateTerrainChunk } from "../ProceduleTerrain";
 import { GenerateTrees } from "../staticAssets/treeBuilder";
 import { checkBiomeLocation } from "./utils/GenerateBiomesMap.ts";
 
-
 export function generateTerrainAroundPlayer(seed, camera, scene) {
-    let loadedChunks = {}
-    let chunksInMem = {}
+    let loadedChunks = {};
+    let chunksInMem = {};
     setInterval(() => {
         let vector = new Vector3();
         camera.getWorldPosition(vector);
-        let ChunkYourIn  = new Vector2(roundnum(vector.x, 500), roundnum(vector.z, 500))
-        if(ChunkYourIn.x === -0){
-            ChunkYourIn.x = 0
-        }
-        if(ChunkYourIn.y === -0){
-            ChunkYourIn.y = 0
-        }
-        if(loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`] !== undefined && loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`] === true){
-            // Existing terrain, left hear for a future API
-        }else{
+        let yourChunk = new Vector2(
+            roundnum(vector.x, 500),
+            roundnum(vector.z, 500)
+        );
 
-            // Check Chunk
-            console.log(checkBiomeLocation(ChunkYourIn,seed, 0.1, 0))
+        let chunkyThing = (ChunkYourIn) => {
+            if (ChunkYourIn.x === -0) {
+                ChunkYourIn.x = 0;
+            }
+            if (ChunkYourIn.y === -0) {
+                ChunkYourIn.y = 0;
+            }
+            if (
+                loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`] !==
+                    undefined &&
+                loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`] === true
+            ) {
+                // Existing terrain, left hear for a future API
+            } else {
+                // Check Chunk
+                console.log(checkBiomeLocation(ChunkYourIn, seed, 0.1, 0));
 
-            console.log('Generating, ', ChunkYourIn.x, ChunkYourIn.y, loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`])
-            loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`]= true
-            let chunk = generateTerrainChunk(seed, ChunkYourIn, 30);
-            GenerateTrees(300, scene, new Vector3(ChunkYourIn.x-250, 250,ChunkYourIn.y-250), new Vector3(ChunkYourIn.x+250,250,ChunkYourIn.y+250), chunk)
-            chunksInMem[`${ChunkYourIn.x}:${ChunkYourIn.y}`] = chunk
-            scene.add(chunk)
-        }
-    },1000)
+                console.log(
+                    "Generating, ",
+                    ChunkYourIn.x,
+                    ChunkYourIn.y,
+                    loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`]
+                );
+                loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`] = true;
+                let chunk = generateTerrainChunk(seed, ChunkYourIn, 60, 0.5);
+                //GenerateTrees(300, scene, new Vector3(ChunkYourIn.x-250, 250,ChunkYourIn.y-250), new Vector3(ChunkYourIn.x+250,250,ChunkYourIn.y+250), chunk)
+                chunksInMem[`${ChunkYourIn.x}:${ChunkYourIn.y}`] = chunk;
+                scene.add(chunk);
+            }
+        };
 
+        chunkyThing(yourChunk)
+        chunkyThing(new Vector2(yourChunk.x+500, yourChunk.y))
+        chunkyThing(new Vector2(yourChunk.x+500, yourChunk.y+500))
+        chunkyThing(new Vector2(yourChunk.x, yourChunk.y+500))
+        chunkyThing(new Vector2(yourChunk.x-500, yourChunk.y+500))
+        chunkyThing(new Vector2(yourChunk.x-500, yourChunk.y))
+        chunkyThing(new Vector2(yourChunk.x-500, yourChunk.y-500))
+        chunkyThing(new Vector2(yourChunk.x, yourChunk.y-500))
+        chunkyThing(new Vector2(yourChunk.x+500, yourChunk.y-500))
+    }, 1000);
 }
