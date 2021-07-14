@@ -5,10 +5,12 @@ import { addToRenderSequence } from "../Core-API/RenderingHandler";
 
 //Functional Dependencies
 import {
+    BufferGeometry,
     DoubleSide,
     GridHelper,
     Mesh,
     MeshStandardMaterial,
+    PlaneBufferGeometry,
     PlaneGeometry,
     Vector3,
 } from "three";
@@ -18,8 +20,10 @@ import { CreateDayNightCycle } from "../gameFundalmentals/DayNightCycle";
 import { MakePlane } from "../gameFundalmentals/planeHandler/MainPlane";
 import { generateTerrainAroundPlayer } from "../gameFundalmentals/TerrainManagement/terrainChunkriser";
 import { GenerateWebWorker } from "../Core-API/WorkerSetup.ts";
+import { debugCube } from "../Core-API/gemotryManager";
 
 let debug = true;
+ 
 
 export async function generateMainScene(
     SceneToGet,
@@ -29,6 +33,24 @@ export async function generateMainScene(
     child2,
     Camera
 ) {
+
+
+    let collisionHandler = new Worker('webWorkers/Collision.js');
+    collisionHandler.onmessage = function (event) {
+        console.log(event);
+    }
+    collisionHandler.onmessageerror = function (event) {
+        console.log(event);
+    }
+    collisionHandler.onerror = function (error) {
+        console.log(error);
+    }
+    collisionHandler.postMessage({Command:"Start", origin: window.location.origin})
+
+    setTimeout(() => {
+        collisionHandler.postMessage({Command:"AddShape", data: new PlaneBufferGeometry(2, 2, 2, 2)})
+    },1000);
+
     let clouds = [];
     for (let i = 0; i < 40; i++) {
         clouds.push(
@@ -83,7 +105,7 @@ export async function generateMainScene(
     generateTerrainAroundPlayer(seed, Camera, SceneToGet)
 
     //addToRenderSequence("Main", () => controlHandlerUpdate(Camera));
-    addToRenderSequence("Main", () => daynight.update());
+    addToRenderSequence("Main", () => daynight.update(Camera));
 
     //console.log(GenerateWebWorker(`/webWorkers/basicTest.js`, [], (e) => {console.log(e)} ))
 }

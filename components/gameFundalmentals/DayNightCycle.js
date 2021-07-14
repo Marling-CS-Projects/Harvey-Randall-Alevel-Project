@@ -17,6 +17,7 @@ import {
 import { getRandomStarField } from "./stars";
 import { rotateAboutPoint } from "./rotateAroundPoint";
 import { v4 } from "uuid";
+import { debugCube } from "../Core-API/gemotryManager";
 
 let recieveDaytimeUpdate = {};
 
@@ -98,7 +99,8 @@ export class CreateDayNightCycle {
         this.sky = new Mesh(skyBox, skyBoxMaterial);
     }
     /*eslint complexity: ["error", 20]*/
-    update() {
+    update(Camera) {
+
         // This two lines are  important as it is part of the hacky work around to get time of day on varying FPS
         let theta = rotateAboutPoint(
             this.directionalLight,

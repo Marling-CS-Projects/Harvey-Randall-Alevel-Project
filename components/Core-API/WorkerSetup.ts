@@ -9,7 +9,7 @@ import { ArrowFunction } from "typescript";
 * @param {worker} str The actual code for the worker to be parsed
 * @returns {Worker}
 */
-export function GenerateWebWorker(worker:string, globalVars:string[], returnFunc: Function):Worker|SharedWorker{
+export function GenerateWebWorker(worker:string, globalVars:string[], returnFunc: Function):Worker{
     // First thing if its not a string make it a string
     const code = worker.toString();
 
@@ -17,10 +17,10 @@ export function GenerateWebWorker(worker:string, globalVars:string[], returnFunc
     let inputStuff = `let globalVars = ${globalVars};\n`
 
     //Next Create the blob in a self running function
-    const blob = new Blob([inputStuff + "(" + code + ")()"]);
+    const blob = new Blob([inputStuff + "(" + code + ")()"], { type: 'text/javascript' });
 
     //Then return the web worker
-    let workerOut = new Worker(new URL(worker, window.location.origin))
+    let workerOut = new Worker(window.URL.createObjectURL(blob), { type: 'module' })
 
     //Check if web worker wants to terminate itself
     workerOut.addEventListener('message', (e) => returnFunc(e), false)  

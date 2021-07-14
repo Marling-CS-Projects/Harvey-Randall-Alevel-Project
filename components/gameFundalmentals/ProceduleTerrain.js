@@ -82,7 +82,7 @@ export function generateTerrain(seed, SceneToGet) {
 export function generateTerrainChunk(seed, Position, gain, divisor) {
     //------------[MAIN FUNCTION VARIABLES]------------\\
     const simplex = new SimplexNoise(seed);
-    let geometry = new PlaneBufferGeometry(500, 500, 100, 100);
+    let geometry = new PlaneBufferGeometry(500, 500, 30, 30);
     let colours = [];
     const fbm = new FBM({
         seed: seed,
@@ -110,7 +110,7 @@ export function generateTerrainChunk(seed, Position, gain, divisor) {
         geometry.attributes.position.array[i * 3 + 2] = height;
 
         // Update Vertice colours accordinly
-        if (height > 43) {
+        if (height > 100) {
             colours.push(1, 1, 1);
         } else if (height > 5) {
             colours.push(0.56, 0.54, 0.48);
@@ -126,7 +126,6 @@ export function generateTerrainChunk(seed, Position, gain, divisor) {
     var material = new MeshPhongMaterial({
         vertexColors: colours,
         reflectivity: 0,
-        roughness: 1,
         flatShading: true,
         blending:false
     });

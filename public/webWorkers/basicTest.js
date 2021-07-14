@@ -4,6 +4,7 @@ import { generateTerrainChunk } from "../ProceduleTerrain";
 import { GenerateTrees } from "../staticAssets/treeBuilder";
 import { checkBiomeLocation } from "./utils/GenerateBiomesMap.ts";
 
+console.log("here")
 
 function generateTerrainAroundPlayer(seed, camera, scene) {
     let loadedChunks = {}
