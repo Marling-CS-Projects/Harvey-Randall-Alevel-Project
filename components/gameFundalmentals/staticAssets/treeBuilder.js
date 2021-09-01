@@ -63,12 +63,15 @@ export async function GenerateTrees(num, scene, start, bounds, terrain){
             let placeTreeOut = placeTree(tree, intersects)
             meshes.push(placeTreeOut.newTree)
             location.push(placeTreeOut.vetor)
+            group.add(placeTreeOut.newTree)
         }else if(intersects[0] !== undefined && intersects[0]?.point.y < 2 && intersects[0]?.point.y > 0){
             let placeTreeOut = placeTree(tree, intersects)
             meshes.push(placeTreeOut.newTree)
             location.push(placeTreeOut.vetor)
+            group.add(placeTreeOut.newTree)
         }else if(intersects[0] !== undefined && intersects[0]?.point.y > 20){
             //meshes.push(placeTree(palmTree, intersects))
+            //group.add(placeTreeOut.newTree)
         }
         
     }
@@ -80,8 +83,9 @@ export async function GenerateTrees(num, scene, start, bounds, terrain){
         e.children.forEach((i) => {
             meshesToSend.push(i.geometry)
             locationToSend.push(location[k])
+            group
         })
     })
     let geo = MergeMeshes(meshesToSend, locationToSend)
-    scene.add(new Mesh(geo, leaves))
+    scene.add(group)
 }

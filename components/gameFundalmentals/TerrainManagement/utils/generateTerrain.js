@@ -53,7 +53,7 @@ export function GenerateTerrainChunkWithSettings(
         // Update Vertice colours accordinly
         if (height > 43) {
             colours.push(1, 1, 1);
-        } else if (height > 5) {
+        } else if (height > 0) {
             colours.push(0.56, 0.54, 0.48);
         } else if (height < -20) {
             colours.push(0.501, 0.772, 0.87);

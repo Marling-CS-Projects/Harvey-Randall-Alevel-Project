@@ -2549,3 +2549,4 @@
 {"message":"Lost Player -KHZUc0aCeEbF5bcAAAB","level":"info","service":"user-service"}
 {"message":"Lost Player GYAbaioWruOhrcXOAAAD","level":"info","service":"user-service"}
 {"message":"Lost Player jdKXt0WC2Uvs1UbQAAAF","level":"info","service":"user-service"}
+{"message":"listening on localhost:8080","level":"info","service":"user-service"}

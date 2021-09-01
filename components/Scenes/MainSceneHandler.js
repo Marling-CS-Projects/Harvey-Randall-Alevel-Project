@@ -21,6 +21,7 @@ import { MakePlane } from "../gameFundalmentals/planeHandler/MainPlane";
 import { generateTerrainAroundPlayer } from "../gameFundalmentals/TerrainManagement/terrainChunkriser";
 import { GenerateWebWorker } from "../Core-API/WorkerSetup.ts";
 import { debugCube } from "../Core-API/gemotryManager";
+import { addGLBFile } from "../Core-API/3dModelHandlers/GLBLoader";
 
 let debug = true;
  
@@ -100,11 +101,17 @@ export async function generateMainScene(
     let newPlane = new MakePlane(SceneToGet)
     await newPlane.loadFiles()
     newPlane.CreateGroupAndPos()
-    newPlane.attachCameraAndControl(Camera)
+    //newPlane.attachCameraAndControl(Camera)
+
+    let airport = await addGLBFile(
+        "/Assets/Airport.glb",
+        SceneToGet
+    );
+    SceneToGet.add(airport.scene)
 
     generateTerrainAroundPlayer(seed, Camera, SceneToGet)
 
-    //addToRenderSequence("Main", () => controlHandlerUpdate(Camera));
+    addToRenderSequence("Main", () => controlHandlerUpdate(Camera));
     addToRenderSequence("Main", () => daynight.update(Camera));
 
     //console.log(GenerateWebWorker(`/webWorkers/basicTest.js`, [], (e) => {console.log(e)} ))

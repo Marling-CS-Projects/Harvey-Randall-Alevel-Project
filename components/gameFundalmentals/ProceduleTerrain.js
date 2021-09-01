@@ -112,7 +112,7 @@ export function generateTerrainChunk(seed, Position, gain, divisor) {
         // Update Vertice colours accordinly
         if (height > 100) {
             colours.push(1, 1, 1);
-        } else if (height > 5) {
+        } else if (height > 50) {
             colours.push(0.56, 0.54, 0.48);
         } else if (height < 2) {
             let heightSecondary = simplex.noise2D((vertex.x+(Position.x))/10, (vertex.y+(Position.y))/10) * 0.75
