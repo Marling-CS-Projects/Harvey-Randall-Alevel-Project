@@ -17,7 +17,7 @@ import {
 import { getRandomStarField } from "./stars";
 import { rotateAboutPoint } from "./rotateAroundPoint";
 import { v4 } from "uuid";
-import { debugCube } from "../Core-API/gemotryManager";
+import { Group } from "three";
 
 let recieveDaytimeUpdate = {};
 
@@ -30,7 +30,7 @@ export function addtoDayTimeChecker(arg) {
 export function removeFromDayTimeHook(UUID) {
     delete recieveDaytimeUpdate[UUID];
 }
-export function getDayState(){
+export function getDayState() {
     return day
 }
 
@@ -52,6 +52,11 @@ export class CreateDayNightCycle {
         sunmesh.position.set(1, 300, 300);
         SceneToGet.add(sunmesh);
 
+        // Create group to easily move it \\
+        let sunGroup = new Group()
+        sunGroup.add(sunmesh)
+        SceneToGet.add(sunGroup)
+
         // ---------- [Create Moon Mesh] ---------- \\
         let moon = new SphereBufferGeometry(10, 10, 100, 100);
         let moonMaterial = new MeshLambertMaterial({
@@ -60,6 +65,11 @@ export class CreateDayNightCycle {
         let moonMesh = new Mesh(moon, moonMaterial);
         moonMesh.position.set(-1, -200, -300);
         SceneToGet.add(moonMesh);
+
+        // Create group to easily move it \\
+        let moonGroup = new Group()
+        moonGroup.add(moonMesh)
+        SceneToGet.add(moonGroup)
 
         // ---------- [Create Box Gometry for handling rotation] ---------- \\
         var geometry = new BoxGeometry(1, 1, 1);
@@ -72,6 +82,8 @@ export class CreateDayNightCycle {
         this.cube = cube;
         this.moonMesh = moonMesh;
         this.sunmesh = sunmesh;
+        this.sunGroup = sunGroup;
+        this.moonGroup = moonGroup;
         this.t = 0;
         this.dTIme = 0;
 
@@ -89,6 +101,9 @@ export class CreateDayNightCycle {
             [1, -100, -100]
         );
         this.light = createAmbientLight(SceneToGet, "#aaaaaa", 0.5);
+
+        this.sunGroup.add(this.directionalLight)
+        this.moonGroup.add(this.directionalLight2)
 
         // ---------- [Create Stary night] ---------- \\
         let skyBox = new BoxGeometry(1200, 1200, 1200);
@@ -112,6 +127,14 @@ export class CreateDayNightCycle {
         let angle = MathUtils.radToDeg(this.cube.rotation.x);
 
         // ---------- [Rotate all the lights and Meshes] ---------- \\
+
+
+        this.sunGroup.position.set(Camera.position.x + 100, Camera.position.y, Camera.position.z);
+        this.moonGroup.position.set(Camera.position.x + 100, Camera.position.y, Camera.position.z);
+
+        this.sky.position.set(Camera.position.x + 100, Camera.position.y, Camera.position.z);
+
+
         rotateAboutPoint(
             this.sunmesh,
             new Vector3(100, 0, 0),

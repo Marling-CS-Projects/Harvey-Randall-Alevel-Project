@@ -72,6 +72,8 @@ export async function generateMainScene(
     //generateTerrain(seed, SceneToGet);
     controlHandlerInit(document, child2);
 
+
+
     if (debug) {
         const planeGeometry = new PlaneGeometry(20, 20, 32, 32);
         planeGeometry.rotateX(Math.PI / 2);

@@ -15,6 +15,8 @@ import { updateRenderCycle } from "../components/Core-API/RenderingHandler";
 import { generateMainScene } from "../components/Scenes/MainSceneHandler";
 import { CreateUI } from "../components/gameUI/gameFeed";
 import { ControlEventListener } from "../components/gameFundalmentals/controls";
+import { debugCube } from "../components/Core-API/gemotryManager";
+import { getTerrainHeight } from "../components/gameFundalmentals/ProceduleTerrain";
 
 export default function render() {
     const [child, setChild] = useState();
@@ -41,14 +43,14 @@ export default function render() {
             typeof child === "undefined" ||
             typeof recievedSeed === "undefined" ||
             rendered === true
-        ){
+        ) {
             return;
         }
-            
+
         setRendered(true);
 
         let stats = new Stats();
-        stats.showPanel(1);
+        stats.showPanel(2);
         document.body.appendChild(stats.dom);
 
         let SceneToGet = new Scene();
@@ -60,11 +62,13 @@ export default function render() {
 
         Renders.setClearColor("#87ceeb", 1);
 
-        let fog = new Fog(0xDCDBDF, 10,100000)
+        let fog = new Fog(0xDCDBDF, 10, 100000)
         SceneToGet.fog = fog
 
         Renders.setSize(window.innerWidth, window.innerHeight);
         child.appendChild(Renders.domElement);
+
+    
 
         let CurrentScene = "Main";
 
@@ -74,6 +78,18 @@ export default function render() {
             0.1,
             100000000
         );
+
+        window.addEventListener('resize', onWindowResize, false);
+
+        function onWindowResize() {
+
+            Camera.aspect = window.innerWidth / window.innerHeight;
+            Camera.updateProjectionMatrix();
+
+            Renders.setSize(window.innerWidth, window.innerHeight);
+
+        }
+
         generateMainScene(
             SceneToGet,
             Renders,
@@ -167,9 +183,14 @@ export default function render() {
             socket.emit("LocationUpdate", vector, Camera.rotation);
         }, 10);
 
-        var animate = function () {
+        let debubCube = debugCube()
+        SceneToGet.add(debubCube)
+
+        var animate = async function () {
             stats.begin();
             requestAnimationFrame(animate);
+
+            debubCube.position.set(Camera.position.x, getTerrainHeight(Camera.position, recievedSeed, 120, 0.1), Camera.position.z)
 
             // Update all moving parts
             updateRenderCycle(CurrentScene);
