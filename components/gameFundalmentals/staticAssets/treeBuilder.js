@@ -29,34 +29,40 @@ export async function GenerateTrees(num, scene, start, bounds, seed, gain, divis
     )
 
     let leaves = new MeshLambertMaterial({color: 0x694b37 })
+    let brighLeaves = new MeshLambertMaterial({color: 0x6F9940 })
     let trunk = new MeshLambertMaterial({color: 0x216734 })
+    let snowy = new MeshLambertMaterial({color: 0xffffff })
     tree.scene.children[0].material = leaves
     tree.scene.children[1].material = trunk
     snowyTree.scene.children[0].material = leaves
     snowyTree.scene.children[1].material = trunk
-    snowyTree.scene.children[2].material = new MeshLambertMaterial({color: 0xffffff })
+    snowyTree.scene.children[2].material = snowy
 
-    palmTree = palmTree.scene.children[0]
-
-
-    palmTree.children[0].material = trunk
+    let newpalmTree = palmTree.scene.children[0]
 
 
+    newpalmTree.children[0].material = trunk
+    newpalmTree.children[1].material = brighLeaves
+    newpalmTree.children[2].material = brighLeaves
+
+    tree.scene.scale.set(3,3,3);
+    snowyTree.scene.scale.set(3,3,3);
+    palmTree.scene.scale.set(4,4,4);
     
     for(let i=0;i<num;i++){
         let randomVector = randomVectorBetweenPoints2D( start, bounds)
         randomVector.y = 50   
 
         let height = getTerrainHeight(randomVector, seed, gain, divisor, scene)
-        if(height > 2 && height < 20){
+        if(height > 80 && height < 200){
+            let placeTreeOut = placeTree(snowyTree, height, randomVector)
+            scene.add(placeTreeOut.newTree)
+        }else if(height < 80 && height > 8){
             let placeTreeOut = placeTree(tree, height, randomVector)
             scene.add(placeTreeOut.newTree)
-        }else if(height < 2 && height > 0){
-            let placeTreeOut = placeTree(tree, height, randomVector)
+        }else if(height > 5 ){
+            let placeTreeOut = placeTree(palmTree, height, randomVector)
             scene.add(placeTreeOut.newTree)
-        }else if(height > 20){
-            //meshes.push(placeTree(palmTree, intersects))
-            //group.add(placeTreeOut.newTree)
         }
         
     }

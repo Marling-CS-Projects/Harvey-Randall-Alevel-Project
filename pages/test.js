@@ -30,6 +30,8 @@ export default function render() {
     const [clients, setClients] = useState([]);
     const [personData, setPersonalData] = useState();
 
+    const [positon, setPosition] = useState(new Vector3().toArray())
+
     startSeverClientCommunication(socket);
 
     socket.once("welcome", (seed, client, data) => {
@@ -183,17 +185,14 @@ export default function render() {
             socket.emit("LocationUpdate", vector, Camera.rotation);
         }, 10);
 
-        let debubCube = debugCube()
-        SceneToGet.add(debubCube)
-
         var animate = async function () {
             stats.begin();
             requestAnimationFrame(animate);
 
-            debubCube.position.set(Camera.position.x, getTerrainHeight(Camera.position, recievedSeed, 120, 0.1), Camera.position.z)
-
             // Update all moving parts
             updateRenderCycle(CurrentScene);
+
+            setPosition(`X: ${Math.round(Camera.position.x)}} Y: ${Math.round(Camera.position.y)}} Z: ${Math.round(Camera.position.z)}}`)
 
             Renders.render(SceneToGet, Camera);
             stats.end();
@@ -226,6 +225,7 @@ export default function render() {
                     marginTop: "80px",
                 }}>
                 <CreateUI />
+                <h1>Pos: {positon}</h1>
                 <form onSubmit={sendChat}>
                     <input ref={(ref) => setChild2(ref)}></input>
                     <input type="Submit"></input>
@@ -242,6 +242,7 @@ export default function render() {
                 })}
             </div>
             {typeof recievedSeed === "undefined" ?? <h1>LOADING SEED!</h1>}
+            
             <div ref={(ref) => setChild(ref)}></div>
             <div ref={(ref) => setChild(ref)}></div>
         </main>

@@ -36,7 +36,10 @@ export function GenerateTerrainChunkWithSettings(
         vertex.fromBufferAttribute(positionAttribute, i);
 
         // Check Height from Perlin Noise Generator
-
+        let location = new Vector2(
+            vertex.x + Position.x ,
+            vertex.y - Position.y
+        )
         let height =
             fbm.get2(
                 new Vector2(
@@ -46,6 +49,11 @@ export function GenerateTerrainChunkWithSettings(
             ) *
             gain *
             4;
+            
+        console.log(location)
+        if(location.x > 240 && location.y > 240){
+            height = 500
+        }
 
         // Set the height accordingly
         geometry.attributes.position.array[i * 3 + 2] = height;

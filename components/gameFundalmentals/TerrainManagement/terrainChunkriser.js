@@ -33,7 +33,7 @@ export function generateTerrainAroundPlayer(seed, camera, scene) {
 
                 loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`] = true;
                 let chunk = generateTerrainChunk(seed, ChunkYourIn, 120, 0.1);
-                GenerateTrees(1000, scene, new Vector3(ChunkYourIn.x-250, 250,ChunkYourIn.y-250), new Vector3(ChunkYourIn.x+250,250,ChunkYourIn.y+250), seed, 120, 0.1, ChunkYourIn)
+                GenerateTrees(100, scene, new Vector3(ChunkYourIn.x-250, 250,ChunkYourIn.y-250), new Vector3(ChunkYourIn.x+250,250,ChunkYourIn.y+250), seed, 120, 0.1, ChunkYourIn)
                 chunksInMem[`${ChunkYourIn.x}:${ChunkYourIn.y}`] = chunk;
                 scene.add(chunk);
             }

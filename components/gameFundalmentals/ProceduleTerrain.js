@@ -113,12 +113,12 @@ export function generateTerrainChunk(seed, Position, gain, divisor) {
     plane2.position.set(Position.x, -3, Position.y);
     plane2.rotateX(Math.PI / 2 + Math.PI);
 
-    
+
 
 
     const positionAttribute = geometry.getAttribute("position");
     //------------[Edit the Geomtry Accordingly]------------\\
-    for (var i = 0, l = geometry.attributes.position.array.length/3; i < l; i++) {
+    for (var i = 0;  i < positionAttribute.count ;i++) {
         // Get Data position
         const vertex = new Vector3();
         vertex.fromBufferAttribute(positionAttribute, i);
@@ -126,30 +126,39 @@ export function generateTerrainChunk(seed, Position, gain, divisor) {
         plane2.localToWorld(vertex)
 
         // Check Height from Perlin Noise Generator
-        
-        let height = fbm.get2(new Vector2((vertex.x + (Position.x)) * divisor, (vertex.y - (Position.y)) * divisor)) * gain * 4
-        console.log("Terrain", new Vector2((vertex.x + (Position.x)), (vertex.y - (Position.y)) ), height)
+
+        let location = new Vector2(
+            (vertex.x + (Position.x)) * divisor,  
+            (vertex.y - (Position.y)) * divisor
+        )
+
+        let height = fbm.get2(location) * gain * 4
         // Set the height accordingly
+        if (location.x >= 25.0 && location.y <= -25.0 && location.x <= 25.3 && location.y >= -25.3 ) {
+            console.log(location)
+            //height = 500
+        }
 
+        positionAttribute.setZ(i, height)
+        //geometry.attributes.position.array[i * 3 + 2] = height;
 
-        geometry.attributes.position.array[i * 3 + 2] = height;
-
-    
 
         // Update Vertice colours accordinly
         if (height > 100) {
             colours.push(1, 1, 1);
         } else if (height > 50) {
             colours.push(0.56, 0.54, 0.48);
-        } else if (height < 2) {
+        } else if (height > 8) {
+            colours.push(0.56, 0.68, 0.166);
+        } else if (height > 5){
+            colours.push(0.9922, 0.8745, 0.466);
+        }else{
             let heightSecondary = simplex.get2(new Vector2((vertex.x + (Position.x)) * divisor, (vertex.y - (Position.y)) * divisor)) * 0.75
             geometry.attributes.position.array[i * 3 + 2] = heightSecondary;
             colours.push(0, randomIntFromInterval(400, 500) / 1000, randomIntFromInterval(700, 800) / 1000)
-        } else {
-            colours.push(0.56, 0.68, 0.166);
         }
     }
-    
+
 
     //------------[Edit colour attribute]------------\\
     geometry.setAttribute(
@@ -175,11 +184,10 @@ export function getTerrainHeight(position, seed, gain, divisor, scene) {
         height: 40,
     });
     //console.table(position)
-    let height = fbm.get2(new Vector2(position.x * divisor, position.z * divisor)) * gain * 4
-    console.log("tree", new Vector2(750,750), fbm.get2(new Vector2(750  * divisor,750  * divisor)) * gain * 4)
+    let height = fbm.get2(new Vector2((position.x) * divisor, (-position.z ) * divisor)) * gain * 4
     /*let cube = debugCube()
     scene.add(cube)
     cube.position.set(position.x , height, position.z)
     cube.material.color = new Color(height*2)*/
-    return height 
+    return height - 3
 }

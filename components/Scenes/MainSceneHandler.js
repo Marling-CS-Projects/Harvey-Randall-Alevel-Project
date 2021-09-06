@@ -103,7 +103,7 @@ export async function generateMainScene(
     let newPlane = new MakePlane(SceneToGet)
     await newPlane.loadFiles()
     newPlane.CreateGroupAndPos()
-    //newPlane.attachCameraAndControl(Camera)
+    newPlane.attachCameraAndControl(Camera)
 
     let airport = await addGLBFile(
         "/Assets/Airport.glb",
@@ -111,9 +111,10 @@ export async function generateMainScene(
     );
     SceneToGet.add(airport.scene)
 
+
     generateTerrainAroundPlayer(seed, Camera, SceneToGet)
 
-    addToRenderSequence("Main", () => controlHandlerUpdate(Camera));
+    //addToRenderSequence("Main", () => controlHandlerUpdate(Camera));
     addToRenderSequence("Main", () => daynight.update(Camera));
 
     //console.log(GenerateWebWorker(`/webWorkers/basicTest.js`, [], (e) => {console.log(e)} ))
