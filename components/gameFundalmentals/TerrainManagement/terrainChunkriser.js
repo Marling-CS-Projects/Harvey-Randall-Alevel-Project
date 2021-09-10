@@ -1,5 +1,6 @@
 import { Vector2, Vector3 } from "three";
 import { roundnum } from "../../Algorithms/MathUtils";
+import { stopLoading } from "../../Core-API/3dModelHandlers/GLBLoader";
 import { generateTerrainChunk } from "../ProceduleTerrain";
 import { GenerateTrees } from "../staticAssets/treeBuilder";
 import { checkBiomeLocation } from "./utils/GenerateBiomesMap.ts";
@@ -7,6 +8,7 @@ import { checkBiomeLocation } from "./utils/GenerateBiomesMap.ts";
 export function generateTerrainAroundPlayer(seed, camera, scene) {
     let loadedChunks = {};
     let chunksInMem = {};
+    let laoding = true
     setInterval(() => {
         let vector = new Vector3();
         camera.getWorldPosition(vector);
@@ -33,7 +35,7 @@ export function generateTerrainAroundPlayer(seed, camera, scene) {
 
                 loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`] = true;
                 let chunk = generateTerrainChunk(seed, ChunkYourIn, 120, 0.1);
-                GenerateTrees(100, scene, new Vector3(ChunkYourIn.x-250, 250,ChunkYourIn.y-250), new Vector3(ChunkYourIn.x+250,250,ChunkYourIn.y+250), seed, 120, 0.1, ChunkYourIn)
+                GenerateTrees(50, scene, new Vector3(ChunkYourIn.x-250, 250,ChunkYourIn.y-250), new Vector3(ChunkYourIn.x+250,250,ChunkYourIn.y+250), seed, 120, 0.1, ChunkYourIn)
                 chunksInMem[`${ChunkYourIn.x}:${ChunkYourIn.y}`] = chunk;
                 scene.add(chunk);
             }
@@ -48,5 +50,12 @@ export function generateTerrainAroundPlayer(seed, camera, scene) {
         chunkyThing(new Vector2(yourChunk.x-500, yourChunk.y-500))
         chunkyThing(new Vector2(yourChunk.x, yourChunk.y-500))
         chunkyThing(new Vector2(yourChunk.x+500, yourChunk.y-500))
+
+
+        if(laoding){
+            laoding = false
+            stopLoading()
+        }
     }, 1000);
 }
+

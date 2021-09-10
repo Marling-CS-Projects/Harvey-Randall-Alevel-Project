@@ -15,12 +15,10 @@ import {
     Vector3,
 } from "three";
 import { GenerateClouds } from "../gameFundalmentals/clouds";
-import { controlHandlerInit, controlHandlerUpdate } from "../gameFundalmentals/controls";
+import { controlHandlerInit } from "../gameFundalmentals/controls";
 import { CreateDayNightCycle } from "../gameFundalmentals/DayNightCycle";
 import { MakePlane } from "../gameFundalmentals/planeHandler/MainPlane";
 import { generateTerrainAroundPlayer } from "../gameFundalmentals/TerrainManagement/terrainChunkriser";
-import { GenerateWebWorker } from "../Core-API/WorkerSetup.ts";
-import { debugCube } from "../Core-API/gemotryManager";
 import { addGLBFile } from "../Core-API/3dModelHandlers/GLBLoader";
 
 let debug = true;
@@ -118,4 +116,6 @@ export async function generateMainScene(
     addToRenderSequence("Main", () => daynight.update(Camera));
 
     //console.log(GenerateWebWorker(`/webWorkers/basicTest.js`, [], (e) => {console.log(e)} ))
+
+
 }

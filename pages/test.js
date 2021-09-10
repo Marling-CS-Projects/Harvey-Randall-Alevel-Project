@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useContext } from "react";
 import * as THREE from "three";
-import React from 'react'
+import React from "react";
 import { Fog, PerspectiveCamera, Scene, Vector3, WebGLRenderer } from "three";
 var Stats = require("stats.js");
 import { useAppContext } from "../components/Context/socketioContext";
@@ -13,10 +13,11 @@ import {
 } from "../components/Core-API/ConnectAPI";
 import { updateRenderCycle } from "../components/Core-API/RenderingHandler";
 import { generateMainScene } from "../components/Scenes/MainSceneHandler";
-import { CreateUI } from "../components/gameUI/gameFeed";
+import { CreateUI } from "../components/gameUI/entryPoint";
 import { ControlEventListener } from "../components/gameFundalmentals/controls";
 import { debugCube } from "../components/Core-API/gemotryManager";
 import { getTerrainHeight } from "../components/gameFundalmentals/ProceduleTerrain";
+import { preLoadAllModels } from "../components/Core-API/3dModelHandlers/GLBLoader";
 
 export default function render() {
     const [child, setChild] = useState();
@@ -24,13 +25,13 @@ export default function render() {
 
     const [day, setDay] = useState("not day");
     const [child2, setChild2] = useState();
-    const socket = useAppContext();;
+    const socket = useAppContext();
     const [recievedSeed, setSeed] = useState();
     const [rendered, setRendered] = useState(false);
     const [clients, setClients] = useState([]);
     const [personData, setPersonalData] = useState();
 
-    const [positon, setPosition] = useState(new Vector3().toArray())
+    const [positon, setPosition] = useState(new Vector3().toArray());
 
     startSeverClientCommunication(socket);
 
@@ -49,6 +50,8 @@ export default function render() {
             return;
         }
 
+        preLoadAllModels()
+
         setRendered(true);
 
         let stats = new Stats();
@@ -64,13 +67,11 @@ export default function render() {
 
         Renders.setClearColor("#87ceeb", 1);
 
-        let fog = new Fog(0xDCDBDF, 10, 100000)
-        SceneToGet.fog = fog
+        let fog = new Fog(0xdcdbdf, 10, 100000);
+        SceneToGet.fog = fog;
 
         Renders.setSize(window.innerWidth, window.innerHeight);
         child.appendChild(Renders.domElement);
-
-    
 
         let CurrentScene = "Main";
 
@@ -81,15 +82,13 @@ export default function render() {
             100000000
         );
 
-        window.addEventListener('resize', onWindowResize, false);
+        window.addEventListener("resize", onWindowResize, false);
 
         function onWindowResize() {
-
             Camera.aspect = window.innerWidth / window.innerHeight;
             Camera.updateProjectionMatrix();
 
             Renders.setSize(window.innerWidth, window.innerHeight);
-
         }
 
         generateMainScene(
@@ -102,7 +101,7 @@ export default function render() {
         );
 
         Renders.domElement.requestPointerLock();
-        ControlEventListener(document, child2)
+        ControlEventListener(document, child2);
 
         let players = [];
 
@@ -180,8 +179,8 @@ export default function render() {
             addtoGameFeed(data.name, text);
         });
         setInterval(() => {
-            let vector = new Vector3()
-            Camera.getWorldPosition(vector)
+            let vector = new Vector3();
+            Camera.getWorldPosition(vector);
             socket.emit("LocationUpdate", vector, Camera.rotation);
         }, 10);
 
@@ -192,7 +191,11 @@ export default function render() {
             // Update all moving parts
             updateRenderCycle(CurrentScene);
 
-            setPosition(`X: ${Math.round(Camera.position.x)}} Y: ${Math.round(Camera.position.y)}} Z: ${Math.round(Camera.position.z)}}`)
+            setPosition(
+                `X: ${Math.round(Camera.position.x)}} Y: ${Math.round(
+                    Camera.position.y
+                )}} Z: ${Math.round(Camera.position.z)}}`
+            );
 
             Renders.render(SceneToGet, Camera);
             stats.end();
@@ -209,42 +212,16 @@ export default function render() {
 
     return (
         <main>
-            <h1
-                style={{
-                    position: "fixed",
-                    marginTop: "40px",
-                    color: "white",
-                }}>
-                {typeof personData === "undefined" ? "LOADING..." : personData.name}
-            </h1>
             <div
                 style={{
                     width: "100vw",
                     height: "100vh",
                     position: "fixed",
-                    marginTop: "80px",
                 }}>
                 <CreateUI />
-                <h1>Pos: {positon}</h1>
-                <form onSubmit={sendChat}>
-                    <input ref={(ref) => setChild2(ref)}></input>
-                    <input type="Submit"></input>
-                </form>
-                {[...gameEventData].map((e) => {
-                    if (typeof e === "undefined") {
-                        return;
-                    }
-                    return (
-                        <h4 style={{ color: "white" }}>
-                            {e.name} - {e.event}
-                        </h4>
-                    );
-                })}
             </div>
-            {typeof recievedSeed === "undefined" ?? <h1>LOADING SEED!</h1>}
-            
-            <div ref={(ref) => setChild(ref)}></div>
-            <div ref={(ref) => setChild(ref)}></div>
+
+            <div ref={(ref) => { setChild(ref) } /* */   }></div>
         </main>
     );
 }

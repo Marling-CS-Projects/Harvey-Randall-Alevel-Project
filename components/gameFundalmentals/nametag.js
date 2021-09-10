@@ -34,7 +34,7 @@ export function createTag(baseWidth, size, name) {
 }
 
 export function generateLabel(name, group) {
-    const canvas = createTag(300, 32, name);
+    const canvas = createTag(300/0.1, 32/0.1, name);
     const texture = new THREE.CanvasTexture(canvas);
     // because our canvas is likely not a power of 2
     // in both dimensions set the filtering appropriately.
