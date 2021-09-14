@@ -134,14 +134,13 @@ export function generateTerrainChunk(seed, Position, gain, divisor) {
 
         let height = fbm.get2(location) * gain * 4
         // Set the height accordingly
-        if (location.x >= 25.0 && location.y <= -25.0 && location.x <= 25.3 && location.y >= -25.3 ) {
-            console.log(location)
+        if (location.x <= 20 && location.y >= -6 && location.x >= -25 && location.y <= 10 ) {
+            height = 0
             //height = 500
         }
 
         positionAttribute.setZ(i, height)
         //geometry.attributes.position.array[i * 3 + 2] = height;
-
 
         // Update Vertice colours accordinly
         if (height > 100) {
