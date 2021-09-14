@@ -1,7 +1,7 @@
 export default function SvgBackground() {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" style={{left:"0", top:"0", width:"100%", height:"100%", position:"fixed", zIndex:"-1"}}>
-            <g transform="translate(720,410.5) scale(1,1) translate(-720,-410.5)">
+        <svg xmlns="http://www.w3.org/2000/svg" style={{left:"0", top:"0", width:"150%", height:"150%", position:"fixed", zIndex:"-1"}}>
+            <g transform="translate(720,410.5) scale(1.5,1.5) translate(-720,-410.5)">
                 <g id="bk-0.3493646305586424">
                     <path
                         d="M 805 407  L 807 325  L 711 339 Z"

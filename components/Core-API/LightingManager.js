@@ -21,8 +21,10 @@ export function createAmbientLight(Scene, color, brightness) {
   return light;
 }
 
-export function createPointLight(color, brightness, pos, intensity){
-  const PointLightNew = new PointLight(color, brightness, intensity)
+export function createPointLight(color, brightness, pos, intensity, Scene){
+  const PointLightNew = new PointLight(color, brightness, intensity, 100)
   PointLightNew.position.set(...pos)
+
+  
   return PointLightNew
 } 

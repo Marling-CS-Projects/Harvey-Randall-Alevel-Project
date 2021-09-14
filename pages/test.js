@@ -65,8 +65,7 @@ export default function render() {
 
         Renders.setClearColor("#87ceeb", 1);
 
-        let fog = new Fog(0xdcdbdf, 10, 100000);
-        SceneToGet.fog = fog;
+
 
         Renders.setSize(window.innerWidth, window.innerHeight);
         child.appendChild(Renders.domElement);

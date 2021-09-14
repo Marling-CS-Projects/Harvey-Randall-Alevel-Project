@@ -100,7 +100,7 @@ export class MakePlane extends CheckPlaneCollisions {
         let [props, leftAirelone] = [this.props.scene, this.leftAirelone.scene];
         // For testing \\
 
-        let light = createPointLight(0xff0000, 3, [60, 22.5, -10], 2.5);
+        let light = createPointLight(0xff0000, 30, [60, 22.5, -10], 50);
         let light2 = createPointLight(0x00ff00, 3, [-60, 22.5, -10], 2.5);
         let whiteLight = createPointLight(0xffffff, 3, [0, 30, -60], 2.5);
         let day = true
@@ -112,10 +112,12 @@ export class MakePlane extends CheckPlaneCollisions {
                 day = false
                 this.group.add(light);
                 this.group.add(light2);
+                this.group.add(whiteLight);
             }else if(getDayState() === true && day === false){
                 day = true
                 this.group.remove(light);
                 this.group.remove(light2);
+                this.group.remove(whiteLight);
             }
         }, 1000)
 

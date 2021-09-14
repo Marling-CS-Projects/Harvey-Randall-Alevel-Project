@@ -106,9 +106,9 @@ export class CreateDayNightCycle {
         this.moonGroup.add(this.directionalLight2)
 
         // ---------- [Create Stary night] ---------- \\
-        let skyBox = new BoxGeometry(1200, 1200, 1200);
+        let skyBox = new BoxGeometry(6000, 6000, 6000);
         let skyBoxMaterial = new MeshBasicMaterial({
-            map: getRandomStarField(600, 2048, 2048),
+            map: getRandomStarField(6000, 6000, 6000),
             side: BackSide,
         });
         this.sky = new Mesh(skyBox, skyBoxMaterial);

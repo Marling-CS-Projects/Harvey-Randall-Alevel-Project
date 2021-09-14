@@ -48,6 +48,8 @@ export async function GenerateTrees(num, scene, start, bounds, seed, gain, divis
     tree.scene.scale.set(3,3,3);
     snowyTree.scene.scale.set(3,3,3);
     palmTree.scene.scale.set(4,4,4);
+
+    let trees = new Group()
     
     for(let i=0;i<num;i++){
         let randomVector = randomVectorBetweenPoints2D( start, bounds)
@@ -56,16 +58,17 @@ export async function GenerateTrees(num, scene, start, bounds, seed, gain, divis
         let height = getTerrainHeight(randomVector, seed, gain, divisor, scene)
         if(height > 80 && height < 200){
             let placeTreeOut = placeTree(snowyTree, height, randomVector)
-            scene.add(placeTreeOut.newTree)
+            trees.add(placeTreeOut.newTree)
         }else if(height < 80 && height > 8){
             let placeTreeOut = placeTree(tree, height, randomVector)
-            scene.add(placeTreeOut.newTree)
+            trees.add(placeTreeOut.newTree)
         }else if(height > 5 ){
             let placeTreeOut = placeTree(palmTree, height, randomVector)
-            scene.add(placeTreeOut.newTree)
+            trees.add(placeTreeOut.newTree)
         }
         
     }
 
+    return trees
 
 }
