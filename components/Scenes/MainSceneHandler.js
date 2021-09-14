@@ -15,9 +15,9 @@ import {
     Vector3,
 } from "three";
 import { GenerateClouds } from "../gameFundalmentals/clouds";
-import { controlHandlerInit } from "../gameFundalmentals/controls";
+import { controlHandlerInit, controlHandlerUpdate } from "../gameFundalmentals/controls";
 import { CreateDayNightCycle } from "../gameFundalmentals/DayNightCycle";
-import { MakePlane } from "../gameFundalmentals/planeHandler/MainPlane";
+import { MakePlane } from "../gameFundalmentals/planeHandler/MainPlane.ts";
 import { generateTerrainAroundPlayer } from "../gameFundalmentals/TerrainManagement/terrainChunkriser";
 import { addGLBFile } from "../Core-API/3dModelHandlers/GLBLoader";
 
@@ -102,6 +102,7 @@ export async function generateMainScene(
     await newPlane.loadFiles()
     newPlane.CreateGroupAndPos()
     newPlane.attachCameraAndControl(Camera)
+    newPlane.updateCycle()
 
     let airport = await addGLBFile(
         "/Assets/Airport.glb",

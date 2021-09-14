@@ -13,10 +13,8 @@ import {
 } from "../components/Core-API/ConnectAPI";
 import { updateRenderCycle } from "../components/Core-API/RenderingHandler";
 import { generateMainScene } from "../components/Scenes/MainSceneHandler";
-import { CreateUI } from "../components/gameUI/entryPoint";
+import { CreateUI } from "../components/gameUI/entryPoint.tsx";
 import { ControlEventListener } from "../components/gameFundalmentals/controls";
-import { debugCube } from "../components/Core-API/gemotryManager";
-import { getTerrainHeight } from "../components/gameFundalmentals/ProceduleTerrain";
 import { preLoadAllModels } from "../components/Core-API/3dModelHandlers/GLBLoader";
 
 export default function render() {

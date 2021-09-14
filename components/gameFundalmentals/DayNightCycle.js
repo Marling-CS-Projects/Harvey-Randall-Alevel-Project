@@ -128,11 +128,14 @@ export class CreateDayNightCycle {
 
         // ---------- [Rotate all the lights and Meshes] ---------- \\
 
+        let cameraPos = new Vector3()
+        Camera.getWorldPosition(cameraPos)
 
-        this.sunGroup.position.set(Camera.position.x + 100, Camera.position.y, Camera.position.z);
-        this.moonGroup.position.set(Camera.position.x + 100, Camera.position.y, Camera.position.z);
 
-        this.sky.position.set(Camera.position.x + 100, Camera.position.y, Camera.position.z);
+        this.sunGroup.position.set(cameraPos.x + 100 , cameraPos.y , cameraPos.z);
+        this.moonGroup.position.set(cameraPos.x + 100, cameraPos.y, cameraPos.z);
+
+        this.sky.position.set(cameraPos.x, cameraPos.y, cameraPos.z);
 
 
         rotateAboutPoint(
