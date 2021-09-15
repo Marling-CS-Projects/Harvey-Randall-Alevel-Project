@@ -3,19 +3,21 @@
 import { useEffect, useState, useContext } from "react";
 import * as THREE from "three";
 import React from "react";
-import { Fog, PerspectiveCamera, Scene, Vector3, WebGLRenderer } from "three";
+import { PerspectiveCamera, Scene, Vector3, WebGLRenderer } from "three";
 var Stats = require("stats.js");
 import { useAppContext } from "../components/Context/socketioContext";
 import { generateLabel } from "../components/gameFundalmentals/nametag";
 import {
     startSeverClientCommunication,
     listenToEvent,
+    joinGame,
 } from "../components/Core-API/ConnectAPI";
 import { updateRenderCycle } from "../components/Core-API/RenderingHandler";
 import { generateMainScene } from "../components/Scenes/MainSceneHandler";
 import { CreateUI } from "../components/gameUI/entryPoint.tsx";
 import { ControlEventListener } from "../components/gameFundalmentals/controls";
 import { preLoadAllModels } from "../components/Core-API/3dModelHandlers/GLBLoader";
+import { MakePlane } from "../components/gameFundalmentals/planeHandler/MainPlane.ts";
 
 export default function render() {
     const [child, setChild] = useState();
@@ -42,18 +44,23 @@ export default function render() {
     useEffect(() => {
         if (
             typeof child === "undefined" ||
-            typeof recievedSeed === "undefined" ||
             rendered === true
         ) {
             return;
         }
+
+        // Connect to server \\
+        let mainGame = joinGame("Test", "Test")
+        setSeed(mainGame.seed);
+        setClients(mainGame.clients);
+        setPersonalData(mainGame.userData);
 
         preLoadAllModels()
 
         setRendered(true);
 
         let stats = new Stats();
-        stats.showPanel(2);
+        stats.showPanel(0);
         document.body.appendChild(stats.dom);
 
         let SceneToGet = new Scene();
@@ -102,29 +109,6 @@ export default function render() {
 
         let players = [];
 
-        function makeCube(color = "rgb(0,0,0)", name = "unkown") {
-            const group = new THREE.Group();
-            const geometry = new THREE.BoxGeometry(1, 1, 1);
-            const material = new THREE.MeshLambertMaterial({
-                color: new THREE.Color(color),
-                emissive: new THREE.Color(color),
-            });
-            const cube = new THREE.Mesh(geometry, material);
-            group.add(cube);
-            const cyclinder = new THREE.CylinderGeometry(0.3, 0.3, 0.6, 30);
-            const material2 = new THREE.MeshLambertMaterial({
-                color: "#000000",
-            });
-            const cylinderBuild = new THREE.Mesh(cyclinder, material2);
-            cylinderBuild.rotateX(Math.PI / 2 + Math.PI);
-            cylinderBuild.position.set(0, 0, -0.6);
-            group.add(cylinderBuild);
-
-            generateLabel(name, group);
-            SceneToGet.add(group);
-            group.name = name;
-            return group;
-        }
 
         let prevData = [];
 
@@ -137,14 +121,28 @@ export default function render() {
             prevData = NewGameEventArray;
         };
 
-        clients.forEach((e) => {
-            let cube = makeCube(e.color, e.name);
-            players[`${e}`] = cube;
+        clients.forEach(async (e) => {
+            let newcube = new MakePlane(SceneToGet)
+            await newcube.loadFiles()
+            let cube = newcube.CreateGroupAndPos()
+            addtoGameFeed(data?.name, "Joined the game!");
+
+            generateLabel(e.name, cube);
+
+            players[`${id}`] = cube;
         });
 
-        socket.on("NewPlayer", (id, data) => {
-            let cube = makeCube(data.color, data.name);
+        socket.on("NewPlayer", async (id, data) => {
+            if (id === socket.id) return;
+
+            let newcube = new MakePlane(SceneToGet)
+            await newcube.loadFiles()
+            let cube = newcube.CreateGroupAndPos()
             addtoGameFeed(data?.name, "Joined the game!");
+
+            generateLabel(data.name, cube);
+
+
 
             players[`${id}`] = cube;
         });
@@ -161,13 +159,20 @@ export default function render() {
             );
         });
 
-        listenToEvent("PlayerLocationUpdate", (id, pos, rot, data) => {
+        listenToEvent("PlayerLocationUpdate",async (id, pos, rot, data) => {
+            if (id === socket.id) return;
             let cube = players[`${id}`];
             if (cube) {
                 cube.rotation.set(rot._x, rot._y, rot._z);
                 cube.position.set(pos.x, pos.y, pos.z);
             } else {
-                let cube = makeCube(data?.color, data?.name);
+                let newcube = new MakePlane(SceneToGet)
+                await newcube.loadFiles()
+                let cube = newcube.CreateGroupAndPos()
+                generateLabel(data.name, cube);
+                addtoGameFeed(data?.name, "Joined the game!");
+
+
 
                 players[`${id}`] = cube;
             }
@@ -176,10 +181,9 @@ export default function render() {
             addtoGameFeed(data.name, text);
         });
         setInterval(() => {
-            let vector = new Vector3();
-            Camera.getWorldPosition(vector);
-            socket.emit("LocationUpdate", vector, Camera.rotation);
-        }, 10);
+            if (Camera?.parent?.position === undefined) return;
+            socket.emit("LocationUpdate", Camera.parent.position, Camera.parent.rotation);
+        }, 1000 / 30);
 
         var animate = async function () {
             stats.begin();
@@ -218,7 +222,7 @@ export default function render() {
                 <CreateUI />
             </div>
 
-            <div ref={(ref) => { setChild(ref) } /* */   }></div>
+            <div ref={(ref) => { setChild(ref) } /* */}></div>
         </main>
     );
 }

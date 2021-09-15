@@ -103,7 +103,6 @@ export function generateTerrainChunk(seed, Position, gain, divisor) {
         vertexColors: colours,
         reflectivity: 0,
         flatShading: true,
-        blending: false
     });
 
     //------------[Create Mesh]------------\\

@@ -38,6 +38,8 @@ export class MakePlane extends CheckPlaneCollisions {
         this.rudderPitch = 0;
         this.checker = -1;
 
+
+
         
     }
 
@@ -63,9 +65,11 @@ export class MakePlane extends CheckPlaneCollisions {
         this.rudder = await addGLBFile(
             "/Aircraft/BasicPlane/Rudder.glb",
         );
+
+
     }
 
-    CreateGroupAndPos() {
+    CreateGroupAndPos():Group {
         this.group.add(this.plane.scene);
         this.group.add(this.props.scene);
         this.group.add(this.leftAirelone.scene);

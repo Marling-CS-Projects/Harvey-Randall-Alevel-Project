@@ -5,7 +5,7 @@ import { generateTerrainChunk } from "../ProceduleTerrain";
 import { GenerateTrees } from "../staticAssets/treeBuilder";
 import { checkBiomeLocation } from "./utils/GenerateBiomesMap.ts";
 
-let renderDistance = 5;
+let renderDistance = 3;
 
 export function generateTerrainAroundPlayer(seed, camera, scene) {
     let loadedChunks = {};
@@ -41,7 +41,7 @@ export function generateTerrainAroundPlayer(seed, camera, scene) {
 
                 loadedChunks[`${ChunkYourIn.x}:${ChunkYourIn.y}`] = true;
                 let chunk = generateTerrainChunk(seed, ChunkYourIn, 120, 0.1);
-                let trees = await GenerateTrees(50, scene, new Vector3(ChunkYourIn.x-250, 250,ChunkYourIn.y-250), new Vector3(ChunkYourIn.x+250,250,ChunkYourIn.y+250), seed, 120, 0.1, ChunkYourIn)
+                let trees = await GenerateTrees(20, scene, new Vector3(ChunkYourIn.x-250, 250,ChunkYourIn.y-250), new Vector3(ChunkYourIn.x+250,250,ChunkYourIn.y+250), seed, 120, 0.1, ChunkYourIn)
                 chunksInMem[`${ChunkYourIn.x}:${ChunkYourIn.y}`] = {chunk, trees};
                 TerrainGroup.add(chunk);
                 TerrainGroup.add(trees)

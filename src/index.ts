@@ -4,10 +4,13 @@ import express from "express"
 
 const next = require("next");
 import { Server } from "socket.io"
-import { SetupLogger } from "./server/setupLogger";
+import { setupLogger, SetupLogger } from "./server/setupLogger";
+import { addConnectionToIo } from "./server/utils/connectionHook";
+import { NewGame } from "./server/Game";
+import { instrument } from "@socket.io/admin-ui";
 
 const dev = process.env.DevOn == "false" ? false : true;
-const apps = next({ dev:true , dir:"."});
+const apps = next({ dev: true, dir: "." });
 const handle = apps.getRequestHandler();
 
 const http = require("http");
@@ -23,27 +26,46 @@ let games = [
         timeOfDay: 0,
     },
 ];
-let connectedClients:{
+let connectedClients: {
     id: String,
-    color:  String,
+    color: String,
     name: String,
     lastUpdate: Number,
-    pos: { x: Number, y: Number, z: Number},
+    pos: { x: Number, y: Number, z: Number },
     rot: { _x: Number, _y: Number, _z: Number },
 }[] = [];
 
 TestApp()
 let logger = SetupLogger()
 
+setupLogger(logger)
+
+
 apps.prepare()
     .then(async () => {
         let app = express();
         const server = http.createServer(app);
 
-        const io = new Server(server);
-        var r = () => (Math.random() * 256) >> 0;
+        const io = new Server(server, {
+            cors: {
+                origin: ["https://admin.socket.io"],
+                credentials: true
+            }
+        });
 
+        instrument(io, {
+            auth: false
+        });
+
+        addConnectionToIo(io)
+
+        let mainGame = new NewGame(io)
+
+
+        /*
         io.on("connection", (socket) => {
+
+
             let data = {
                 id: socket.id,
                 color: `rgb(${r()}, ${r()}, ${r()})`,
@@ -104,8 +126,10 @@ apps.prepare()
                     clearInterval(iid);
                 }
             }, 2000);
+            
 
         });
+        */
 
         /*eslint complexity: ["error", 20]*/
         app.get("*", function (req, res) {
@@ -125,7 +149,7 @@ apps.prepare()
             logger.info("listening on localhost:" + _PORT);
         });
     })
-    .catch((ex:{stack:String}) => {
+    .catch((ex: { stack: String }) => {
         logger.info(ex.stack);
         logger.error("there was error")
         process.exit(1);

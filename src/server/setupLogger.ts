@@ -23,3 +23,13 @@ export function SetupLogger():winston.Logger{
     }
     return logger;
 };
+
+let logger: winston.Logger
+
+export function setupLogger(newLogger: winston.Logger){
+    logger = newLogger
+}
+
+export function fetchLogger(): winston.Logger{
+    return logger
+}

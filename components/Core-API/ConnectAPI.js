@@ -31,9 +31,9 @@ export function sendDataWithPromise(event, data) {
     try {
       client.emit(event, ...data);
 
-      client.on(event + "_Callback", () => {
+      client.on(event + "_Callback", (...args) => {
         resolved = true;
-        resolve(...arguments);
+        resolve(...args);
       });
     } catch (err) {
       resolved = true;
@@ -90,6 +90,13 @@ export async function listenForEventWithSchemaValidation(
 
 export function addDataToQueue(event, data, callback, prority = 1) {
   Queue.push({ prority, input: [event, data, callback] });
+}
+
+
+export async function joinGame(gameId, password) {
+  let [seed, clients, userData] = await sendDataWithPromise("GameConnect", [gameId, password])
+  console.log({ seed, clients, userData })
+  return { seed, clients, userData }
 }
 
 //-------------[   All Non essesntial communication   ]-------------\\

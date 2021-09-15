@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
-import { generateUUID } from "three/src/math/MathUtils";
+import { v4 as uuidv4 } from 'uuid';
 
 interface hooksInterface {
     [key: string]: CallableFunction
@@ -19,7 +19,7 @@ export function addConnectionToIo(ioInput: Server<DefaultEventsMap, DefaultEvent
 
         socket.on("GameConnect", (id, password) => {
             for (const [key, value] of Object.entries(hooks)) {
-                value(socket, "Game", id, password)
+                value(socket, "GameConnect", id, password)
             }
         })
     })
@@ -28,7 +28,7 @@ export function addConnectionToIo(ioInput: Server<DefaultEventsMap, DefaultEvent
 }
 
 export function ListenToConnection(callBack: CallableFunction): string {
-    let UUID = generateUUID()
+    let UUID = uuidv4()
     hooks[UUID] = callBack
     return UUID
 }
