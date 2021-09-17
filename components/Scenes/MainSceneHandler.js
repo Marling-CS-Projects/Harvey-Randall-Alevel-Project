@@ -50,7 +50,8 @@ export async function generateMainScene(
         collisionHandler.postMessage({Command:"AddShape", data: new PlaneBufferGeometry(2, 2, 2, 2)})
     },1000);
 
-    let clouds = [];
+    
+    /*let clouds = [];
     for (let i = 0; i < 40; i++) {
         clouds.push(
             new GenerateClouds(
@@ -64,7 +65,7 @@ export async function generateMainScene(
                 Math.random() * 6 + 1
             )
         );
-    }
+    }*/
 
     let daynight = new CreateDayNightCycle(SceneToGet, Renders);
     //generateTerrain(seed, SceneToGet);
@@ -89,7 +90,7 @@ export async function generateMainScene(
 
 
     // Add all updating parts to a function
-    addToRenderSequence(
+    /*addToRenderSequence(
         "Main",
         () => {
             clouds.forEach((e, i) => {
@@ -97,7 +98,7 @@ export async function generateMainScene(
             });
         },
         true
-    );
+    );*/
     let newPlane = new MakePlane(SceneToGet)
     await newPlane.loadFiles()
     newPlane.CreateGroupAndPos()

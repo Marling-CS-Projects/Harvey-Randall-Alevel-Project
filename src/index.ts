@@ -59,7 +59,7 @@ apps.prepare()
 
         addConnectionToIo(io)
 
-        let mainGame = new NewGame(io)
+        let mainGame = new NewGame(io, "Test")
 
 
         /*

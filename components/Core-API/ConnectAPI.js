@@ -58,6 +58,10 @@ export function listenToEvent(event, callback) {
   client.on(event, callback);
 }
 
+export function sendDataToServer(event, data){
+  client.emit(event, ...data)
+}
+
 /**
  *  @param {function} callback   - The function that will listen to all events sent to the client
  */
@@ -94,9 +98,17 @@ export function addDataToQueue(event, data, callback, prority = 1) {
 
 
 export async function joinGame(gameId, password) {
-  let [seed, clients, userData] = await sendDataWithPromise("GameConnect", [gameId, password])
-  console.log({ seed, clients, userData })
-  return { seed, clients, userData }
+  try{
+    let [seed, clients, userData] = await sendDataWithPromise("GameConnect", [gameId, password])
+    console.log({ seed, clients, userData })
+    if(seed === false){
+      return false
+    }
+    return { seed, clients, userData }
+  }catch{
+    return true
+  }
+  
 }
 
 //-------------[   All Non essesntial communication   ]-------------\\

@@ -4,7 +4,6 @@ import { addGLBFile } from "../../Core-API/3dModelHandlers/GLBLoader";
 import { createPointLight } from "../../Core-API/LightingManager";
 import { addToRenderSequence } from "../../Core-API/RenderingHandler";
 import { CleanUpListener, listenToConrols } from "../controls";
-import { getDayState, removeFromDayTimeHook } from "../DayNightCycle";
 import { CheckPlaneCollisions } from "./planeCollisions.ts";
 
 export class MakePlane extends CheckPlaneCollisions {
@@ -25,7 +24,7 @@ export class MakePlane extends CheckPlaneCollisions {
     private rightAirelone
     private rightControlSurface
     private leftControlSurface
-    private rudder 
+    private rudder
 
     constructor(SceneToGet) {
         let mainGroup = new Group()
@@ -40,7 +39,7 @@ export class MakePlane extends CheckPlaneCollisions {
 
 
 
-        
+
     }
 
     async loadFiles() {
@@ -69,7 +68,7 @@ export class MakePlane extends CheckPlaneCollisions {
 
     }
 
-    CreateGroupAndPos():Group {
+    CreateGroupAndPos(): Group {
         this.group.add(this.plane.scene);
         this.group.add(this.props.scene);
         this.group.add(this.leftAirelone.scene);
@@ -107,23 +106,10 @@ export class MakePlane extends CheckPlaneCollisions {
         let light = createPointLight(0xff0000, 30, [60, 22.5, -10], 50);
         let light2 = createPointLight(0x00ff00, 3, [-60, 22.5, -10], 2.5);
         let whiteLight = createPointLight(0xffffff, 3, [0, 30, -60], 2.5);
-        let day = true
         this.group.add(light);
-                this.group.add(light2);
+        this.group.add(light2);
+        this.group.add(whiteLight);
 
-        setInterval(() => {
-            if(getDayState() === false && day === true){
-                day = false
-                this.group.add(light);
-                this.group.add(light2);
-                this.group.add(whiteLight);
-            }else if(getDayState() === true && day === false){
-                day = true
-                this.group.remove(light);
-                this.group.remove(light2);
-                this.group.remove(whiteLight);
-            }
-        }, 1000)
 
         let currentEvelatorPitch = 0;
         let airelonePitch = 0;
@@ -246,11 +232,8 @@ export class MakePlane extends CheckPlaneCollisions {
             CleanUpListener(this.UUID);
         }
         this.group.remove();
-        if (this.checker !== -1) {
-            removeFromDayTimeHook(this.checker);
-        }
 
-    
+
         super.stopUpdating()
 
         return { success: true };

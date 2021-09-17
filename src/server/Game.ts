@@ -20,20 +20,28 @@ export class NewGame {
     // Important one \\
     public Running = true
 
-    public GameID = `Test`
-    public GamePassword = `Test`
+    public GameID: string
+    public GamePassword: string | undefined
 
     public connectedClients: connectedClients[] = []
     public timeOfDay = 0
     public seed = Math.random();
+    
 
-    constructor(io: Server<DefaultEventsMap, DefaultEventsMap>,) {
+    constructor(io: Server<DefaultEventsMap, DefaultEventsMap>, gamePassword: string | undefined ) {
         this.io = io
+
+        this.GameID = `${Math.floor(100000 + Math.random() * 900000)}`
+        this.GamePassword = gamePassword
 
 
         ListenToConnection((socket: Socket, event: string, gameId: string, password: string) => {
             console.log({gameId, password, event})
-            if (event !== "GameConnect" || this.GameID !== gameId || password !== this.GamePassword) return;
+            if (event !== "GameConnect" || this.GameID !== gameId) return;
+
+            if(password !== this.GamePassword){
+                socket.emit("GameConnect_Callback", [false])
+            }
 
             this.NewConnection(socket)
         })
@@ -70,7 +78,7 @@ export class NewGame {
         this.connectedClients[Number(socket.id)] = data;
         this.io.to(this.GameID).emit("NewPlayer", socket.id, data)
 
-        socket.emit("GameConnect_Callback", this.seed, this.connectedClients, data)
+        socket.emit("GameConnect_Callback", [this.seed, this.connectedClients, data])
 
         socket.join(this.GameID)
 
