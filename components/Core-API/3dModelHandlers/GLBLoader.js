@@ -71,9 +71,20 @@ export async function preLoadAllModels(){
     status = "Generating terrain and placing trees!"
 }
 
+let num1 = false
+let num2 = false
 
-export function stopLoading(){
-    setLoading = false
+export function stopLoading(num){
+    if(num === 1){
+        num1 = true
+    }
+    if(num === 2){
+        num2 = true
+    }
+    console.log(num1, num2)
+    if(num1 && num2){
+        setLoading = false
+    }
 }
 
 export async function addGLBFile(item) {

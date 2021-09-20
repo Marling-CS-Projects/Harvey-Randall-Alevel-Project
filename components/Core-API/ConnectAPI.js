@@ -100,7 +100,6 @@ export function addDataToQueue(event, data, callback, prority = 1) {
 export async function joinGame(gameId, password) {
   try{
     let [seed, clients, userData] = await sendDataWithPromise("GameConnect", [gameId, password])
-    console.log({ seed, clients, userData })
     if(seed === false){
       return false
     }

@@ -81,7 +81,7 @@ export function generateTerrain(seed, SceneToGet) {
     SceneToGet.add(plane2);
 }
 
-export function generateTerrainChunk(seed, Position, gain, divisor) {
+export function generateTerrainChunk(seed, Position, gain, divisor, ignoreHoles = false) {
     //------------[MAIN FUNCTION VARIABLES]------------\\
     //const simplex = new SimplexNoise(seed);
     let geometry = new PlaneBufferGeometry(500, 500, 30, 30);
@@ -133,7 +133,7 @@ export function generateTerrainChunk(seed, Position, gain, divisor) {
 
         let height = fbm.get2(location) * gain * 4
         // Set the height accordingly
-        if (location.x <= 20 && location.y >= -6 && location.x >= -25 && location.y <= 10 ) {
+        if (location.x <= 20 && location.y >= -6 && location.x >= -25 && location.y <= 10 && ignoreHoles === false) {
             height = 0
             //height = 500
         }

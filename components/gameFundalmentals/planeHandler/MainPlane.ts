@@ -100,7 +100,6 @@ export class MakePlane extends CheckPlaneCollisions {
 
         this.group.scale.set(0.25, 0.25, 0.25);
 
-        let [props, leftAirelone] = [this.props.scene, this.leftAirelone.scene];
         // For testing \\
 
         let light = createPointLight(0xff0000, 30, [60, 22.5, -10], 50);
@@ -110,10 +109,14 @@ export class MakePlane extends CheckPlaneCollisions {
         this.group.add(light2);
         this.group.add(whiteLight);
 
+        return this.group;
+    }
 
+    renderCycle(){
         let currentEvelatorPitch = 0;
         let airelonePitch = 0;
         let rudderPitch = 0;
+        let [props, leftAirelone] = [this.props.scene, this.leftAirelone.scene];
         addToRenderSequence(
             "Main",
             () => {
@@ -169,9 +172,8 @@ export class MakePlane extends CheckPlaneCollisions {
             },
             false
         );
-
-        return this.group;
     }
+
     attachCameraAndControl(Camera) {
         this.UUID = listenToConrols(
             ({
@@ -237,5 +239,9 @@ export class MakePlane extends CheckPlaneCollisions {
         super.stopUpdating()
 
         return { success: true };
+    }
+
+    spinProp(){
+        this.props.scene.rotateZ(0.2);
     }
 }

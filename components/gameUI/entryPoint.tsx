@@ -5,7 +5,7 @@ import { finishedLoading } from "../Core-API/3dModelHandlers/GLBLoader";
 import LoadingScreen from "./menuPages/loading.tsx";
 import WelcometoGame from "./menuPages/welcompage.tsx";
 
-export function CreateUI() {
+export function CreateUI(props) {
     let [isLoading, setLoading] = useState(true);
     let [status, setStatus] = useState("Not long now!")
 
@@ -20,8 +20,12 @@ export function CreateUI() {
             }
         }, 100);
 
-        listenToEvent("NewPlayer", (id, data) => {});
+        listenToEvent("NewPlayer", (id, data) => { });
     }, []);
 
-    return <>{isLoading ? <LoadingScreen status={status} /> : <WelcometoGame />}</>;
+    return (
+    <> 
+        <WelcometoGame canvas={props.canvas} visible={!isLoading} />
+        {isLoading && <LoadingScreen status={status} />}
+    </>);
 }

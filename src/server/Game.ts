@@ -34,6 +34,8 @@ export class NewGame {
         this.GameID = `${Math.floor(100000 + Math.random() * 900000)}`
         this.GamePassword = gamePassword
 
+        console.log(this.GameID)
+
 
         ListenToConnection((socket: Socket, event: string, gameId: string, password: string) => {
             console.log({gameId, password, event})
@@ -109,6 +111,8 @@ export class NewGame {
 
     terminateServer() {
         this.Running = false
+        this.io.to(this.GameID).emit("ServerTerminated")
+        this.connectedClients = []
     }
 }
 

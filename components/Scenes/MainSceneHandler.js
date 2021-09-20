@@ -103,7 +103,7 @@ export async function generateMainScene(
     await newPlane.loadFiles()
     newPlane.CreateGroupAndPos()
     newPlane.attachCameraAndControl(Camera)
-    newPlane.updateCycle()
+    newPlane.renderCycle()
 
     let airport = await addGLBFile(
         "/Assets/Airport.glb",

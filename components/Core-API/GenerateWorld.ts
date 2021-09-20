@@ -15,12 +15,15 @@ export interface PlayerData {
 
 export class GenerateWorld {
     private running: Boolean
+    private SceneToGet: Scene
 
     constructor() {
         this.running = true
+        this.SceneToGet = new Scene();
     }
 
     end = () => {
+        this.SceneToGet.clear();
         this.running = false
     }
 
@@ -32,7 +35,7 @@ export class GenerateWorld {
         stats.showPanel(0);
         document.body.appendChild(stats.dom);
 
-        let SceneToGet = new Scene();
+        let SceneToGet = this.SceneToGet
 
         let pixelRatio = window.devicePixelRatio
         let AA = true
@@ -152,8 +155,6 @@ export class GenerateWorld {
                 [Camera.parent.position,
                 Camera.parent.rotation])
         }, 1000 / 30);
-
-        console.log("here")
 
         var animate = async () => {
             stats.begin();
