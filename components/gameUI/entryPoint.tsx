@@ -10,22 +10,33 @@ export function CreateUI(props) {
     let [status, setStatus] = useState("Not long now!")
 
     let [gamefeed, setGameFeed] = useState();
+    let [showWelcome, setWelcome] = useState(true)
 
     useEffect(() => {
         let timeout = setInterval(() => {
             setStatus(finishedLoading().status)
             if (finishedLoading().setLoading === false) {
-                clearInterval(timeout)
                 setLoading(false);
+            }else{
+                setLoading(true)
             }
         }, 100);
 
         listenToEvent("NewPlayer", (id, data) => { });
+        return () => {
+            clearInterval(timeout)
+        }
+
+        
     }, []);
+
+    let stopShowingWelcome = () => {
+        setWelcome(false)
+    }
 
     return (
     <> 
-        <WelcometoGame canvas={props.canvas} visible={!isLoading} />
+        {showWelcome && <WelcometoGame canvas={props.canvas} visible={!isLoading} stop={stopShowingWelcome}/>}
         {isLoading && <LoadingScreen status={status} />}
     </>);
 }

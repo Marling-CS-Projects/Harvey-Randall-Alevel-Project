@@ -4,6 +4,7 @@ import { generateLabel } from "../gameFundalmentals/nametag";
 import { MakePlane } from "../gameFundalmentals/planeHandler/MainPlane.ts";
 import { addToFeed } from "../gameUI/components/mainFeed.ts";
 import { generateMainScene } from "../Scenes/MainSceneHandler";
+import { carryOnLoading } from "./3dModelHandlers/GLBLoader";
 import { listenToEvent, sendDataToServer } from "./ConnectAPI";
 import { updateRenderCycle } from "./RenderingHandler";
 var Stats = require("stats.js");
@@ -156,13 +157,10 @@ export class GenerateWorld {
                 Camera.parent.rotation])
         }, 1000 / 30);
 
+
         var animate = async () => {
             stats.begin();
 
-            console.log("Scene polycount:", Renders.info.render.triangles)
-            console.log("Active Drawcalls:", Renders.info.render.calls)
-            console.log("Textures in Memory", Renders.info.memory.textures)
-            console.log("Geometries in Memory", Renders.info.memory.geometries)
 
             if (this?.running) {
                 requestAnimationFrame(animate);

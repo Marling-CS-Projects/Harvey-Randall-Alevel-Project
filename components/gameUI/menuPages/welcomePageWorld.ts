@@ -10,13 +10,18 @@ export class CreateWelcomePageThreejs {
     private running = true
     private x: number = 0;
     private y: number = 0;
+    private renders: WebGLRenderer
+    private ref: any
 
     constructor(ref: any) {
         this.start(ref)
+        this.ref = ref
     }
 
     stop() {
         this.running = false
+        this.renders.clear()
+        this.ref.removeChild(this.renders.domElement)
     }
 
     async start(ref: any) {
@@ -35,6 +40,9 @@ export class CreateWelcomePageThreejs {
             antialias: AA,
             powerPreference: "high-performance",
         });
+
+        this.renders = Renders
+
 
         Renders.setClearColor("#87ceeb", 1);
 

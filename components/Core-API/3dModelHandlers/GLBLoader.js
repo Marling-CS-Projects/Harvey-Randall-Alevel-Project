@@ -81,10 +81,12 @@ export function stopLoading(num){
     if(num === 2){
         num2 = true
     }
-    console.log(num1, num2)
     if(num1 && num2){
         setLoading = false
     }
+}
+export function carryOnLoading(){
+    setLoading = true
 }
 
 export async function addGLBFile(item) {

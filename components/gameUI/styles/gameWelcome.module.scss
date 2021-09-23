@@ -1,4 +1,7 @@
-.Root{
+$buttonColour: #6e87f7;
+$inputColor: #7391df;
+
+.Root {
     height: 100vh;
     width: 100vw;
     margin: 0px;
@@ -10,7 +13,7 @@
 
     font-family: 'Hammersmith One', sans-serif;
 
-    & > div {
+    &>div {
         justify-content: center;
         text-align: center;
         align-items: center;
@@ -20,16 +23,64 @@
 
         h1 {
             font-size: 80px;
-            margin:0px;
-        }
-        h3{
             margin: 0px;
         }
-        
+
+        h3 {
+            margin: 0px;
+        }
+
 
         * {
             display: flex;
             align-self: center;
         }
     }
+
+    button {
+        padding: 15px 40px 15px 40px;
+        font-size: 30px;
+        border-style: none;
+        background-color: $buttonColour;
+        border-radius: 5px;
+
+        font-family: 'Hammersmith One', sans-serif;
+
+        &:hover {
+            background-color: darken($color: $buttonColour, $amount: 10);
+        }
+    }
+
+    button:first-of-type {
+        margin-bottom: 20px;
+    }
+
+    input {
+        margin-top: 10px;
+        width: 45%;
+        font-size: 60px;
+        background-color: $inputColor;
+        color: white;
+        text-align: center;
+        border-radius: 5px;
+        text-decoration: none;
+        border-style: solid;
+        box-shadow: none;
+        outline-width: 0;
+        border-width: 3px;
+        border-color: darken($color: $inputColor, $amount: 10);
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
+.moveDown{
+    margin-bottom: 106px;
+}
+
+.JoinButton{
+    margin-top: 20px;
 }
