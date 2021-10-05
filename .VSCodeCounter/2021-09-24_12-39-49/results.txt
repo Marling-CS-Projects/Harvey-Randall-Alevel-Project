@@ -1,0 +1,196 @@
+Date : 2021-09-24 12:39:49
+Directory : /Users/year12/Desktop/Harvey/alevel_2020-2021
+Total : 118 files,  36583 codes, 2977 comments, 4315 blanks, all 43875 lines
+
+Languages
++------------------+------------+------------+------------+------------+------------+
+| language         | files      | code       | comment    | blank      | total      |
++------------------+------------+------------+------------+------------+------------+
+| JSON             |         10 |     20,069 |         88 |          4 |     20,161 |
+| JavaScript       |         73 |      9,171 |      2,790 |      4,014 |     15,975 |
+| TypeScript React |          5 |      6,278 |          0 |         32 |      6,310 |
+| TypeScript       |         22 |        792 |         99 |        214 |      1,105 |
+| CSS              |          2 |        128 |          0 |         21 |        149 |
+| SCSS             |          2 |        100 |          0 |         23 |        123 |
+| Markdown         |          1 |         23 |          0 |          5 |         28 |
+| Log              |          2 |         18 |          0 |          2 |         20 |
+| XML              |          1 |          4 |          0 |          0 |          4 |
++------------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                    | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                       |        118 |     36,583 |      2,977 |      4,315 |     43,875 |
+| .next                                                                                                                   |         29 |      4,207 |      2,024 |      1,729 |      7,960 |
+| .next/server                                                                                                            |          9 |        821 |        461 |        388 |      1,670 |
+| .next/server/pages                                                                                                      |          5 |        644 |        405 |        376 |      1,425 |
+| .next/static                                                                                                            |         18 |      3,344 |      1,563 |      1,341 |      6,248 |
+| .next/static/chunks                                                                                                     |         10 |      3,293 |      1,529 |      1,341 |      6,163 |
+| .next/static/chunks/pages                                                                                               |          4 |      1,415 |        953 |        919 |      3,287 |
+| .next/static/development                                                                                                |          2 |          2 |          0 |          0 |          2 |
+| .next/static/webpack                                                                                                    |          6 |         49 |         34 |          0 |         83 |
+| components                                                                                                              |         46 |     11,325 |        668 |      2,319 |     14,312 |
+| components/Algorithms                                                                                                   |          6 |        117 |          1 |         12 |        130 |
+| components/Context                                                                                                      |          1 |         12 |          0 |          4 |         16 |
+| components/Core-API                                                                                                     |         13 |      3,493 |        534 |      1,986 |      6,013 |
+| components/Core-API/3dModelHandlers                                                                                     |          4 |      2,748 |        414 |      1,847 |      5,009 |
+| components/Core-API/PerlinNoise                                                                                         |          1 |        448 |         65 |         48 |        561 |
+| components/Core-API/collisions                                                                                          |          1 |          0 |          0 |          1 |          1 |
+| components/Scenes                                                                                                       |          1 |         69 |         31 |         24 |        124 |
+| components/gameFundalmentals                                                                                            |         16 |      1,161 |        101 |        204 |      1,466 |
+| components/gameFundalmentals/TerrainManagement                                                                          |          5 |        187 |         26 |         37 |        250 |
+| components/gameFundalmentals/TerrainManagement/biomes                                                                   |          1 |          0 |          0 |          1 |          1 |
+| components/gameFundalmentals/TerrainManagement/utils                                                                    |          3 |        113 |         12 |         19 |        144 |
+| components/gameFundalmentals/multiplayer                                                                                |          1 |         39 |          4 |          6 |         49 |
+| components/gameFundalmentals/planeHandler                                                                               |          2 |        247 |         10 |         40 |        297 |
+| components/gameFundalmentals/staticAssets                                                                               |          1 |         61 |          0 |         13 |         74 |
+| components/gameUI                                                                                                       |          9 |      6,473 |          1 |         89 |      6,563 |
+| components/gameUI/components                                                                                            |          2 |      6,150 |          1 |          5 |      6,156 |
+| components/gameUI/menuPages                                                                                             |          4 |        189 |          0 |         52 |        241 |
+| components/gameUI/styles                                                                                                |          2 |        100 |          0 |         23 |        123 |
+| dist                                                                                                                    |         11 |        308 |        117 |         69 |        494 |
+| dist/server                                                                                                             |          4 |        206 |          5 |         45 |        256 |
+| dist/server/utils                                                                                                       |          1 |         43 |          1 |         12 |         56 |
+| dist/types                                                                                                              |          5 |         10 |          5 |          3 |         18 |
+| dist/types/server                                                                                                       |          4 |          6 |          4 |          2 |         12 |
+| dist/types/server/utils                                                                                                 |          1 |          1 |          1 |          0 |          2 |
+| pages                                                                                                                   |          7 |        194 |         14 |         47 |        255 |
+| pages/api                                                                                                               |          1 |          3 |          1 |          2 |          6 |
+| public                                                                                                                  |          4 |         65 |         26 |         16 |        107 |
+| public/Scripts                                                                                                          |          1 |          5 |         22 |          1 |         28 |
+| public/webWorkers                                                                                                       |          2 |         56 |          4 |         15 |         75 |
+| src                                                                                                                     |         11 |        291 |        114 |         74 |        479 |
+| src/server                                                                                                              |          4 |        153 |          1 |         47 |        201 |
+| src/server/utils                                                                                                        |          1 |         32 |          0 |         10 |         42 |
+| src/types                                                                                                               |          5 |         46 |          0 |          5 |         51 |
+| src/types/server                                                                                                        |          4 |         45 |          0 |          4 |         49 |
+| src/types/server/utils                                                                                                  |          1 |          6 |          0 |          1 |          7 |
+| styles                                                                                                                  |          2 |        128 |          0 |         21 |        149 |
+| testing                                                                                                                 |          1 |         44 |         12 |         29 |         85 |
++-------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| filename                                                                                                                | language         | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/build-manifest.json                                                 | JSON             |         34 |          0 |          0 |         34 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/react-loadable-manifest.json                                        | JSON             |          8 |          0 |          0 |          8 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/server/init-server.js.js                                            | JavaScript       |         18 |         12 |          6 |         36 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/server/on-error-server.js.js                                        | JavaScript       |         18 |         12 |          6 |         36 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/server/pages-manifest.json                                          | JSON             |          6 |          0 |          0 |          6 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/server/pages/_app.js                                                | JavaScript       |        131 |         84 |         79 |        294 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/server/pages/_document.js                                           | JavaScript       |        103 |         66 |         60 |        229 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/server/pages/_error.js                                              | JavaScript       |         32 |         21 |         15 |         68 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/server/pages/index.js                                               | JavaScript       |         32 |         21 |         15 |         68 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/server/pages/test.js                                                | JavaScript       |        346 |        213 |        207 |        766 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/server/webpack-runtime.js                                           | JavaScript       |        135 |         32 |          0 |        167 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/static/chunks/amp.js                                                | JavaScript       |         50 |         36 |         28 |        114 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/static/chunks/main.js                                               | JavaScript       |        590 |        379 |        370 |      1,339 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/static/chunks/node_modules_next_dist_client_dev_noop_js.js          | JavaScript       |          7 |         11 |          4 |         22 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/static/chunks/pages/_app.js                                         | JavaScript       |        439 |        301 |        292 |      1,032 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/static/chunks/pages/_error.js                                       | JavaScript       |        122 |         87 |         79 |        288 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/static/chunks/pages/index.js                                        | JavaScript       |        149 |        105 |         97 |        351 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/static/chunks/pages/test.js                                         | JavaScript       |        705 |        460 |        451 |      1,616 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/static/chunks/polyfills.js                                          | JavaScript       |         18 |         15 |          7 |         40 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/static/chunks/react-refresh.js                                      | JavaScript       |         29 |         21 |         13 |         63 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/static/chunks/webpack.js                                            | JavaScript       |      1,184 |        114 |          0 |      1,298 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/static/development/_buildManifest.js                                | JavaScript       |          1 |          0 |          0 |          1 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/static/development/_ssgManifest.js                                  | JavaScript       |          1 |          0 |          0 |          1 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/static/webpack/b0f3c3f0c098405e7ef3.hot-update.json                 | JSON             |          1 |          0 |          0 |          1 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/static/webpack/b49c18eb62a747410352.hot-update.json                 | JSON             |          1 |          0 |          0 |          1 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/static/webpack/cbb6744b7b49b16b0962.hot-update.json                 | JSON             |          1 |          0 |          0 |          1 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/static/webpack/webpack.b0f3c3f0c098405e7ef3.hot-update.js           | JavaScript       |          9 |         10 |          0 |         19 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/static/webpack/webpack.b49c18eb62a747410352.hot-update.js           | JavaScript       |          9 |         10 |          0 |         19 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/.next/static/webpack/webpack.cbb6744b7b49b16b0962.hot-update.js           | JavaScript       |         28 |         14 |          0 |         42 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/README.md                                                                 | Markdown         |         23 |          0 |          5 |         28 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/combined.log                                                              | Log              |         18 |          0 |          1 |         19 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/Algorithms/MathUtils.js                                        | JavaScript       |          8 |          0 |          1 |          9 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/Algorithms/PriorityQueue.js                                    | JavaScript       |         80 |          1 |          2 |         83 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/Algorithms/VectorMaths.ts                                      | TypeScript       |          7 |          0 |          1 |          8 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/Algorithms/VectorUtils.js                                      | JavaScript       |          9 |          0 |          1 |         10 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/Algorithms/degToRad.js                                         | JavaScript       |          6 |          0 |          1 |          7 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/Algorithms/meshMerger.js                                       | JavaScript       |          7 |          0 |          6 |         13 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/Context/socketioContext.js                                     | JavaScript       |         12 |          0 |          4 |         16 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/Core-API/3dModelHandlers/GLBLoader.js                          | JavaScript       |        104 |          5 |         15 |        124 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/Core-API/3dModelHandlers/MeshMerger.ts                         | TypeScript       |         10 |          0 |          5 |         15 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/Core-API/3dModelHandlers/glbCore.js                            | JavaScript       |      2,097 |        334 |      1,498 |      3,929 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/Core-API/3dModelHandlers/utils.js                              | JavaScript       |        537 |         75 |        329 |        941 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/Core-API/ConnectAPI.js                                         | JavaScript       |         83 |         28 |         17 |        128 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/Core-API/GenerateWorld.ts                                      | TypeScript       |        136 |          2 |         41 |        179 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/Core-API/LightingManager.js                                    | JavaScript       |         18 |          4 |          9 |         31 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/Core-API/PerlinNoise/PerlingNoise.js                           | JavaScript       |        448 |         65 |         48 |        561 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/Core-API/RenderingHandler.js                                   | JavaScript       |         23 |          1 |          5 |         29 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/Core-API/WorkerSetup.ts                                        | TypeScript       |         17 |         12 |         10 |         39 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/Core-API/cannonSetup.ts                                        | TypeScript       |          2 |          0 |          2 |          4 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/Core-API/collisions/startCannonES.ts                           | TypeScript       |          0 |          0 |          1 |          1 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/Core-API/gemotryManager.js                                     | JavaScript       |         18 |          8 |          6 |         32 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/Scenes/MainSceneHandler.js                                     | JavaScript       |         69 |         31 |         24 |        124 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameFundalmentals/DayNightCycle.js                             | JavaScript       |        174 |         16 |         26 |        216 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameFundalmentals/ProceduleTerrain.js                          | JavaScript       |        128 |         31 |         32 |        191 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameFundalmentals/TerrainManagement/biomes/oceanBiome.js       | JavaScript       |          0 |          0 |          1 |          1 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameFundalmentals/TerrainManagement/terrainChunkriser.js       | JavaScript       |         74 |         14 |         17 |        105 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameFundalmentals/TerrainManagement/utils/GenerateBiomesMap.ts | TypeScript       |         10 |          2 |          6 |         18 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameFundalmentals/TerrainManagement/utils/blendTerrain.js      | JavaScript       |          0 |          0 |          1 |          1 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameFundalmentals/TerrainManagement/utils/generateTerrain.js   | JavaScript       |        103 |         10 |         12 |        125 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameFundalmentals/clouds.js                                    | JavaScript       |         76 |          2 |         15 |         93 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameFundalmentals/controls.js                                  | JavaScript       |        174 |          3 |         10 |        187 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameFundalmentals/multiplayer/MainPlayerHandler.js             | JavaScript       |         39 |          4 |          6 |         49 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameFundalmentals/nametag.js                                   | JavaScript       |         40 |          9 |         12 |         61 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameFundalmentals/planeHandler/MainPlane.ts                    | TypeScript       |        205 |          9 |         34 |        248 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameFundalmentals/planeHandler/planeCollisions.ts              | TypeScript       |         42 |          1 |          6 |         49 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameFundalmentals/rotateAroundPoint.js                         | JavaScript       |         14 |          0 |          5 |         19 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameFundalmentals/stars.js                                     | JavaScript       |         21 |          0 |          8 |         29 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameFundalmentals/staticAssets/treeBuilder.js                  | JavaScript       |         61 |          0 |         13 |         74 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameUI/components/mainFeed.ts                                  | TypeScript       |         13 |          1 |          4 |         18 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameUI/components/svg.tsx                                      | TypeScript React |      6,137 |          0 |          1 |      6,138 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameUI/entryPoint.tsx                                          | TypeScript React |         34 |          0 |          9 |         43 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameUI/menuPages/joinGame.tsx                                  | TypeScript React |         46 |          0 |         10 |         56 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameUI/menuPages/loading.tsx                                   | TypeScript React |         14 |          0 |          4 |         18 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameUI/menuPages/welcomePageWorld.ts                           | TypeScript       |         82 |          0 |         30 |        112 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameUI/menuPages/welcompage.tsx                                | TypeScript React |         47 |          0 |          8 |         55 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameUI/styles/gameWelcome.module.scss                          | SCSS             |         71 |          0 |         15 |         86 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/components/gameUI/styles/loading.module.scss                              | SCSS             |         29 |          0 |          8 |         37 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/dist/index.js                                                             | JavaScript       |         69 |         63 |         20 |        152 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/dist/server/Game.js                                                       | JavaScript       |        115 |          2 |         20 |        137 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/dist/server/setupLogger.js                                                | JavaScript       |         40 |          1 |         11 |         52 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/dist/server/setupMultiplayer.js                                           | JavaScript       |          8 |          1 |          2 |         11 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/dist/server/utils/connectionHook.js                                       | JavaScript       |         43 |          1 |         12 |         56 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/dist/tsconfig.json                                                        | JSON             |         23 |         44 |          1 |         68 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/dist/types/index.d.js                                                     | JavaScript       |          4 |          1 |          1 |          6 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/dist/types/server/Game.d.js                                               | JavaScript       |          4 |          1 |          1 |          6 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/dist/types/server/setupLogger.d.js                                        | JavaScript       |          1 |          1 |          0 |          2 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/dist/types/server/setupMultiplayer.d.js                                   | JavaScript       |          0 |          1 |          1 |          2 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/dist/types/server/utils/connectionHook.d.js                               | JavaScript       |          1 |          1 |          0 |          2 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/error.log                                                                 | Log              |          0 |          0 |          1 |          1 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/next-env.d.ts                                                             | TypeScript       |          0 |          2 |          1 |          3 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/next.config.js                                                            | JavaScript       |          8 |          0 |          1 |          9 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/package-lock.json                                                         | JSON             |     19,907 |          0 |          1 |     19,908 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/package.json                                                              | JSON             |         65 |          0 |          1 |         66 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/pages/_app.js                                                             | JavaScript       |         11 |          0 |          3 |         14 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/pages/api/hello.js                                                        | JavaScript       |          3 |          1 |          2 |          6 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/pages/cube.js                                                             | JavaScript       |         44 |          1 |         13 |         58 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/pages/index.js                                                            | JavaScript       |         68 |          0 |          9 |         77 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/pages/test.js                                                             | JavaScript       |         48 |         12 |         13 |         73 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/pages/testpage.js                                                         | JavaScript       |          5 |          0 |          2 |          7 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/pages/uiTest.js                                                           | JavaScript       |         15 |          0 |          5 |         20 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/public/Scripts/cannon.min.js                                              | JavaScript       |          5 |         22 |          1 |         28 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/public/vercel.svg                                                         | XML              |          4 |          0 |          0 |          4 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/public/webWorkers/Collision.js                                            | JavaScript       |         26 |          1 |          9 |         36 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/public/webWorkers/basicTest.js                                            | JavaScript       |         30 |          3 |          6 |         39 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/src/index.ts                                                              | TypeScript       |         69 |         69 |         21 |        159 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/src/server/Game.ts                                                        | TypeScript       |         88 |          1 |         31 |        120 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/src/server/setupLogger.ts                                                 | TypeScript       |         30 |          0 |          5 |         35 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/src/server/setupMultiplayer.ts                                            | TypeScript       |          3 |          0 |          1 |          4 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/src/server/utils/connectionHook.ts                                        | TypeScript       |         32 |          0 |         10 |         42 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/src/tsconfig.json                                                         | JSON             |         23 |         44 |          1 |         68 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/src/types/index.d.ts                                                      | TypeScript       |          1 |          0 |          1 |          2 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/src/types/server/Game.d.ts                                                | TypeScript       |         34 |          0 |          1 |         35 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/src/types/server/setupLogger.d.ts                                         | TypeScript       |          4 |          0 |          1 |          5 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/src/types/server/setupMultiplayer.d.ts                                    | TypeScript       |          1 |          0 |          1 |          2 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/src/types/server/utils/connectionHook.d.ts                                | TypeScript       |          6 |          0 |          1 |          7 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/styles/Home.module.css                                                    | CSS              |        114 |          0 |         18 |        132 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/styles/globals.css                                                        | CSS              |         14 |          0 |          3 |         17 |
+| /Users/year12/Desktop/Harvey/alevel_2020-2021/testing/ocean.js                                                          | JavaScript       |         44 |         12 |         29 |         85 |
+| Total                                                                                                                   |                  |     36,583 |      2,977 |      4,315 |     43,875 |
++-------------------------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+

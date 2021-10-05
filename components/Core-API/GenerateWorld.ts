@@ -104,6 +104,7 @@ export class GenerateWorld {
 
         listenToEvent("NewPlayer", async (id, data) => {
             if (id === myId) return;
+            if(players[`${id}`] !== undefined) return;
 
             let newcube = new MakePlane(SceneToGet);
             await newcube.loadFiles();
@@ -133,7 +134,7 @@ export class GenerateWorld {
             async (id, pos, rot, data) => {
                 if (id === myId) return;
                 let cube = players[`${id}`];
-                if (cube) {
+                if (cube !== undefined) {
                     cube.rotation.set(rot._x, rot._y, rot._z);
                     cube.position.set(pos.x, pos.y, pos.z);
                 } else {

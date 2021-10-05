@@ -175,6 +175,7 @@ export class MakePlane extends CheckPlaneCollisions {
     }
 
     attachCameraAndControl(Camera) {
+        super.updateCycle()
         this.UUID = listenToConrols(
             ({
                 wKey,
