@@ -34,6 +34,7 @@ export class CheckPlaneCollisions {
             return true
         })
 
+        
         return intersects
     }
 
