@@ -133,7 +133,7 @@ export class CreateDayNightCycle {
 
 
         this.sunGroup.position.set(cameraPos.x + 100 , cameraPos.y , cameraPos.z);
-        this.moonGroup.position.set(cameraPos.x + 100, cameraPos.y, cameraPos.z);
+        this.moonGroup.position.set(cameraPos.x + 100, cameraPos.y, cameraPos.z) ;
 
         this.sky.position.set(cameraPos.x, cameraPos.y, cameraPos.z);
 

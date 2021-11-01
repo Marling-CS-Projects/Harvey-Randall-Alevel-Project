@@ -1,10 +1,14 @@
 // Written By Harvey Randall \\
 
 import { useEffect, useState } from "react";
+import { MeshPhongMaterial } from "three";
+import { DirectionalLight } from "three";
+import { AmbientLight } from "three";
 import {
     BoxGeometry,
     Mesh,
     MeshBasicMaterial,
+    MeshStandardMaterial,
     PerspectiveCamera,
     Scene,
     WebGLRenderer,
@@ -31,11 +35,22 @@ export default function render() {
         child.appendChild(renderer.domElement);
 
         const geometry = new BoxGeometry();
-        const material = new MeshBasicMaterial({ color: "#0000ff" });
+        const material = new MeshPhongMaterial({ color: "#0000ff" });
         const cube = new Mesh(geometry, material);
         scene.add(cube);
 
         camera.position.z = 5;
+        const color = 0xffffff;
+        const intensity = 1;
+        const light = new DirectionalLight(color, intensity);
+        light.position.set(10, 10, 0);
+        light.target.position.set(0, 0, 0);
+        scene.add(light);
+        scene.add(light.target);
+
+        const light2 = new AmbientLight(color, 0.1);
+        scene.add(light2);
+
 
         const animate = function () {
             requestAnimationFrame(animate);

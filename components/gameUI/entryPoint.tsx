@@ -38,5 +38,18 @@ export function CreateUI(props) {
     <> 
         {showWelcome && <WelcometoGame canvas={props.canvas} visible={!isLoading} stop={stopShowingWelcome}/>}
         {isLoading && <LoadingScreen status={status} />}
+        <h1>Text Changed Test!</h1>
+        <h1>Text Changed Test!</h1>
+        <h1>Text Changed Test!</h1>
+        <h1>Text Changed Test!</h1>
+        <h1>Text Changed Test!</h1>
+        <h1>Text Changed Test!</h1>
+        <h1>Text Changed Test!</h1>
+        <h1>Text Changed Test!</h1>
+        <h1>Text Changed Test!</h1>
+        <h1>Text Changed Test!</h1>
+        <h1>Text Changed Test!</h1>
+        <h1>Text Changed Test!</h1>
+        <h1>Text Changed Test!</h1>
     </>);
 }
